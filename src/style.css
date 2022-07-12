@@ -1,0 +1,7 @@
+:host, :root{
+	--ion-color-primary: #3880ff;
+}
+.menu-content {
+	height: 100%;
+  overflow: auto;
+}

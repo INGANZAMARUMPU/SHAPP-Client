@@ -1,4 +1,4 @@
-# chapp-client
+# shapp-client
 
 ## Project setup
 ```

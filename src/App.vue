@@ -1,30 +1,49 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <ion-app>
+    <div v-if="!!active_user">
+      <keep-alive>
+        <ion-router-outlet/>
+      </keep-alive>
+    </div>
+    <LoginForm v-else/>
+  </ion-app>
 </template>
+<script>
+import { useIonRouter, menuController } from '@ionic/vue';
+import LoginForm from "./components/login_form"
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+export default {
+  components: { LoginForm },
+  data(){
+    return {
+    }
+  },
+  watch:{
+    "$store.state.user":{
+      deep:true,
+      handler(new_val){
+        if(!!new_val){
+          localStorage.setItem('user', JSON.stringify(new_val));
+        } else {
+          localStorage.removeItem('user')
+        }
+      }
+    }
+  },
+  methods:{
+    loadData(){
+      let user = this.$store.state.user;
+      var produits = JSON.parse(localStorage.getItem('produits'))
+      this.$store.state.produits = produits
+    }
+  },
+  mounted(){
+    var user = JSON.parse(localStorage.getItem('user'));
+    if(user){
+      this.loadData()
+    }
+  },
+};
+</script>
+<style src="./style.css">
 </style>

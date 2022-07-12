@@ -1,5 +1,5 @@
 {
-  "name": "chapp-client",
+  "name": "shapp-client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -24,6 +24,6 @@
     "not dead",
     "not ie 11"
   ],
-  "_id": "chapp-client@0.1.0",
+  "_id": "shapp-client@0.1.0",
   "readme": "ERROR: No README data found!"
 }
