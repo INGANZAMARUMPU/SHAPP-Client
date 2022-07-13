@@ -5,3 +5,8 @@
 	height: 100%;
   overflow: auto;
 }
+ion-fab-button {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+}
