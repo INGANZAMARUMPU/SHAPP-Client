@@ -2,10 +2,10 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>OBR EMBS Client</ion-title>
+        <ion-title>SHAPP</ion-title>
       </ion-toolbar>
       <ion-content class="ion-padding">
-        <h1>OBR EMBS Client</h1>
+        <h1>SHAPP</h1>
       </ion-content>
     </ion-header>
   </ion-page>

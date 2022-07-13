@@ -1,6 +1,6 @@
 <template>
   <ion-app>
-    <div v-if="!!active_user">
+    <div v-if="!!$store.state.user">
       <keep-alive>
         <ion-router-outlet/>
       </keep-alive>
@@ -33,8 +33,8 @@ export default {
   methods:{
     loadData(){
       let user = this.$store.state.user;
-      var produits = JSON.parse(localStorage.getItem('produits'))
-      this.$store.state.produits = produits
+      var evenemts = JSON.parse(localStorage.getItem('evenemts'))
+      this.$store.state.evenemts = evenemts
     }
   },
   mounted(){
