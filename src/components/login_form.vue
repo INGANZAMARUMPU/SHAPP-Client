@@ -14,8 +14,11 @@
         CONNEXION
       </ion-button>
       <div>
-        besoin d'un compte?
-        <a href="#">s'incrire</a>
+        Besoin d'un compte?
+        <br>
+        <ion-button fill="clear" class="ion-no-padding" size="small" href="/profile" color="primary">
+          s'incrire
+        </ion-button>
       </div>
     </div>
     </ion-content>
