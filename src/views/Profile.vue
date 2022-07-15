@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar color="primary">
           <ion-buttons slot="start">
-            <ion-button slot="start" routerLink="/">
+            <ion-button slot="start" routerLink="/login">
               <ion-icon :src="getIcon('arrowBack')"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -39,7 +39,6 @@
           <ion-label position="floating">OBR Username</ion-label>
           <ion-input type="text"
             placeholder="nom d'utilisateur OBR"
-            :value="$store.state.user.username"
             @IonChange="username=$event.target.value"
             clearInput/>
         </ion-item>
@@ -47,7 +46,6 @@
           <ion-label position="floating">Password</ion-label>
           <ion-input type=password
             placeholder="Password"
-            :value="$store.state.user.password"
             @IonChange="password=$event.target.value" clearInput/>
         </ion-item>
         <ion-button color="primary" expand="block" @click="save">
@@ -62,11 +60,11 @@
 export default {
   data(){
     return {
-      "nom": "",
-      "prenom": "",
-      "telephone": "",
-      "username": "",
-      "password": ""
+      nom: "",
+      prenom: "",
+      telephone: "",
+      username: "",
+      password: "",
     }
   },
   methods:{

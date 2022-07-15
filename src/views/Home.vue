@@ -27,11 +27,6 @@
     </ion-header>
     <ion-content class="ion-padding">
       <h1>SHAPP</h1>
-      
-      <div>
-        besoin d'un compte?
-        <a href="/profile">s'incrire</a>
-      </div>
       <ion-fab-button class="todo-fab" @click="addTodo">
         <ion-icon :src="getIcon('add')"></ion-icon>
       </ion-fab-button>

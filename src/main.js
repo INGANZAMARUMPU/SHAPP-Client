@@ -79,6 +79,8 @@ app.mixin({
             text: 'OUI',
             handler: () => {
               this.$store.state.user = null
+              localStorage.removeItem('user')
+              this.$router.push("/")
             },
           },
         ],

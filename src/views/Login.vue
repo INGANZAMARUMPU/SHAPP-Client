@@ -5,7 +5,7 @@
       <div class="cercle">
         <ion-icon :src="getIcon('person')" />
       </div>
-      <h3>Login</h3>
+      <h3>LOGIN</h3>
       <input type="text" placeholder="Username">
       <input type="text" placeholder="Password">
       <ion-button expand="block" @click="login">
@@ -16,7 +16,9 @@
       <div>
         Besoin d'un compte?
         <br>
-        <ion-button fill="clear" class="ion-no-padding" size="small" href="/profile" color="primary">
+        <ion-button fill="clear"
+          size="small" color="primary"
+          routerLink="/profile">
           s'incrire
         </ion-button>
       </div>
@@ -29,7 +31,7 @@
 export default {
   data(){
     return {
-      username:"", password:"", logs:"", loging_in:false
+      username:"", password:"", logs:"", loging_in:false,
     }
   },
   methods:{
@@ -37,6 +39,11 @@ export default {
       this.$store.state.user = {
         username: this.username,
         password: this.password
+      }
+      if(this.$route.path == "/login"){
+        this.$router.push("/")
+      } else {
+        this.$router.push(this.$route.path)
       }
       // this.logs = ""
       // this.loging_in = true
@@ -59,6 +66,9 @@ export default {
 .form {
   padding: 40px 30px 0 30px;
 }
+h3{
+  color: var(--ion-color-primary);
+}
 .form>*{
   display: block;
   margin-bottom: 20px;
@@ -74,6 +84,8 @@ export default {
   position: relative;
   margin: 40px auto 0 auto;
   padding-top: 10px;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--ion-color-primary);
 }
 .cercle>*{
   font-size: 8em;
