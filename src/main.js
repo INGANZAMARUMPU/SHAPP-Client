@@ -79,7 +79,6 @@ app.mixin({
             text: 'OUI',
             handler: () => {
               this.$store.state.user = null
-              if(full_disconnect) this.$store.state.active_kiosk = null
             },
           },
         ],

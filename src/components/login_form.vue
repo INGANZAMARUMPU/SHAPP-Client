@@ -1,26 +1,23 @@
 <template>
   <ion-page>
     <ion-content>
-    <ion-col class="center-h ion-padding">
-      <ion-col class="center">
-        <ion-item class="ion-no-padding">
-          <ion-label position="floating">Username</ion-label>
-          <ion-input type=text placeholder="Username"
-            @IonChange="username=$event.target.value" clearInput/>
-        </ion-item>
-        <ion-item class="ion-no-padding">
-          <ion-label position="floating">Password</ion-label>
-          <ion-input type=password placeholder="Password"
-            @IonChange="password=$event.target.value" clearInput/>
-        </ion-item>
-        <ion-label color="danger">{{ logs }}</ion-label>
-        <ion-button expand="block" @click="login">
-          <ion-spinner v-if="loging_in"
-            name="crescent" color="light" style="margin: 0 10px;"/>
-          CONNEXION
-        </ion-button>
-      </ion-col>
-    </ion-col>
+    <div class="form">
+      <div class="cercle">
+        <ion-icon :src="getIcon('person')" />
+      </div>
+      <h3>Login</h3>
+      <input type="text" placeholder="Username">
+      <input type="text" placeholder="Password">
+      <ion-button expand="block" @click="login">
+        <ion-spinner v-if="loging_in"
+          name="crescent" color="light" style="margin: 0 10px;"/>
+        CONNEXION
+      </ion-button>
+      <div>
+        besoin d'un compte?
+        <a href="#">s'incrire</a>
+      </div>
+    </div>
     </ion-content>
   </ion-page>
 </template>
@@ -56,9 +53,33 @@ export default {
 }
 </script>
 <style>
-.center-h{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-60%);
+.form {
+  padding: 40px 30px 0 30px;
+}
+.form>*{
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+.cercle{
+  width: 120px;
+  height: 120px;
+  background-color: #eee;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  margin: 40px auto 0 auto;
+  padding-top: 10px;
+}
+.cercle>*{
+  font-size: 8em;
+  margin-left: -5px;
+  color: var(--ion-color-primary);
+}
+.form>input{
+  border: 2px solid var(--ion-color-primary);
+  padding: 5px 0;
+  border-radius: 5px;
 }
 </style>
