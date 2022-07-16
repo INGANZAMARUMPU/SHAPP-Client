@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-button slot="start" routerLink="/">
             <ion-icon :src="getIcon('arrowBack')"></ion-icon>
@@ -40,7 +40,7 @@
               
             </div>
             <div class="descr">
-              place {{ i+1 }}
+              place {{ i }}
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ import {
   IonInput, IonItem, IonButton, IonButtons, IonCol, IonContent, IonTabButton,
   IonTabBar, IonTitle, IonToolbar, IonHeader, IonMenuButton, IonFabButton,
   IonList, IonMenu, IonToggle, IonFooter, IonItemDivider, IonPopover, IonBadge,
-  IonSelectOption, IonSelect, IonText, IonDatetime, toastController,
+  IonSelectOption, IonSelect, IonText, IonDatetime, toastController, IonSearchbar,
   IonSpinner, alertController, IonRippleEffect
 } from '@ionic/vue';
 import '@ionic/core/css/ionic.bundle.css'
@@ -25,6 +25,7 @@ app.component("IonTabs", IonTabs)
 app.component("IonLabel", IonLabel)
 app.component("IonInput", IonInput)
 app.component("IonItem", IonItem)
+app.component("IonSearchbar", IonSearchbar)
 app.component("IonButton", IonButton)
 app.component("IonButtons", IonButtons)
 app.component("IonCol", IonCol)

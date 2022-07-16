@@ -1,0 +1,6 @@
+{
+  "appId": "bi.inganzamarumpu.shapp",
+  "appName": "SHAPP",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

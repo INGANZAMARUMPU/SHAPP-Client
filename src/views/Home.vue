@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="primary">
         <ion-title>SHAPP</ion-title>
         <ion-buttons slot="secondary">
           <ion-button @click="showSearch">
@@ -66,7 +66,6 @@ export default {
       searchbar.classList.add("shown")
     },
     closeSearch(event){
-      console.log('CLOSING SEARCHBAR')
       let searchbar = document.getElementById("searchbar")
       searchbar.classList.remove("shown")
     },

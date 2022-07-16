@@ -65,7 +65,7 @@ ion-button{
 }
 .item{
   flex-grow: 1;
-  margin-left: 10px;
+  margin: 0 0 10px 10px;
 }
 .options{
   align-self: center;

@@ -26,7 +26,8 @@ export default {
       }
     },
     '$route'(to, from){
-      if(to.path != "/profile" || to.path != "/login"){
+      this.makeToast(from.path+"\n"+to.path)
+      if(to.path != "/profile" && to.path != "/login"){
         if(!this.$store.state.user){
           console.log('BACK TO LOGIN')
           this.$router.push("/login")

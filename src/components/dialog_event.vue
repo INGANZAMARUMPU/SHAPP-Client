@@ -224,12 +224,14 @@ input[type=file]{
 .place input{
   padding: 5px 10px;
 }
+.place>*{
+  width: 70px;
+}
 .place .nom{
   flex-grow: 1;
   margin-right: 10px;
 }
 .place .nombre{
-  width: 70px;
   text-align: center;
 }
 .button{
