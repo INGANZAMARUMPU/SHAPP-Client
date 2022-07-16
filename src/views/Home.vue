@@ -31,18 +31,27 @@
         <ion-icon :src="getIcon('add')"></ion-icon>
       </ion-fab-button>
     </ion-content>
+    <DialogEvent
+      :active = "event_shown"
+      :item = "event"/>
   </ion-page>
 </template>
 
 <script>
+import DialogEvent from "../components/dialog_event"
+
 export default {
+  components:{ DialogEvent },
   data(){
-    return {}
+    return {
+      event_shown:false,
+      event:null
+    }
   },
   methods:{
     showSearch(){},
     addTodo(){
-
+      this.event_shown = true
     }
   }
 }

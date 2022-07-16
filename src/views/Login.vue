@@ -41,8 +41,6 @@ export default {
         password: this.password
       }
       if(this.$route.path == "/login"){
-        console.log("GOING TO HOME")
-        console.log(this.$router)
         this.$router.push("/")
       } else {
         this.$router.push(this.$route.path)
