@@ -80,15 +80,6 @@ export default {
 }
 </script>
 <style scoped>
-.kiosk{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.licence{
-  color: green;
-  margin-top: 10px;
-}
 ion-button{
   margin: 10px;
 }

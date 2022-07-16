@@ -31,9 +31,20 @@
       </ion-popover>
     </ion-header>
     <ion-content class="ion-padding">
-      <ion-fab-button class="todo-fab" @click="addTodo">
-        <ion-icon :src="getIcon('add')"></ion-icon>
-      </ion-fab-button>
+      <h3>{{ evenemt.nom }}</h3>
+      <ion-col v-for="place in evenemt.places">
+        <ion-item-divider color="light">{{ place.nom.toUpperCase() }}</ion-item-divider>
+        <div class="qrs">
+          <div class="item" v-for="i in place.nombre">
+            <div class="qr">
+              
+            </div>
+            <div class="descr">
+              place {{ i+1 }}
+            </div>
+          </div>
+        </div>
+      </ion-col>
     </ion-content>
   </ion-page>
 </template>
@@ -44,12 +55,34 @@ export default {
   components:{ },
   data(){
     return {
+      evenemt:{}
     }
-  },
-  watch:{
   },
   methods:{
     showSearch(){},
   },
+  mounted(){
+    let nom = this.$route.params.nom
+    this.evenemt = this.$store.state.evenemts[nom]
+  }
 }
 </script>
+<style>
+h3{
+  text-align: center;
+}
+.qrs{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 120px);
+  justify-content: space-between;
+}
+.qr{
+  margin-top: 10px;
+  width: 120px;
+  height: 120px;
+  background-color: #ddd;
+}
+.descr{
+  text-align: center;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-  <ion-col :data-id='item.id'
-    button routerLink="/tickets"
+  <ion-col
+    button :routerLink="`/tickets/${item.nom}`"
     class="parent ion-no-padding ion-activatable ripple-parent">
     <div class="image">
       <img :src="item.image_base64" alt="">
