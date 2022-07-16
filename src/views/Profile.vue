@@ -11,6 +11,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
+      <h3>Créez Votre profile SHAPP</h3>
       <ion-list>
         <ion-item-divider color="light">PROFILE BASIC</ion-item-divider>
         <ion-item class="ion-no-padding">
@@ -34,20 +35,24 @@
             @IonChange="telephone=$event.target.value"
             clearInput/>
         </ion-item>
+        <br>
+        <br>
         <ion-item-divider color="light">INFORMATIONS DE CONNEXION</ion-item-divider>
         <ion-item class="ion-no-padding">
-          <ion-label position="floating">OBR Username</ion-label>
+          <ion-label position="floating">Nom d'utilisateur</ion-label>
           <ion-input type="text"
-            placeholder="nom d'utilisateur OBR"
+            placeholder="Username"
             @IonChange="username=$event.target.value"
             clearInput/>
         </ion-item>
         <ion-item class="ion-no-padding">
-          <ion-label position="floating">Password</ion-label>
+          <ion-label position="floating">Mot de passe</ion-label>
           <ion-input type=password
             placeholder="Password"
             @IonChange="password=$event.target.value" clearInput/>
         </ion-item>
+        <br>
+        <br>
         <ion-button color="primary" expand="block" @click="save">
           Valider
         </ion-button>

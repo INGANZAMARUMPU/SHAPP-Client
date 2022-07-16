@@ -22,14 +22,13 @@ export default {
   watch:{
     "$store.state.user"(new_val){
       if(!new_val){
-        if(this.$route.path != "profile"){
-          this.$router.push("/login")
-        }
+        this.$router.push("/login")
       }
     },
-    '$route' (to, from){
+    '$route'(to, from){
       if(to.path != "/profile" || to.path != "/login"){
         if(!this.$store.state.user){
+          console.log('BACK TO LOGIN')
           this.$router.push("/login")
         }
       }
