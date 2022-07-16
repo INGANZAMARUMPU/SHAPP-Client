@@ -26,7 +26,7 @@
       </ion-popover>
     </ion-header>
     <ion-content class="ion-padding">
-      <EventItem v-for="event in events" item="event"/>
+      <EventItem v-for="item in events" :item="item"/>
       <ion-fab-button class="todo-fab" @click="addTodo">
         <ion-icon :src="getIcon('add')"></ion-icon>
       </ion-fab-button>
@@ -69,7 +69,6 @@ export default {
   mounted(){
     if(Object.keys(this.$store.state.evenemts).length == 0){
       this.$store.state.evenemts = JSON.parse(localStorage.getItem("evenemts"))
-      console.log(this.$store.state.evenemts)
     }
   }
 }
