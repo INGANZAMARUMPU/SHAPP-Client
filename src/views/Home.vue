@@ -27,7 +27,7 @@
     </ion-header>
     <ion-content class="ion-padding">
       <EventItem v-for="item in events" :item="item"/>
-      <ion-fab-button class="todo-fab" @click="addTodo">
+      <ion-fab-button class="todo-fab" @click="addEvent">
         <ion-icon :src="getIcon('add')"></ion-icon>
       </ion-fab-button>
     </ion-content>
@@ -62,7 +62,7 @@ export default {
       this.event_shown = false
       this.event = null
     },
-    addTodo(){
+    addEvent(){
       this.event_shown = true
     }
   },

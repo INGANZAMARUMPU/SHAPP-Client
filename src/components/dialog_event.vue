@@ -39,12 +39,28 @@
         <div class="image">
           <img src="" alt="" id="image_preview">
         </div>
-        <div class="field">
-          <label>Details</label>
-          <textarea rows="4" 
-            placeholder="Details"
-            v-model="details"/>
+        <div class="place labels">
+          <div class="nom">
+            Lieu (<span>{{ nb_places }} places)</span>
+          </div>
+          <div class="nombre">Nombre</div>
         </div>
+        <div class="place" v-for="place in places">
+          <input type="text"
+            class="nom" 
+            placeholder="Nom du lieu"
+            v-model="place.nom">
+          <input type="number"
+            class="nombre" 
+            min=1 placeholder="Nombre"
+            v-model="place.nombre">
+        </div>
+        <ion-col class="button ion-no-padding ion-activatable ripple-parent">
+          <a @click="anotherPlace">
+            + Ajouter une place 
+          </a>
+          <ion-ripple-effect/>
+        </ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="floating">Numero de telephone</ion-label>
           <ion-input type="text" 
@@ -92,10 +108,19 @@ export default {
       image_name:"",
       image_type:"",
       image_base64:"",
-      details:"",
+      places:[
+        { nom:"principal", nombre:1 }
+      ],
       tel_1:"",
       tel_2:"",
       email:""
+    }
+  },
+  computed:{
+    nb_places(){
+      return this.places.reduce((acc, x) =>{
+        return acc += x.nombre
+      }, 0)
     }
   },
   watch:{
@@ -108,6 +133,9 @@ export default {
   methods: {
     close(){
       this.$emit("close")
+    },
+    anotherPlace(){
+      this.places.push({nom:"", nombre:""})
     },
     loadImage(event){
       let file = event.target.files[0]
@@ -140,7 +168,7 @@ export default {
         image_name: this.image_name,
         image_type: this.image_type,
         image_base64: this.image_base64,
-        details: this.details,
+        places:this.places,
         tel_1: this.tel_1,
         tel_2: this.tel_2,
         email: this.email
@@ -187,5 +215,28 @@ input[type=file]{
 .field>*{
   display: block;
   width: 100%;
+}
+.place{
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+}
+.place input{
+  padding: 5px 10px;
+}
+.place .nom{
+  flex-grow: 1;
+  margin-right: 10px;
+}
+.place .nombre{
+  width: 70px;
+  text-align: center;
+}
+.button{
+  display: block;
+  text-align: center;
+}
+.labels{
+  margin-bottom: 0;
 }
 </style>
