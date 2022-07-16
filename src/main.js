@@ -9,7 +9,7 @@ import {
   IonTabBar, IonTitle, IonToolbar, IonHeader, IonMenuButton, IonFabButton,
   IonList, IonMenu, IonToggle, IonFooter, IonItemDivider, IonPopover, IonBadge,
   IonSelectOption, IonSelect, IonText, IonDatetime, toastController, IonSearchbar,
-  IonSpinner, alertController, IonRippleEffect
+  IonSpinner, alertController, IonRippleEffect 
 } from '@ionic/vue';
 import '@ionic/core/css/ionic.bundle.css'
 import * as allIcons from "ionicons/icons";

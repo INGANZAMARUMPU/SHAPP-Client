@@ -11,6 +11,18 @@
             :value="nom" clearInput/>
         </ion-item>
         <ion-item class="ion-no-padding">
+          <ion-label>Date</ion-label>
+          <ion-input id="date" class="ion-text-end" :value="formatedDate(date)"/>
+          <ion-popover trigger="date" size="cover">
+            <ion-datetime
+              @ionChange="chooseDate"
+              presentation="date"
+              :min="min_date"
+              :max="max_date"
+              :value="date"/>
+          </ion-popover>
+        </ion-item>
+        <ion-item class="ion-no-padding">
           <ion-label position="floating">Addresse de l'evenement</ion-label>
           <ion-input type="text" 
             placeholder="Addresse de l'evenement"
@@ -74,17 +86,6 @@
             @IonChange="email=$event.target.value"
             :value="email" clearInput/>
         </ion-item>
-        <ion-item
-          class="ion-no-padding">
-          <ion-label for="date">Date</ion-label>
-          <ion-text slot=end>{{ formatedDate(date) }}</ion-text>
-        </ion-item>
-        <ion-datetime
-          @ionChange="choosedDate"
-          presentation="date"
-          :min="min_date"
-          :max="max_date"
-          :value="date"/>
       </div>
       <ion-col class="options">
         <ion-button fill=clear color="medium" @click="close">
@@ -96,7 +97,9 @@
   </div>
 </template>
 
-<script >
+<script>
+import { popoverController } from '@ionic/vue';
+
 export default {
   props: {
     active:{type:Boolean, required:true},
@@ -148,8 +151,9 @@ export default {
     anotherPlace(){
       this.places.push({nom:"", nombre:""})
     },
-    choosedDate(event){
+    chooseDate(event){
       this.date = event.target.value
+      popoverController.dismiss()
     },
     loadImage(event){
       let file = event.target.files[0]
