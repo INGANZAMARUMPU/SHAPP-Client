@@ -33,7 +33,8 @@
     </ion-content>
     <DialogEvent
       :active = "event_shown"
-      :item = "event"/>
+      :item = "event"
+      @close = "close"/>
   </ion-page>
 </template>
 
@@ -50,6 +51,10 @@ export default {
   },
   methods:{
     showSearch(){},
+    close(){
+      this.event_shown = false
+      this.event = null
+    },
     addTodo(){
       this.event_shown = true
     }
