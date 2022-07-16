@@ -7,13 +7,14 @@
     </div>
     <div class="item">
       <div><b>{{ item.nom }}</b></div>
-      <div>{{ " Le" }} {{ date(item.date) }}</div>
+      <div>{{ nb_places }} places, {{ " Le" }} {{ date(item.date) }}</div>
       <div>{{ item.address }}</div>
       <div class="tel">{{ item.tel_1 }} / {{ item.tel_2 }}</div>
       <div>{{ item.email }}</div>
     </div>
     <div text-center button class="options">
-      <ion-button size="small" expand="full" fill="clear" @click="$emit('scan')">
+      <ion-button size="small" expand="full" fill="clear"
+        @click.stop="emitScan">
         <ion-icon color="dark" slot="icon-only" :src="getIcon('qrCode')"/>
       </ion-button>
     </div>
@@ -34,9 +35,16 @@ export default {
     }
   },
   computed:{
+    nb_places(){
+      return this.item.places.reduce((acc, x) =>{
+        return acc += x.nombre
+      }, 0)
+    }
   },
   methods: {
-    deleteCommande(){}
+    emitScan(){
+      this.$emit("scan", this.item)
+    }
   },
 };
 </script>

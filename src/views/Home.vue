@@ -26,7 +26,9 @@
       </ion-popover>
     </ion-header>
     <ion-content class="ion-padding">
-      <EventItem v-for="item in events" :item="item"/>
+      <EventItem v-for="item in events"
+        :item="item"
+        @scan="startScan"/>
       <ion-fab-button class="todo-fab" @click="addEvent">
         <ion-icon :src="getIcon('add')"></ion-icon>
       </ion-fab-button>
@@ -64,6 +66,9 @@ export default {
     },
     addEvent(){
       this.event_shown = true
+    },
+    startScan(evenemnt){
+      this.makeToast("", "Ouverture du QR scanner...")
     }
   },
   mounted(){
