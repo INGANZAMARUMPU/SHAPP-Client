@@ -15,7 +15,8 @@
           <ion-input type="date" 
             placeholder="Date de l'evenement"
             @IonChange="date=$event.target.value"
-            :value="date" clearInput/>
+            :value="date"
+            :min="new Date().toISOString().split('T')[0]" clearInput/>
         </ion-item>
         <ion-item class="ion-no-padding">
           <ion-label position="floating">Addresse de l'evenement</ion-label>
@@ -90,6 +91,7 @@ export default {
       image:"",
       image_name:"",
       image_type:"",
+      image_base64:"",
       details:"",
       tel_1:"",
       tel_2:"",
@@ -117,8 +119,10 @@ export default {
         this.logs = ""
         this.image = file
         let fr = new FileReader();
+        let vue = this
         fr.onload = function(){
           image_preview.src = fr.result;
+          vue.image_base64 = fr.result;
         }
         fr.readAsDataURL(file);
       }
@@ -128,6 +132,22 @@ export default {
       button.click()
     },
     save(){
+      let data = {
+        image:null,
+        nom: this.nom,
+        date: this.date,
+        address: this.address,
+        image_name: this.image_name,
+        image_type: this.image_type,
+        image_base64: this.image_base64,
+        details: this.details,
+        tel_1: this.tel_1,
+        tel_2: this.tel_2,
+        email: this.email
+      }
+      this.$store.state.evenemts[this.nom] = data
+      localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+      this.$emit("close")
     }
   }
 };
