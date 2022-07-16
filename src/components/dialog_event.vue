@@ -187,7 +187,9 @@ export default {
         tel_2: this.tel_2,
         email: this.email
       }
-      console.log(this.$store.state.evenemts)
+      if(this.$store.state.evenemts == null){
+        this.$store.state.evenemts = {}
+      }
       this.$store.state.evenemts[this.nom] = data
       localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
       this.$emit("close")

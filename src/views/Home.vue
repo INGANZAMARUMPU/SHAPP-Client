@@ -85,6 +85,8 @@ export default {
   mounted(){
     if(Object.keys(this.$store.state.evenemts).length == 0){
       this.$store.state.evenemts = JSON.parse(localStorage.getItem("evenemts"))
+    } else {
+      this.events = this.$store.state.evenemts
     }
   }
 }
