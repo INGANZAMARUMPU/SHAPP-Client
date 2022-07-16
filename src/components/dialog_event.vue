@@ -24,7 +24,10 @@
             @IonChange="address=$event.target.value"
             :value="address" clearInput/>
         </ion-item>
-        <input type="file" id="image" accept=".JPEG, .PNG, .JPG" name="">
+        <input
+          type="file" id="image"
+          accept=".JPEG, .PNG, .JPG"
+          @change="e => loadImage(e)">
         <ion-col  class="ion-no-padding">
           <ion-button expand=full @click="chooseImage">
             <ion-icon :src="getIcon('cameraOutline')"
@@ -33,7 +36,7 @@
           </ion-button>
         </ion-col>
         <div class="image">
-          
+          <img src="" alt="" id="image_preview">
         </div>
         <div class="field">
           <label>Details</label>
@@ -85,6 +88,8 @@ export default {
       date:"",
       address:"",
       image:"",
+      image_name:"",
+      image_type:"",
       details:"",
       tel_1:"",
       tel_2:"",
@@ -102,8 +107,23 @@ export default {
     close(){
       this.$emit("close")
     },
+    loadImage(event){
+      let file = event.target.files[0]
+      this.image_name = file.name
+      this.image_type = file.type
+      if (file.size>300_000) {
+        this.logs = "l'image ne peut pas depasser 300ko"
+      } else {
+        this.logs = ""
+        this.image = file
+        let fr = new FileReader();
+        fr.onload = function(){
+          image_preview.src = fr.result;
+        }
+        fr.readAsDataURL(file);
+      }
+    },
     chooseImage(){
-      console.log('CLICKING')
       let button = document.getElementById("image")
       button.click()
     },
@@ -129,9 +149,17 @@ export default {
 }
 .image{
   width: 100%;
-  height: 100px;
+  height: 150px;
   background-color: #eee;
   margin: 10px 0;
+  overflow: hidden;
+  position: relative;
+}
+.image img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 input[type=file]{
   display: none;
