@@ -52,12 +52,14 @@ export default {
     return {
       event_shown:false,
       event:null,
-      events: Object.values(this.$store.state.evenemts)
+      events: []
     }
   },
   watch:{
     "$store.state.evenemts"(new_val){
-      this.events = Object.values(new_val)
+      if(!!new_val){
+        this.events = Object.values(new_val)
+      }
     }
   },
   methods:{

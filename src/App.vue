@@ -1,8 +1,6 @@
 <template>
   <ion-app>
-    <keep-alive>
-      <ion-router-outlet/>
-    </keep-alive>
+    <ion-router-outlet :key="$route.fullPath"/>
   </ion-app>
 </template>
 <script>
@@ -16,7 +14,11 @@ export default {
   methods:{
     loadData(){
       var evenemts = JSON.parse(localStorage.getItem('evenemts'))
-      this.$store.state.evenemts = evenemts
+      if(!!evenemts){
+        this.$store.state.evenemts = evenemts
+      } else {
+        this.$store.state.evenemts = {}
+      }
     }
   },
   watch:{
@@ -26,7 +28,6 @@ export default {
       }
     },
     '$route'(to, from){
-      this.makeToast(from.path+"\n"+to.path)
       if(to.path != "/profile" && to.path != "/login"){
         if(!this.$store.state.user){
           console.log('BACK TO LOGIN')
@@ -40,6 +41,8 @@ export default {
     this.$store.state.user = user
     if(!user){
       this.$router.push("/login")
+    } else {
+      this.loadData()
     }
   },
 };

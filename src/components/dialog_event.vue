@@ -11,14 +11,6 @@
             :value="nom" clearInput/>
         </ion-item>
         <ion-item class="ion-no-padding">
-          <ion-label position="floating">Date de l'evenement</ion-label>
-          <ion-input type="date" 
-            placeholder="Date de l'evenement"
-            @IonChange="date=$event.target.value"
-            :value="date"
-            :min="new Date().toISOString().split('T')[0]" clearInput/>
-        </ion-item>
-        <ion-item class="ion-no-padding">
           <ion-label position="floating">Addresse de l'evenement</ion-label>
           <ion-input type="text" 
             placeholder="Addresse de l'evenement"
@@ -82,6 +74,17 @@
             @IonChange="email=$event.target.value"
             :value="email" clearInput/>
         </ion-item>
+        <ion-item
+          class="ion-no-padding">
+          <ion-label for="date">Date</ion-label>
+          <ion-text slot=end>{{ formatedDate(date) }}</ion-text>
+        </ion-item>
+        <ion-datetime
+          @ionChange="choosedDate"
+          presentation="date"
+          :min="min_date"
+          :max="max_date"
+          :value="date"/>
       </div>
       <ion-col class="options">
         <ion-button fill=clear color="medium" @click="close">
@@ -113,7 +116,7 @@ export default {
       ],
       tel_1:"",
       tel_2:"",
-      email:""
+      email:"",
     }
   },
   computed:{
@@ -121,7 +124,15 @@ export default {
       return this.places.reduce((acc, x) =>{
         return acc += x.nombre
       }, 0)
-    }
+    },
+    min_date(){
+      return new Date().toISOString()
+    },
+    max_date(){
+      let date = new Date()
+      date.setFullYear(date.getFullYear() + 4)
+      return date.toISOString()
+    },
   },
   watch:{
     item(new_val){
@@ -136,6 +147,9 @@ export default {
     },
     anotherPlace(){
       this.places.push({nom:"", nombre:""})
+    },
+    choosedDate(event){
+      this.date = event.target.value
     },
     loadImage(event){
       let file = event.target.files[0]
@@ -161,7 +175,7 @@ export default {
     },
     save(){
       let data = {
-        image:null,
+        image:this.image,
         nom: this.nom,
         date: this.date,
         address: this.address,
@@ -173,6 +187,7 @@ export default {
         tel_2: this.tel_2,
         email: this.email
       }
+      console.log(this.$store.state.evenemts)
       this.$store.state.evenemts[this.nom] = data
       localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
       this.$emit("close")
