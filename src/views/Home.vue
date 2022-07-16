@@ -26,7 +26,7 @@
       </ion-popover>
     </ion-header>
     <ion-content class="ion-padding">
-      <h1>SHAPP</h1>
+      <EventItem v-for="event in events" item="event"/>
       <ion-fab-button class="todo-fab" @click="addTodo">
         <ion-icon :src="getIcon('add')"></ion-icon>
       </ion-fab-button>
@@ -40,13 +40,20 @@
 
 <script>
 import DialogEvent from "../components/dialog_event"
+import EventItem from "../components/event_item"
 
 export default {
-  components:{ DialogEvent },
+  components:{ DialogEvent, EventItem },
   data(){
     return {
       event_shown:false,
-      event:null
+      event:null,
+      events: Object.values(this.$store.state.evenemts)
+    }
+  },
+  watch:{
+    "$store.state.evenemts"(new_val){
+      this.events = Object.values(new_val)
     }
   },
   methods:{
@@ -57,6 +64,12 @@ export default {
     },
     addTodo(){
       this.event_shown = true
+    }
+  },
+  mounted(){
+    if(Object.keys(this.$store.state.evenemts).length == 0){
+      this.$store.state.evenemts = JSON.parse(localStorage.getItem("evenemts"))
+      console.log(this.$store.state.evenemts)
     }
   }
 }

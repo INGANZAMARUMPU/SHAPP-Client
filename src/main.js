@@ -93,6 +93,14 @@ app.mixin({
       if(!x) return "0";
       return cash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     },
+    date(x) {
+      if(!x) return "-"
+      let date = new Date(x);
+      return new Intl.DateTimeFormat(
+        'en-GB',
+        { dateStyle: 'short' }
+      ).format(date)
+    },
     makeToast(title, message, duration=5000){
       toastController.create({
         header: title,
