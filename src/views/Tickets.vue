@@ -46,6 +46,8 @@
         </div>
       </ion-col>
     </ion-content>
+    <ion-searchbar show-cancel-button="always" debounce="0" id="ticketsearch"
+      @ionCancel="closeSearch" @search="search($event.target.value)"/>
   </ion-page>
 </template>
 
@@ -59,7 +61,14 @@ export default {
     }
   },
   methods:{
-    showSearch(){},
+    showSearch(){
+      let searchbar = document.getElementById("ticketsearch")
+      searchbar.classList.add("shown")
+    },
+    closeSearch(event){
+      let searchbar = document.getElementById("ticketsearch")
+      searchbar.classList.remove("shown")
+    },
   },
   mounted(){
     let nom = this.$route.params.nom

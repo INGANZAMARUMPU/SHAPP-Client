@@ -37,6 +37,8 @@
       :active = "event_shown"
       :item = "event"
       @close = "close"/>
+    <ion-searchbar show-cancel-button="always" debounce="0" id="searchbar"
+      @ionCancel="closeSearch" @search="search($event.target.value)"/>
   </ion-page>
 </template>
 
@@ -59,7 +61,15 @@ export default {
     }
   },
   methods:{
-    showSearch(){},
+    showSearch(){
+      let searchbar = document.getElementById("searchbar")
+      searchbar.classList.add("shown")
+    },
+    closeSearch(event){
+      console.log('CLOSING SEARCHBAR')
+      let searchbar = document.getElementById("searchbar")
+      searchbar.classList.remove("shown")
+    },
     close(){
       this.event_shown = false
       this.event = null

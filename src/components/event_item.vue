@@ -7,7 +7,7 @@
     </div>
     <div class="item">
       <div><b>{{ item.nom }}</b></div>
-      <div>{{ nb_places }} places, {{ " Le" }} {{ date(item.date) }}</div>
+      <div>{{ nb_places }} places, {{ " Le" }} {{ formatedDate(item.date) }}</div>
       <div>{{ item.address }}</div>
       <div class="tel">{{ item.tel_1 }} / {{ item.tel_2 }}</div>
       <div>{{ item.email }}</div>

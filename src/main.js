@@ -8,8 +8,8 @@ import {
   IonInput, IonItem, IonButton, IonButtons, IonCol, IonContent, IonTabButton,
   IonTabBar, IonTitle, IonToolbar, IonHeader, IonMenuButton, IonFabButton,
   IonList, IonMenu, IonToggle, IonFooter, IonItemDivider, IonPopover, IonBadge,
-  IonSelectOption, IonSelect, IonText, IonDatetime, toastController, IonSearchbar,
-  IonSpinner, alertController
+  IonSelectOption, IonSelect, IonText, IonDatetime, toastController,
+  IonSpinner, alertController, IonRippleEffect
 } from '@ionic/vue';
 import '@ionic/core/css/ionic.bundle.css'
 import * as allIcons from "ionicons/icons";
@@ -25,7 +25,6 @@ app.component("IonTabs", IonTabs)
 app.component("IonLabel", IonLabel)
 app.component("IonInput", IonInput)
 app.component("IonItem", IonItem)
-app.component("IonSearchbar", IonSearchbar)
 app.component("IonButton", IonButton)
 app.component("IonButtons", IonButtons)
 app.component("IonCol", IonCol)
@@ -50,6 +49,7 @@ app.component("IonSelect", IonSelect)
 app.component("IonText", IonText)
 app.component("IonDatetime", IonDatetime)
 app.component("IonSpinner", IonSpinner)
+app.component("IonRippleEffect", IonRippleEffect)
 
 app.mixin({
   methods: {
@@ -93,7 +93,7 @@ app.mixin({
       if(!x) return "0";
       return cash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     },
-    date(x) {
+    formatedDate(x) {
       if(!x) return "-"
       let date = new Date(x);
       return new Intl.DateTimeFormat(
