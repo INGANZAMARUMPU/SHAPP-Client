@@ -1,5 +1,7 @@
 <template>
-  <ion-col :data-id='item.id' class="parent ion-no-padding" button>
+  <ion-col :data-id='item.id'
+    button routerLink="/tickets"
+    class="parent ion-no-padding ion-activatable ripple-parent">
     <div class="image">
       <img :src="item.image_base64" alt="">
     </div>
@@ -11,13 +13,11 @@
       <div>{{ item.email }}</div>
     </div>
     <div text-center button class="options">
-      <ion-button size="small" expand="full" fill="clear" @click="$emit('print')">
-        <ion-icon color="dark" slot="icon-only" :src="getIcon('print')"/>
-      </ion-button>
-      <ion-button size="small" expand="full" fill="clear" @click.stop="deleteCommande">
-        <ion-icon color="danger" slot="icon-only" :src="getIcon('close')"/>
+      <ion-button size="small" expand="full" fill="clear" @click="$emit('scan')">
+        <ion-icon color="dark" slot="icon-only" :src="getIcon('qrCode')"/>
       </ion-button>
     </div>
+    <ion-ripple-effect/>
   </ion-col>
 </template>
 
