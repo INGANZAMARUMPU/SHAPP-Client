@@ -11,7 +11,6 @@ import {
   IonSelectOption, IonSelect, IonText, IonDatetime, toastController, IonSearchbar,
   IonSpinner, alertController, IonRippleEffect 
 } from '@ionic/vue';
-import VueQRCodeComponent from 'vue-qr-generator'
 import '@ionic/core/css/ionic.bundle.css'
 import * as allIcons from "ionicons/icons";
 import { App as CapacitorApp } from '@capacitor/app';
@@ -19,7 +18,6 @@ import { App as CapacitorApp } from '@capacitor/app';
 window.axios = axios;
 const app = createApp(App).use(IonicVue).use(router).use(store);
 
-app.component('qr-code', VueQRCodeComponent)
 app.component("IonRouterOutlet", IonRouterOutlet)
 app.component("IonApp", IonApp)
 app.component("IonPage", IonPage)

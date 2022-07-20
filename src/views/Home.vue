@@ -27,7 +27,6 @@
     </ion-header>
     <ion-content class="ion-no-padding">
       <EventItem v-for="item in events"
-        @click="toast"
         :item="item"
         @scan="startScan"/>
       <ion-fab-button class="todo-fab" @click="addEvent">

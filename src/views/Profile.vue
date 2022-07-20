@@ -35,6 +35,7 @@
             <option value="burundi">+257</option>
           </select>
           <input type="tel" v-model="telephone"
+            placeholder="Numéro de téléphone" 
             style="padding: 5px 10px; flex-grow: 1;">
         </div>
         <br>
@@ -52,7 +53,6 @@
             placeholder="Password"
             @IonChange="password=$event.target.value" clearInput/>
         </ion-item>
-        <br>
         <br>
         <ion-button color="primary" expand="block" @click="save">
           Valider

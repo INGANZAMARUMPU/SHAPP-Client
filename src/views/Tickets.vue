@@ -37,7 +37,7 @@
         <div class="qrs">
           <div class="item" v-for="i in place.nombre">
             <div class="qr">
-              <qr-code :text="qrFrom(place.nom+i)"></qr-code>
+              <img :data="place.nom+i" class="qr_img"/>
             </div>
             <div class="descr">
               place {{ i }}
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-
+import QRCode from 'qrcode'
 export default {
   components:{ },
   data(){
@@ -65,18 +65,25 @@ export default {
       let searchbar = document.getElementById("ticketsearch")
       searchbar.classList.add("shown")
     },
-    qrFrom(str){
-      console.log(btoa(str))
-      return btoa(str)
-    },
     closeSearch(event){
       let searchbar = document.getElementById("ticketsearch")
       searchbar.classList.remove("shown")
     },
+    generateQRs(){
+      let qr_imgs = document.getElementsByClassName("qr_img");
+      let data
+      for(let qr_img of qr_imgs){
+        data = btoa(qr_img.getAttribute("data"))
+        QRCode.toDataURL(data).then(src => {
+          qr_img.setAttribute("src", src)
+        })
+      }
+    }
   },
   mounted(){
     let nom = this.$route.params.nom
     this.evenemt = this.$store.state.evenemts[nom]
+    setTimeout(this.generateQRs, 1000)
   }
 }
 </script>
