@@ -25,8 +25,9 @@
         </ion-content>
       </ion-popover>
     </ion-header>
-    <ion-content class="ion-padding">
+    <ion-content class="ion-no-padding">
       <EventItem v-for="item in events"
+        @click="toast"
         :item="item"
         @scan="startScan"/>
       <ion-fab-button class="todo-fab" @click="addEvent">
@@ -60,7 +61,7 @@ export default {
       if(!!new_val){
         this.events = Object.values(new_val)
       }
-    }
+    },
   },
   methods:{
     showSearch(){

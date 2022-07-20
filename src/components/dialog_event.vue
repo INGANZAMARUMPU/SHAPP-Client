@@ -67,14 +67,14 @@
         </ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="floating">Numero de telephone</ion-label>
-          <ion-input type="text" 
+          <ion-input type="tel" 
             placeholder="Numero de telephone"
             @IonChange="tel_1=$event.target.value"
             :value="tel_1" clearInput/>
         </ion-item>
         <ion-item class="ion-no-padding">
           <ion-label position="floating">Numero de telephone 2</ion-label>
-          <ion-input type="text" 
+          <ion-input type="tel" 
             placeholder="Numero de telephone"
             @IonChange="tel_2=$event.target.value"
             :value="tel_2" clearInput/>

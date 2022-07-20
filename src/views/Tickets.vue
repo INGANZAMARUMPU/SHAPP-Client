@@ -37,7 +37,7 @@
         <div class="qrs">
           <div class="item" v-for="i in place.nombre">
             <div class="qr">
-              
+              <qr-code :text="qrFrom(place.nom+i)"></qr-code>
             </div>
             <div class="descr">
               place {{ i }}
@@ -65,6 +65,10 @@ export default {
       let searchbar = document.getElementById("ticketsearch")
       searchbar.classList.add("shown")
     },
+    qrFrom(str){
+      console.log(btoa(str))
+      return btoa(str)
+    },
     closeSearch(event){
       let searchbar = document.getElementById("ticketsearch")
       searchbar.classList.remove("shown")
@@ -82,13 +86,13 @@ h3{
 }
 .qrs{
   display: grid;
-  grid-template-columns: repeat(auto-fill, 120px);
+  grid-template-columns: repeat(auto-fill, 90px);
   justify-content: space-between;
 }
 .qr{
   margin-top: 10px;
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
   background-color: #ddd;
 }
 .descr{
