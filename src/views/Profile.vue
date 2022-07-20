@@ -12,7 +12,7 @@
     </ion-header>
     <ion-content>
       <h3>Créez Votre profile SHAPP</h3>
-      <ion-list>
+      <ion-col>
         <ion-item-divider color="light">PROFILE BASIC</ion-item-divider>
         <ion-item class="ion-no-padding">
           <ion-label position="floating">Nom</ion-label>
@@ -28,14 +28,15 @@
             @IonChange="prenom=$event.target.value"
             clearInput/>
         </ion-item>
-        <ion-item class="ion-no-padding">
-          <ion-label position="floating">Telephone</ion-label>
-          <ion-input type="text"
-            placeholder="Telephone"
-            @IonChange="telephone=$event.target.value"
-            clearInput/>
-        </ion-item>
-        <br>
+        <div style="display: flex; padding: 10px;">
+          <select v-model="pays" style="padding: 5px 10px; margin-right:5px">
+            <option value="rwanda">+250</option>
+            <option value="rdc">+256</option>
+            <option value="burundi">+257</option>
+          </select>
+          <input type="tel" v-model="telephone"
+            style="padding: 5px 10px; flex-grow: 1;">
+        </div>
         <br>
         <ion-item-divider color="light">INFORMATIONS DE CONNEXION</ion-item-divider>
         <ion-item class="ion-no-padding">
@@ -56,7 +57,7 @@
         <ion-button color="primary" expand="block" @click="save">
           Valider
         </ion-button>
-      </ion-list>
+      </ion-col>
     </ion-content>
   </ion-page>
 </template>
@@ -70,6 +71,7 @@ export default {
       telephone: "",
       username: "",
       password: "",
+      pays:"burundi"
     }
   },
   methods:{
@@ -94,5 +96,8 @@ h3{
 }
 .ion-no-padding{
   margin: 0 10px;
+}
+input, select{
+  padding: 5 10px!important;
 }
 </style>
