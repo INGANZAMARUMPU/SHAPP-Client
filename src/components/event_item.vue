@@ -22,7 +22,6 @@
 </template>
 
 <script >
-import { alertController } from '@ionic/vue';
 
 export default {
   props: {

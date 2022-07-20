@@ -83,6 +83,7 @@ export default {
   mounted(){
     let nom = this.$route.params.nom
     this.evenemt = this.$store.state.evenemts[nom]
+    this.makeToast("Generation des QRs en cours")
     setTimeout(this.generateQRs, 1000)
   }
 }

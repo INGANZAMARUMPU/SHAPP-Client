@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import DialogEvent from "../components/dialog_event"
 import EventItem from "../components/event_item"
 
@@ -79,7 +80,17 @@ export default {
       this.event_shown = true
     },
     startScan(evenemnt){
-      this.makeToast("", "Ouverture du QR scanner...")
+      QRScanner.prepare().then(status => {
+         if (status.authorized) {
+           let scanSub = this.qrScanner.scan().subscribe(text => {
+             console.log('Scanned something', text);
+             this.qrScanner.hide(); // hide camera preview
+             scanSub.unsubscribe(); // stop scanning
+           });
+         } else if (status.denied) {
+         }
+      })
+      .catch(e => console.log('Error is', e));
     }
   },
   mounted(){
