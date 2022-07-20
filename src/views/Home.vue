@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import DialogEvent from "../components/dialog_event"
 import EventItem from "../components/event_item"
 
@@ -80,17 +80,11 @@ export default {
       this.event_shown = true
     },
     startScan(evenemnt){
-      QRScanner.prepare().then(status => {
-         if (status.authorized) {
-           let scanSub = this.qrScanner.scan().subscribe(text => {
-             console.log('Scanned something', text);
-             this.qrScanner.hide(); // hide camera preview
-             scanSub.unsubscribe(); // stop scanning
-           });
-         } else if (status.denied) {
-         }
+      BarcodeScanner.hideBackground();
+      BarcodeScanner.startScan().then(result => {
+        this.makeToast("Resultat", result.content);
+        BarcodeScanner.stopScan();
       })
-      .catch(e => console.log('Error is', e));
     }
   },
   mounted(){
