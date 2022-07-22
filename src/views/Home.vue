@@ -17,7 +17,7 @@
       <ion-popover trigger="menu-toggler" dismiss-on-select="true" show-backdrop="false">
         <ion-content>
           <ion-list lines="none">
-            <ion-item button>
+            <ion-item button  @click="displayCredit">
               <ion-label>Achat Credits</ion-label>
               <ion-icon :src="getIcon('cashOutline')"/>
             </ion-item>
@@ -45,6 +45,9 @@
       :active = "scan_shown"
       @scanned = "displayInfos"
       @close = "close"/>
+    <DialogCredit
+      :active = "credit_shown"
+      @close = "close"/>
     <DialogResults
       :active = "scan_results_shown"
       :item = "scan_results"
@@ -58,6 +61,7 @@
 import DialogEvent from "../components/dialog_event"
 import DialogScan from "../components/dialog_scan"
 import DialogResults from "../components/dialog_scan_results"
+import DialogCredit from "../components/dialog_credit"
 import EventItem from "../components/event_item"
 
 export default {
@@ -65,13 +69,15 @@ export default {
     DialogEvent,
     EventItem,
     DialogScan,
-    DialogResults
+    DialogResults,
+    DialogCredit,
   },
   data(){
     return {
       event_shown:false,
       scan_shown:false,
       scan_results_shown:false,
+      credit_shown:false,
       scan_results:null,
       event:null,
       events: []
@@ -97,10 +103,14 @@ export default {
       this.event_shown = false
       this.scan_shown = false
       this.scan_results_shown = false
+      this.credit_shown = false
       this.event = null
     },
     addEvent(){
       this.event_shown = true
+    },
+    displayCredit(){
+      this.credit_shown = true
     },
     startScan(event){
       this.scan_shown = true
