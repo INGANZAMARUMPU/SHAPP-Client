@@ -1,11 +1,11 @@
 <template>
   <div class="dialog" v-if="active">
     <div class="body ion-padding">
-      <h3>Evenement</h3>
+      <h3>Confirmation</h3>
       <div class="content">
         <div>
-          Une code de confirmation de 6 chiffres a été envoyé au numero <br>
-          {{ item.telephone }} <br>
+          Une code de confirmation de 6 chiffres a été envoyé au numero
+          <h5>{{ item.telephone }}</h5>
           Veuillez le saisir ici
         </div>
         <div>
@@ -52,11 +52,15 @@ export default {
   padding-bottom: 5px;
 }
 .body{
-  max-height: 80vh;
   overflow-y: hidden;
 }
 .content{
-  height: calc(80vh - 100px);
   overflow-y: auto;
+}
+input{
+  width: 100%;
+  font-size: 1.2em;
+  padding: 5px 15px;
+  text-align: center;
 }
 </style>

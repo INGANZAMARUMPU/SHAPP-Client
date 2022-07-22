@@ -80,11 +80,20 @@
         </ion-button>
       </ion-col>
     </ion-content>
+    <DialogConfirm
+      :active = "confirm_shown"
+      :item = "unvalidated_user"
+      @close = "close"/>
   </ion-page>
 </template>
 
 <script>
+import DialogConfirm from '../components/dialog_confirm'
+
 export default {
+  components:{
+    DialogConfirm,
+  },
   data(){
     return {
       nom: "",
@@ -93,13 +102,17 @@ export default {
       username: "",
       password: "",
       pays:"",
+      unvalidated_user:null,
       confirm_shown: false
     }
   },
   methods:{
+    close(){
+      this.$router.push("/login")
+    },
     save(){
       this.makeToast("Success", "Votre compte sera bientôt valider après paiement")
-      let unvalidated_user = {      
+      this.unvalidated_user = {      
         nom: this.nom,
         prenom: this.prenom,
         telephone: this.telephone,
@@ -113,13 +126,13 @@ export default {
   mounted(){
     let str_unvalidated_user = localStorage["unvalidated_user"]
     if(!!str_unvalidated_user){
-      let unvalidated_user = JSON.parse(str_unvalidated_user)
-      this.nom = unvalidated_user.nom
-      this.prenom = unvalidated_user.prenom
-      this.telephone = unvalidated_user.telephone
-      this.username = unvalidated_user.username
-      this.password = unvalidated_user.password
-      this.pays = unvalidated_user.pays
+      this.unvalidated_user = JSON.parse(str_unvalidated_user)
+      this.nom = this.unvalidated_user.nom
+      this.prenom = this.unvalidated_user.prenom
+      this.telephone = this.unvalidated_user.telephone
+      this.username = this.unvalidated_user.username
+      this.password = this.unvalidated_user.password
+      this.pays = this.unvalidated_user.pays
 
       this.confirm_shown = true
     }
