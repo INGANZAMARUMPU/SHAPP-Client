@@ -97,6 +97,7 @@ export default {
 <style>
 h3{
   text-align: center;
+  margin: 0!important;
 }
 .qrs{
   display: grid;

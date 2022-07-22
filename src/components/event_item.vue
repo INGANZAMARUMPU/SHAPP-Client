@@ -61,12 +61,12 @@ ion-button{
 }
 .item{
   flex-grow: 1;
-  margin: 0 0 10px 10px;
+  margin-left: 10px;
 }
 .image{
-  width: 80px;
-  min-width: 80px;
-  height: 80px;
+  width: 60px;
+  min-width: 60px;
+  height: 60px;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -75,5 +75,8 @@ img{
 }
 .small{
   font-size: .7em;
+}
+.title{
+  font-size: .9em;
 }
 </style>
