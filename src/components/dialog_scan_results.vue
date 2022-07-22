@@ -1,7 +1,7 @@
 <template>
   <div class="dialog" v-if="active">
-    <div class="body">
-      <QrcodeStream @decode="startScan" @error="throwScan"/>
+    <div class="body ion-padding">
+      <h3>Evenement</h3>
       <ion-col class="options">
         <ion-button fill=clear @click="close">Laisser</ion-button>
       </ion-col>
@@ -10,15 +10,11 @@
 </template>
 
 <script>
-import { popoverController } from '@ionic/vue';
-import { QrcodeStream } from 'qrcode-reader-vue3'
-
 export default {
   props: {
     active:{type:Boolean, required:true},
     item:{type:Object, required:false}
   },
-  components:{ QrcodeStream},
   data(){
     return {
     }
@@ -34,19 +30,15 @@ export default {
     close(){
       this.$emit("close")
     },
-    startScan(result){
-      let place = atob(result)
-      this.$emit("scanned", {"result": place})
-    },
-    throwScan(result){
-      console.log(result)
-    },
   }
 };
 </script>
 <style scoped>
 .options{
   padding-bottom: 0;
+}
+.ion-padding{
+  padding-bottom: 5px;
 }
 .body{
   max-height: 80vh;

@@ -39,8 +39,11 @@
       @close = "close"/>
     <DialogScan
       :active = "scan_shown"
-      :item = "event"
       @scanned = "displayInfos"
+      @close = "close"/>
+    <DialogResults
+      :active = "scan_shown"
+      :item = "scan_results"
       @close = "close"/>
     <ion-searchbar show-cancel-button="always" debounce="0" id="searchbar"
       @ionCancel="closeSearch" @search="search($event.target.value)"/>
@@ -50,14 +53,22 @@
 <script>
 import DialogEvent from "../components/dialog_event"
 import DialogScan from "../components/dialog_scan"
+import DialogResults from "../components/dialog_scan_results"
 import EventItem from "../components/event_item"
 
 export default {
-  components:{ DialogEvent, EventItem, DialogScan },
+  components:{
+    DialogEvent,
+    EventItem,
+    DialogScan,
+    DialogResults
+  },
   data(){
     return {
       event_shown:false,
       scan_shown:false,
+      scan_results_shown:true,
+      scan_results:null,
       event:null,
       events: []
     }
@@ -80,6 +91,7 @@ export default {
     },
     close(){
       this.event_shown = false
+      this.scan_shown = false
       this.event = null
     },
     addEvent(){
@@ -89,7 +101,13 @@ export default {
       this.scan_shown = true
     },
     displayInfos(result){
-      this.scan_shown = false
+      try {
+        this.scan_result = JSON.parse(result)
+        this.scan_shown = false
+        this.scan_results_shown = true
+      } catch(e) {
+        this.makeToast('erreur', "Code Qr invalide")
+      }
     }
   },
   mounted(){

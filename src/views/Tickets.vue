@@ -37,7 +37,7 @@
         <div class="qrs">
           <div class="item" v-for="i in place.nombre">
             <div class="qr">
-              <img :data="place.nom+i" class="qr_img"/>
+              <img :data="generateP(place.nom,i)" class="qr_img"/>
             </div>
             <div class="descr">
               place {{ i }}
@@ -61,6 +61,12 @@ export default {
     }
   },
   methods:{
+    generateP(nom, no){
+      return JSON.stringify({
+        'nom':nom,
+        'no':no
+      })
+    },
     showSearch(){
       let searchbar = document.getElementById("ticketsearch")
       searchbar.classList.add("shown")
