@@ -35,9 +35,9 @@ export default {
     }
   },
   watch:{
-    item(new_val){
-      if(!!new_val){
-      } else {
+    active(new_val){
+      if(new_val){
+        setTimeout(this.generateQRs, 1000)
       }
     }
   },
@@ -52,9 +52,6 @@ export default {
       })
     }
   },
-  mounted(){
-    setTimeout(this.generateQRs, 1000)
-  }
 };
 </script>
 <style scoped>
