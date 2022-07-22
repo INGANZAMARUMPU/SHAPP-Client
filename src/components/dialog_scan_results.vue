@@ -12,7 +12,7 @@
         <h3>{{ item.no }}</h3>
       </div>
       <ion-col class="options">
-        <ion-button fill=clear @click="close">Laisser</ion-button>
+        <ion-button fill=clear @click="close">Fermer</ion-button>
       </ion-col>
     </div>
   </div>
@@ -46,7 +46,6 @@ export default {
       this.$emit("close")
     },
     generateQRs(){
-      let qr_img = document.getElementById("qr_img");
       let data = btoa(this.qr_data)
       QRCode.toDataURL(data).then(src => {
         qr_img.setAttribute("src", src)
@@ -72,5 +71,22 @@ export default {
 .content{
   height: calc(80vh - 100px);
   overflow-y: auto;
+}
+.qr{
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  border: 2px solid #aaa;
+}
+#qr_img{
+  display: inline-block;
+  width: 100%;
+}
+.descr{
+  width: 200px;
+  margin: auto;
+}
+.descr *{
+  text-align: left;
 }
 </style>

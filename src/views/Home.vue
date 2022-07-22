@@ -42,7 +42,7 @@
       @scanned = "displayInfos"
       @close = "close"/>
     <DialogResults
-      :active = "scan_shown"
+      :active = "scan_results_shown"
       :item = "scan_results"
       @close = "close"/>
     <ion-searchbar show-cancel-button="always" debounce="0" id="searchbar"
@@ -67,7 +67,7 @@ export default {
     return {
       event_shown:false,
       scan_shown:false,
-      scan_results_shown:true,
+      scan_results_shown:false,
       scan_results:null,
       event:null,
       events: []
@@ -101,8 +101,9 @@ export default {
       this.scan_shown = true
     },
     displayInfos(result){
+      console.log(result.result)
       try {
-        this.scan_result = JSON.parse(result)
+        this.scan_results = JSON.parse(result.result)
         this.scan_shown = false
         this.scan_results_shown = true
       } catch(e) {
