@@ -92,20 +92,30 @@ export default {
     close(){
       this.event_shown = false
       this.scan_shown = false
+      this.scan_results_shown = false
       this.event = null
     },
     addEvent(){
       this.event_shown = true
     },
-    startScan(){
+    startScan(event){
       this.scan_shown = true
+      this.event = event
     },
     displayInfos(result){
-      console.log(result.result)
+      let places = this.event.places
       try {
         this.scan_results = JSON.parse(result.result)
-        this.scan_shown = false
-        this.scan_results_shown = true
+        for(let place of places){
+          if(place.nom == this.scan_results.nom && place.nombre >= this.scan_results.no){
+            this.scan_shown = false
+            this.scan_results_shown = true
+            break
+          }
+        }
+        if(this.scan_shown){
+          this.makeToast('erreur', `la place ${this.scan_results.nom} n'existe pas dans ${this.event.nom}`)
+        }
       } catch(e) {
         this.makeToast('erreur', "Code Qr invalide")
       }
