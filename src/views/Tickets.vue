@@ -44,7 +44,7 @@
               <ion-button size=small fill="clear"
                 @click="share(generateP(place.nom,i))"
                 class="ion-no-padding">
-                <ion-icon slot="icon-only" :icon="getIcon('logoWhatsapp')"/>
+                <ion-icon slot="icon-only" :icon="getIcon('shareSocial')"/>
               </ion-button>
             </div>
           </div>

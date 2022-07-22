@@ -18,6 +18,7 @@
       @click.stop="emitScan">
       <ion-icon color="dark" slot="icon-only" :src="getIcon('qrCode')"/>
     </ion-button>
+    <ion-ripple-effect></ion-ripple-effect>
   </ion-col>
 </template>
 
