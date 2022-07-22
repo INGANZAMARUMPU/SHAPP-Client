@@ -18,6 +18,7 @@
           <ion-label position="floating">Nom</ion-label>
           <ion-input type="text"
             placeholder="Nom"
+            :value="nom"
             @IonChange="nom=$event.target.value"
             clearInput/>
         </ion-item>
@@ -25,6 +26,7 @@
           <ion-label position="floating">Prenom</ion-label>
           <ion-input type="text"
             placeholder="Prenom"
+            :value="prenom"
             @IonChange="prenom=$event.target.value"
             clearInput/>
         </ion-item>
@@ -32,6 +34,7 @@
           <ion-label position="floating">Pays</ion-label>
           <ion-select
             multiple="false"
+            :value="pays"
             @IonChange="pays=$event.target.value"
             cancel-text="laisser" ok-text="Choisir">
             <ion-select-option value="+250">
@@ -60,6 +63,7 @@
           <ion-label position="floating">Nom d'utilisateur</ion-label>
           <ion-input type="text"
             placeholder="Username"
+            :value="username"
             @IonChange="username=$event.target.value"
             clearInput/>
         </ion-item>
@@ -67,6 +71,7 @@
           <ion-label position="floating">Mot de passe</ion-label>
           <ion-input type=password
             placeholder="Password"
+            :value="password"
             @IonChange="password=$event.target.value" clearInput/>
         </ion-item>
         <br>
@@ -87,12 +92,36 @@ export default {
       telephone: "",
       username: "",
       password: "",
-      pays:""
+      pays:"",
+      confirm_shown: false
     }
   },
   methods:{
     save(){
       this.makeToast("Success", "Votre compte sera bientôt valider après paiement")
+      let unvalidated_user = {      
+        nom: this.nom,
+        prenom: this.prenom,
+        telephone: this.telephone,
+        username: this.username,
+        password: this.password,
+        pays: this.pays
+      }
+      localStorage["unvalidated_user"] = JSON.stringify(unvalidated_user)
+    }
+  },
+  mounted(){
+    let str_unvalidated_user = localStorage["unvalidated_user"]
+    if(!!str_unvalidated_user){
+      let unvalidated_user = JSON.parse(str_unvalidated_user)
+      this.nom = unvalidated_user.nom
+      this.prenom = unvalidated_user.prenom
+      this.telephone = unvalidated_user.telephone
+      this.username = unvalidated_user.username
+      this.password = unvalidated_user.password
+      this.pays = unvalidated_user.pays
+
+      this.confirm_shown = true
     }
   }
 }
