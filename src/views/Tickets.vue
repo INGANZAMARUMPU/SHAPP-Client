@@ -37,10 +37,15 @@
         <div class="qrs">
           <div class="item" v-for="i in place.nombre">
             <div class="qr">
-              <img :data="generateP(place.nom,i)" class="qr_img"/>
+              <img :id="generateP(place.nom,i)" class="qr_img"/>
             </div>
             <div class="descr">
-              place {{ i }}
+              Place {{ i }}
+              <ion-button size=small fill="clear"
+                @click="share(generateP(place.nom,i))"
+                class="ion-no-padding">
+                <ion-icon slot="icon-only" :icon="getIcon('logoWhatsapp')"/>
+              </ion-button>
             </div>
           </div>
         </div>
@@ -79,12 +84,42 @@ export default {
       let qr_imgs = document.getElementsByClassName("qr_img");
       let data
       for(let qr_img of qr_imgs){
-        data = btoa(qr_img.getAttribute("data"))
+        data = btoa(qr_img.getAttribute("id"))
         QRCode.toDataURL(data).then(src => {
           qr_img.setAttribute("src", src)
         })
       }
-    }
+    },
+    share(id){
+      let url = document.getElementById(id).getAttribute("src")
+      console.log(url)
+      fetch(url).then(res => res.blob()).then(blob => {
+        const file = new File([blob], "invitation.png",{ type: "image/png" })
+        this.send(file)
+      })
+    },
+    send(image_file) {
+      if (!('share' in navigator)) {
+        return
+      }
+      const files = [image_file]
+      const shareData = {
+        text: `Ça c'est votre invitation dans l'evenement`,
+        title: 'Votre invitation',
+        files,
+      }
+      if (navigator.canShare(shareData)) {
+        try {
+          navigator.share(shareData)
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            console.error(err.name, err.message)
+          }
+        }
+      } else {
+        console.warn('Sharing not supported', shareData)
+      }
+    },
   },
   mounted(){
     let nom = this.$route.params.nom
@@ -94,7 +129,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 h3{
   text-align: center;
   margin: 0!important;
@@ -109,8 +144,15 @@ h3{
   width: 90px;
   height: 90px;
   background-color: #ddd;
+  border: 2px solid #aaa;
 }
 .descr{
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ion-button{
+  font-size: 9px;
+  margin-left: 5px;
 }
 </style>
