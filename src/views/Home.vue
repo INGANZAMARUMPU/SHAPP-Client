@@ -37,21 +37,27 @@
       :active = "event_shown"
       :item = "event"
       @close = "close"/>
+    <DialogScan
+      :active = "scan_shown"
+      :item = "event"
+      @scanned = "displayInfos"
+      @close = "close"/>
     <ion-searchbar show-cancel-button="always" debounce="0" id="searchbar"
       @ionCancel="closeSearch" @search="search($event.target.value)"/>
   </ion-page>
 </template>
 
 <script>
-import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import DialogEvent from "../components/dialog_event"
+import DialogScan from "../components/dialog_scan"
 import EventItem from "../components/event_item"
 
 export default {
-  components:{ DialogEvent, EventItem },
+  components:{ DialogEvent, EventItem, DialogScan },
   data(){
     return {
       event_shown:false,
+      scan_shown:false,
       event:null,
       events: []
     }
@@ -79,12 +85,11 @@ export default {
     addEvent(){
       this.event_shown = true
     },
-    startScan(evenemnt){
-      BarcodeScanner.hideBackground();
-      BarcodeScanner.startScan().then(result => {
-        this.makeToast("Resultat", result.content);
-        BarcodeScanner.stopScan();
-      })
+    startScan(){
+      this.scan_shown = true
+    },
+    displayInfos(result){
+      this.scan_shown = false
     }
   },
   mounted(){

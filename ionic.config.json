@@ -1,5 +1,7 @@
 {
   "name": "shapp-client",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "vue"
 }
