@@ -58,6 +58,9 @@
 
 <script>
 import QRCode from 'qrcode'
+import { Share } from '@capacitor/share';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+
 export default {
   components:{ },
   data(){
@@ -92,33 +95,24 @@ export default {
     },
     share(id){
       let url = document.getElementById(id).getAttribute("src")
-      console.log(url)
-      fetch(url).then(res => res.blob()).then(blob => {
-        const file = new File([blob], "invitation.png",{ type: "image/png" })
-        this.send(file)
-      })
-    },
-    send(image_file) {
-      if (!('share' in navigator)) {
-        return
-      }
-      const files = [image_file]
-      const shareData = {
-        text: `Ça c'est votre invitation dans l'evenement`,
-        title: 'Votre invitation',
-        files,
-      }
-      if (navigator.canShare(shareData)) {
-        try {
-          navigator.share(shareData)
-        } catch (err) {
-          if (err.name !== 'AbortError') {
-            console.error(err.name, err.message)
-          }
-        }
-      } else {
-        console.warn('Sharing not supported', shareData)
-      }
+      let file_name = "invitation.png"
+      Filesystem.writeFile({
+        path: file_name,
+        data: url,
+        directory: Directory.Cache
+      }).then(() => {
+        return Filesystem.getUri({
+          directory: Directory.Cache,
+          path: file_name
+        });
+      }).then((uriResult) => {
+        Share.share({
+          text: `Ça c'est votre invitation dans l'evenement`,
+          title: 'Votre invitation',
+          url: uriResult.uri,
+          dialogTitle: "Partage d'invitation",
+        });
+      });
     },
   },
   mounted(){

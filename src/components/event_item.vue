@@ -14,7 +14,9 @@
         {{ item.address }}
       </div>
     </div>
-    <ion-button size="small" expand="full" fill="clear"
+    <ion-button size="small"
+      expand="full" fill="clear"
+      class="ion-no-padding"
       @click.stop="emitScan">
       <ion-icon color="dark" slot="icon-only" :src="getIcon('qrCode')"/>
     </ion-button>
