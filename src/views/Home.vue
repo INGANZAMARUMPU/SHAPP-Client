@@ -17,6 +17,10 @@
       <ion-popover trigger="menu-toggler" dismiss-on-select="true" show-backdrop="false">
         <ion-content>
           <ion-list lines="none">
+            <ion-item button>
+              <ion-label>Achat Credits</ion-label>
+              <ion-icon :src="getIcon('cashOutline')"/>
+            </ion-item>
             <ion-item button @click="logOut">
               <ion-label>Deconnexion</ion-label>
               <ion-icon :src="getIcon('powerOutline')"/>

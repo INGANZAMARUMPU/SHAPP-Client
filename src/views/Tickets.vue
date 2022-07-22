@@ -43,7 +43,7 @@
               Place {{ i }}
               <ion-button size=small fill="clear"
                 @click="share(generateP(place.nom,i))"
-                class="ion-no-padding">
+                class="ion-no-padding share">
                 <ion-icon slot="icon-only" :icon="getIcon('shareSocial')"/>
               </ion-button>
             </div>
@@ -107,7 +107,7 @@ export default {
         });
       }).then((uriResult) => {
         Share.share({
-          text: `Ça c'est votre invitation dans l'evenement`,
+          text: `Salut!\n\nCeci est votre invitation dans l'evenement\n\n*${this.evenemt.nom}*`,
           title: 'Votre invitation',
           url: uriResult.uri,
           dialogTitle: "Partage d'invitation",
@@ -145,7 +145,7 @@ h3{
   justify-content: center;
   align-items: center;
 }
-ion-button{
+.share{
   font-size: 9px;
   margin-left: 5px;
 }

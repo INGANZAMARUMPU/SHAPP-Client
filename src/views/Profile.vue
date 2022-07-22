@@ -28,15 +28,31 @@
             @IonChange="prenom=$event.target.value"
             clearInput/>
         </ion-item>
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Pays</ion-label>
+          <ion-select
+            multiple="false"
+            @IonChange="pays=$event.target.value"
+            cancel-text="laisser" ok-text="Choisir">
+            <ion-select-option value="+250">
+              Rwanda
+            </ion-select-option>
+            <ion-select-option value="+256">
+              RDC
+            </ion-select-option>
+            <ion-select-option value="+257">
+              Burundi
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
         <div style="display: flex; padding: 10px;">
-          <select v-model="pays" style="padding: 5px 10px; margin-right:5px">
-            <option value="rwanda">+250</option>
-            <option value="rdc">+256</option>
-            <option value="burundi">+257</option>
-          </select>
-          <input type="tel" v-model="telephone"
-            placeholder="Numéro de téléphone" 
-            style="padding: 5px 10px; flex-grow: 1;">
+          <input
+            type="text" v-model="pays"
+            style="text-align: center;width:70px; margin-right: 5px;">
+          <input
+            type="tel" v-model="telephone"
+            placeholder="Numéro de télephone" 
+            style="padding: 5px 10px; width:100px; flex-grow: 1;">
         </div>
         <br>
         <ion-item-divider color="light">INFORMATIONS DE CONNEXION</ion-item-divider>
@@ -71,7 +87,7 @@ export default {
       telephone: "",
       username: "",
       password: "",
-      pays:"burundi"
+      pays:""
     }
   },
   methods:{
