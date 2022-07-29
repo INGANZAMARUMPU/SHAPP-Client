@@ -17,7 +17,7 @@
         </ion-button>
         <ion-button fill=clear @click="save">Verifier</ion-button>
       </ion-col>
-    </div>
+    </div>  
   </div>
 </template>
 

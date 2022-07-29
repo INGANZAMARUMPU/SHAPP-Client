@@ -4,11 +4,12 @@
       <h3>Confirmation</h3>
       <div class="content">
         <div>
-          <p>Une code de confirmation de 6 chiffres a été envoyé au numero</p>
+          <p>Une code de confirmation de 6 chiffres sera envoyé au numero</p>
           <ion-col class="phone">
             <h5>{{ item.telephone }}</h5>        
             <ion-button fill=clear size="small"
-              @click="changePhoneNumber"
+              @click="toggleChangePhoneNumber"
+              v-if="!code_sent"
               color="secondary" class="ion-no-padding">
               {{ changing?'laisser':'changer' }}
             </ion-button>
@@ -43,11 +44,16 @@
               style="padding: 5px 10px; width:100px; flex-grow: 1;">
           </div>
         </div>
-        <div v-else>
-          <p>Veuillez le saisir ici</p>
-          <input type="text" name="" placeholder="------"
-            class="confirm" v-model="confirm_code">
-        </div>
+        <ion-col class="ion-no-padding" v-else>
+          <div v-if="code_sent">
+            <p>Veuillez le saisir ici</p>
+            <input type="text" name="" placeholder="------"
+              class="confirm" v-model="confirm_code">
+          </div>
+          <ion-button expand=full v-else @click="sendOTP">
+            recevoir le code
+          </ion-button>
+        </ion-col>
       </div>
       <ion-col class="options">
         <ion-button fill=clear color="medium" @click="close">
@@ -79,6 +85,7 @@ export default {
       new_phone_number:"",
       telephone: "",
       pays:"",
+      code_sent:false
     }
   },
   methods: {
@@ -87,8 +94,14 @@ export default {
     },
     save(){
     },
-    changePhoneNumber(){
+    toggleChangePhoneNumber(){
       this.changing = !this.changing
+    },
+    changePhoneNumber(){
+    },
+    sendOTP(){
+      console.log('Receiving CODE')
+      this.code_sent = true
     }
   }
 };
@@ -102,9 +115,6 @@ export default {
 }
 .body{
   overflow-y: hidden;
-}
-.content{
-  overflow-y: auto;
 }
 input{
   width: 100%;
