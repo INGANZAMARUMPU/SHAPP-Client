@@ -6,7 +6,7 @@
         <div>
           <p>Une code de confirmation de 6 chiffres sera envoyé au numero</p>
           <ion-col class="phone">
-            <h5>{{ item.telephone }}</h5>        
+            <h5>{{ item.pays }} {{ item.telephone }}</h5>        
             <ion-button fill=clear size="small"
               @click="toggleChangePhoneNumber"
               v-if="!code_sent"
@@ -59,10 +59,10 @@
         <ion-button fill=clear color="medium" @click="close">
           Quitter
         </ion-button>
-        <ion-button fill=clear @click="save" v-if="changing">
+        <ion-button fill=clear v-show="changing" @click="changePhoneNumber">
           Changer
         </ion-button>
-        <ion-button fill=clear @click="save" v-else>
+        <ion-button fill=clear @click="save"  v-show="!changing">
           Verifier
         </ion-button>
       </ion-col>
@@ -98,6 +98,13 @@ export default {
       this.changing = !this.changing
     },
     changePhoneNumber(){
+      let user = JSON.parse(localStorage.getItem("unvalidated_user"))
+      user.pays = this.pays
+      this.item.pays = this.pays
+      user.telephone = this.telephone
+      this.item.telephone = this.telephone
+      localStorage["unvalidated_user"] = JSON.stringify(user)
+      this.changing = false
     },
     sendOTP(){
       console.log('Receiving CODE')
