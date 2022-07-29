@@ -46,7 +46,7 @@
         </div>
         <ion-col class="ion-no-padding" v-else>
           <div v-if="code_sent">
-            <p>Veuillez le saisir ici</p>
+            <p>Veuillez saisir le code ici</p>
             <input type="text" name="" placeholder="------"
               class="confirm" v-model="confirm_code">
           </div>
@@ -62,7 +62,7 @@
         <ion-button fill=clear v-show="changing" @click="changePhoneNumber">
           Changer
         </ion-button>
-        <ion-button fill=clear @click="save"  v-show="!changing">
+        <ion-button fill=clear @click="checkOTP"  v-show="!changing">
           Verifier
         </ion-button>
       </ion-col>
@@ -88,6 +88,13 @@ export default {
       code_sent:false
     }
   },
+  watch:{
+    confirm_code(new_val){
+      if(new_val.length > 6){
+        this.confirm_code = new_val.substring(0, 6)
+      }
+    }
+  },
   methods: {
     close(){
       this.$emit("close")
@@ -109,6 +116,18 @@ export default {
     sendOTP(){
       console.log('Receiving CODE')
       this.code_sent = true
+    },
+    checkOTP(){
+      let data = {
+        phone: this.item.pays+this.item.telephone,
+        otp: this.confirm_code
+      }
+      axios.post(this.url+"/verifyotp", data)
+      .then((response) => {
+        console.log(response.data)
+      }).catch((error) => {
+        console.error(error);
+      })
     }
   }
 };

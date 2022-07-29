@@ -120,7 +120,7 @@ export default {
         password: this.password,
         pays: this.pays
       }
-      localStorage["unvalidated_user"] = JSON.stringify(unvalidated_user)
+      localStorage["unvalidated_user"] = JSON.stringify(this.unvalidated_user)
     }
   },
   mounted(){

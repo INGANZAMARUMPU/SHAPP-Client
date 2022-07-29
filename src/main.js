@@ -145,6 +145,9 @@ app.mixin({
           "Authorization":"Bearer "+this.$store.state.user.access
         }
       }
+    },
+    url(){
+      return this.$store.state.url
     }
   }
 })
