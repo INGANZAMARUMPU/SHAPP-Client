@@ -3,7 +3,7 @@
 }
 .menu-content {
 	height: 100%;
-  overflow: auto;
+	overflow: auto;
 }
 ion-fab-button {
 	position: absolute;

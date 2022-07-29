@@ -4,19 +4,61 @@
       <h3>Confirmation</h3>
       <div class="content">
         <div>
-          Une code de confirmation de 6 chiffres a été envoyé au numero
-          <h5>{{ item.telephone }}</h5>
-          Veuillez le saisir ici
+          <p>Une code de confirmation de 6 chiffres a été envoyé au numero</p>
+          <ion-col class="phone">
+            <h5>{{ item.telephone }}</h5>        
+            <ion-button fill=clear size="small"
+              @click="changePhoneNumber"
+              color="secondary" class="ion-no-padding">
+              {{ changing?'laisser':'changer' }}
+            </ion-button>
+          </ion-col>
         </div>
-        <div>
-          <input type="text" name="" v-model="confirm_code">
+        <div v-if="changing">
+          <ion-item class="ion-no-padding">
+            <ion-label position="floating">Pays</ion-label>
+            <ion-select
+              multiple="false"
+              :value="pays"
+              @IonChange="pays=$event.target.value"
+              cancel-text="laisser" ok-text="Choisir">
+              <ion-select-option value="+250">
+                Rwanda
+              </ion-select-option>
+              <ion-select-option value="+256">
+                RDC
+              </ion-select-option>
+              <ion-select-option value="+257">
+                Burundi
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div style="display: flex; padding: 10px 0;">
+            <input
+              type="text" v-model="pays"
+              style="text-align: center;width:90px; margin-right: 5px;">
+            <input
+              type="tel" v-model="telephone"
+              placeholder="Numéro de télephone" 
+              style="padding: 5px 10px; width:100px; flex-grow: 1;">
+          </div>
+        </div>
+        <div v-else>
+          <p>Veuillez le saisir ici</p>
+          <input type="text" name="" placeholder="------"
+            class="confirm" v-model="confirm_code">
         </div>
       </div>
       <ion-col class="options">
         <ion-button fill=clear color="medium" @click="close">
           Quitter
         </ion-button>
-        <ion-button fill=clear @click="save">Verifier</ion-button>
+        <ion-button fill=clear @click="save" v-if="changing">
+          Changer
+        </ion-button>
+        <ion-button fill=clear @click="save" v-else>
+          Verifier
+        </ion-button>
       </ion-col>
     </div>
   </div>
@@ -32,7 +74,11 @@ export default {
   },
   data(){
     return {
-      confirm_code:"",
+      confirm_code: "",
+      changing: false,
+      new_phone_number:"",
+      telephone: "",
+      pays:"",
     }
   },
   methods: {
@@ -40,6 +86,9 @@ export default {
       this.$emit("close")
     },
     save(){
+    },
+    changePhoneNumber(){
+      this.changing = !this.changing
     }
   }
 };
@@ -62,5 +111,18 @@ input{
   font-size: 1.2em;
   padding: 5px 15px;
   text-align: center;
+}
+.phone{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+h5{
+  margin: 0;
+}
+.confirm{
+  text-align: center;
+  letter-spacing: 10px;
+  font-size: 1.5em;
 }
 </style>
