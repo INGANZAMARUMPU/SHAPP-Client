@@ -53,6 +53,9 @@
             <p>Veuillez saisir le code ici</p>
             <input type="text" name="" placeholder="------"
               class="confirm" v-model="confirm_code">
+            <div class="right">
+              {{ remaining }}
+            </div>
           </div>
           <ion-button expand=full v-else @click="sendOTP">
             <ion-spinner v-if="sending_otp"
@@ -96,9 +99,10 @@ export default {
       new_phone_number:"",
       telephone: "",
       pays:"",
-      code_sent:this.item.code_sent,
+      code_sent:!!this.item?this.item.code_sent:false,
       sending_otp:false,
-      checking_otp:false
+      checking_otp:false,
+      remaining:60
     }
   },
   watch:{
@@ -113,6 +117,19 @@ export default {
         this.pays = new_val.pays
         this.telephone = new_val.telephone
       }
+    },
+    active(new_val){
+      if(this.code_sent){
+        this.countDown()
+      }
+    },
+    code_sent(new_val){
+      let user = JSON.parse(localStorage.getItem("unvalidated_user"))
+      user.code_sent = this.code_sent
+      localStorage["unvalidated_user"] = JSON.stringify(user)
+      if(new_val){
+        this.countDown()
+      }
     }
   },
   methods: {
@@ -123,6 +140,17 @@ export default {
     },
     toggleChangePhoneNumber(){
       this.changing = !this.changing
+    },
+    countDown(){
+      let vue = this
+      let counter = window.setInterval(() => {
+        vue.remaining -= 1
+        if(vue.remaining == 0){
+          window.clearInterval(counter)
+          vue.code_sent = false
+          vue.sending_otp = false
+        }
+      },1000)
     },
     changePhoneNumber(){
       let user = JSON.parse(localStorage.getItem("unvalidated_user"))
@@ -142,9 +170,6 @@ export default {
       axios.post(this.url+"/sendotp", data, this.formHeaders)
       .then((response) => {      
         this.code_sent = true
-        let user = JSON.parse(localStorage.getItem("unvalidated_user"))
-        user.code_sent = this.code_sent
-        localStorage["unvalidated_user"] = JSON.stringify(user)
       }).catch((error) => {
         console.error(error);
         this.makeToast("erreur", error.response.data)
@@ -164,6 +189,7 @@ export default {
 
       axios.post(this.url+"/verifyotp", data)
       .then((response) => {
+        this.makeToast("success", response.data)
         this.postUser()
       }).catch((error) => {
         console.error(error);
@@ -177,6 +203,7 @@ export default {
       delete(data["code_sent"])
       axios.post(this.url+"/user/register", data)
       .then((response) => {
+        this.makeToast("success", response.data)
         delete(localStorage["unvalidated_user"])
         this.$router.push("/login")
       }).catch((error) => {
@@ -186,6 +213,11 @@ export default {
       })
     }
   },
+  mounted(){
+    if(this.code_sent){
+      this.countDown()
+    }
+  }
 };
 </script>
 <style scoped>
@@ -225,5 +257,10 @@ h5{
   font-size: 2em;
   height: 50px;
   width: 50px;
+}
+.right{
+  text-align: right;
+  font-size: .8em;
+  color: var(--ion-color-primary);
 }
 </style>
