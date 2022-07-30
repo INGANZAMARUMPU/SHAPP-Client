@@ -72,6 +72,11 @@
           Verifier
         </ion-button>
       </ion-col>
+      <ion-spinner
+        v-if="checking_otp"
+        name="crescent"
+        color="primary"
+        class="centered"/>
     </div>
   </div>
 </template>
@@ -91,8 +96,9 @@ export default {
       new_phone_number:"",
       telephone: "",
       pays:"",
-      code_sent:false,
-      sending_otp:false
+      code_sent:this.item.code_sent,
+      sending_otp:false,
+      checking_otp:false
     }
   },
   watch:{
@@ -132,7 +138,7 @@ export default {
 
       let data = new FormData()
       data.append("phone", this.item.pays + this.item.telephone)
-      
+
       axios.post(this.url+"/sendotp", data, this.formHeaders)
       .then((response) => {      
         this.code_sent = true
@@ -141,20 +147,42 @@ export default {
         localStorage["unvalidated_user"] = JSON.stringify(user)
       }).catch((error) => {
         console.error(error);
+        this.makeToast("erreur", error.response.data)
       }).finally(() => {
         this.sending_otp = false
       })
     },
     checkOTP(){
-      let data = {
-        phone: this.item.pays+this.item.telephone,
-        otp: this.confirm_code
+      this.sending_otp = true
+      let data = new FormData()
+      if(this.confirm_code.length != 6){
+        this.makeToast("Veuillez saisir un code valide")
+        return
       }
+      data.append("phone", this.item.pays + this.item.telephone)
+      data.append("otp", this.confirm_code)
+
       axios.post(this.url+"/verifyotp", data)
       .then((response) => {
-        console.log(response.data)
+        this.postUser()
       }).catch((error) => {
         console.error(error);
+        this.makeToast("erreur", error.response.data)
+        this.sending_otp = false
+      })
+    },
+    postUser(){
+      this.sending_otp = true
+      let data = JSON.parse(JSON.stringify(this.item))
+      delete(data["code_sent"])
+      axios.post(this.url+"/user/register", data)
+      .then((response) => {
+        delete(localStorage["unvalidated_user"])
+        this.$router.push("/login")
+      }).catch((error) => {
+        console.error(error);
+        this.makeToast("erreur", error.response.data)
+        this.sending_otp = false
       })
     }
   },
@@ -188,5 +216,14 @@ h5{
   text-align: center;
   letter-spacing: 10px;
   font-size: 1.5em;
+}
+.centered{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  height: 50px;
+  width: 50px;
 }
 </style>
