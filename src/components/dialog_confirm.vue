@@ -55,6 +55,8 @@
               class="confirm" v-model="confirm_code">
           </div>
           <ion-button expand=full v-else @click="sendOTP">
+            <ion-spinner v-if="sending_otp"
+              name="crescent" color="light" style="margin: 0 10px;"/>
             recevoir le code
           </ion-button>
         </ion-col>
@@ -89,7 +91,8 @@ export default {
       new_phone_number:"",
       telephone: "",
       pays:"",
-      code_sent:false
+      code_sent:false,
+      sending_otp:false
     }
   },
   watch:{
@@ -101,6 +104,8 @@ export default {
     item(new_val){
       if(!!new_val){
         this.code_sent = new_val.code_sent
+        this.pays = new_val.pays
+        this.telephone = new_val.telephone
       }
     }
   },
@@ -123,11 +128,22 @@ export default {
       this.changing = false
     },
     sendOTP(){
-      console.log('Receiving CODE')
-      this.code_sent = true
-      let user = JSON.parse(localStorage.getItem("unvalidated_user"))
-      user.code_sent = this.code_sent
-      localStorage["unvalidated_user"] = JSON.stringify(user)
+      this.sending_otp = true
+
+      let data = new FormData()
+      data.append("phone", this.item.pays + this.item.telephone)
+      
+      axios.post(this.url+"/sendotp", data, this.formHeaders)
+      .then((response) => {      
+        this.code_sent = true
+        let user = JSON.parse(localStorage.getItem("unvalidated_user"))
+        user.code_sent = this.code_sent
+        localStorage["unvalidated_user"] = JSON.stringify(user)
+      }).catch((error) => {
+        console.error(error);
+      }).finally(() => {
+        this.sending_otp = false
+      })
     },
     checkOTP(){
       let data = {
