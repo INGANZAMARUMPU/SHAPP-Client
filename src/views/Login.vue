@@ -6,8 +6,8 @@
         <ion-icon :src="getIcon('person')" />
       </div>
       <h3>LOGIN</h3>
-      <input type="text" placeholder="Username">
-      <input type="text" placeholder="Password">
+      <input type="text" placeholder="Username" v-model="username">
+      <input type="text" placeholder="Password" v-model="password">
       <ion-button expand="block" @click="login">
         <ion-spinner v-if="loging_in"
           name="crescent" color="light" style="margin: 0 10px;"/>
@@ -31,33 +31,36 @@
 export default {
   data(){
     return {
-      username:"", password:"", logs:"", loging_in:false,
+      username:"", password:"", loging_in:false,
     }
   },
   methods:{
     login(){
-      this.$store.state.user = {
-        username: this.username,
-        password: this.password
+      this.loging_in = true
+      if(this.username.length < 3 || this.password.length < 3){
+        console.log(this.username, this.password)
+        this.makeToast("Vous devez saisir tout ces champs")
+        return
       }
-      if(this.$route.path == "/login"){
-        this.$router.push("/")
-      } else {
-        this.$router.push(this.$route.path)
+      let data = {
+        "username": this.username,
+        "password":this.password
       }
-      // this.logs = ""
-      // this.loging_in = true
-      // axios.post(this.url+"/login/", 
-      //   {"username": this.username, "password":this.password}
-      // ).then((response) => {
-      //   this.$store.state.user = response.data
-      //   this.$store.state.user.username = this.username
-      // }).catch((error) => {
-      //   console.log(error)
-      //   this.logs = this.cleanString(error.response.data)
-      // }).finally(() => {
-      //   this.loging_in = false
-      // })
+      axios.post(this.url+"/login/", data)
+      .then((response) => {
+        this.$store.state.user = response.data
+        this.$store.state.user.username = this.username
+        if(this.$route.path == "/login"){
+          this.$router.push("/")
+        } else {
+          this.$router.push(this.$route.path)
+        }
+      }).catch((error) => {
+        console.log(error)
+        this.makeToast("username or password are incorrect")
+      }).finally(() => {
+        this.loging_in = false
+      })
     },
   }
 }

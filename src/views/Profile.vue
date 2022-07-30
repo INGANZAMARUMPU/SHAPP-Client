@@ -40,7 +40,7 @@
             <ion-select-option value="+250">
               Rwanda
             </ion-select-option>
-            <ion-select-option value="+256">
+            <ion-select-option value="+243">
               RDC
             </ion-select-option>
             <ion-select-option value="+257">
