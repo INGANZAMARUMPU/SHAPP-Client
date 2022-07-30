@@ -23,6 +23,7 @@ export default {
   },
   watch:{
     "$store.state.user"(new_val){
+      localStorage["user"] = JSON.stringify(new_val)
       if(!new_val){
         this.$router.push("/login")
       }
