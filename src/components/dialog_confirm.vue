@@ -4,7 +4,11 @@
       <h3>Confirmation</h3>
       <div class="content">
         <div>
-          <p>Une code de confirmation de 6 chiffres sera envoyé au numero</p>
+          <p>
+            Une code de confirmation de 6 chiffres 
+            {{ code_sent?"a été":"sera" }}
+            envoyé au numero
+          </p>
           <ion-col class="phone">
             <h5>{{ item.pays }} {{ item.telephone }}</h5>        
             <ion-button fill=clear size="small"
@@ -93,6 +97,11 @@ export default {
       if(new_val.length > 6){
         this.confirm_code = new_val.substring(0, 6)
       }
+    },
+    item(new_val){
+      if(!!new_val){
+        this.code_sent = new_val.code_sent
+      }
     }
   },
   methods: {
@@ -116,6 +125,9 @@ export default {
     sendOTP(){
       console.log('Receiving CODE')
       this.code_sent = true
+      let user = JSON.parse(localStorage.getItem("unvalidated_user"))
+      user.code_sent = this.code_sent
+      localStorage["unvalidated_user"] = JSON.stringify(user)
     },
     checkOTP(){
       let data = {
@@ -129,7 +141,7 @@ export default {
         console.error(error);
       })
     }
-  }
+  },
 };
 </script>
 <style scoped>
