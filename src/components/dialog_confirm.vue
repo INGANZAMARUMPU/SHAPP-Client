@@ -179,11 +179,12 @@ export default {
     },
     checkOTP(){
       this.sending_otp = true
-      let data = new FormData()
       if(this.confirm_code.length != 6){
         this.makeToast("Veuillez saisir un code valide")
         return
       }
+      
+      let data = new FormData()
       data.append("phone", this.item.pays + this.item.telephone)
       data.append("otp", this.confirm_code)
 

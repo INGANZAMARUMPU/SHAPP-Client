@@ -7,7 +7,8 @@
       </div>
       <h3>LOGIN</h3>
       <input type="text" placeholder="Username" v-model="username">
-      <input type="text" placeholder="Password" v-model="password">
+      <input type="password" placeholder="Password"
+        v-model="password" @keyup.enter="login">
       <ion-button expand="block" @click="login">
         <ion-spinner v-if="loging_in"
           name="crescent" color="light" style="margin: 0 10px;"/>
@@ -42,11 +43,12 @@ export default {
         this.makeToast("Vous devez saisir tout ces champs")
         return
       }
-      let data = {
-        "username": this.username,
-        "password":this.password
-      }
-      axios.post(this.url+"/login/", data)
+      
+      let data = new FormData()
+      data.append("username", this.username)
+      data.append("password", this.password)
+
+      axios.post(this.url+"/login", data)
       .then((response) => {
         this.$store.state.user = response.data
         this.$store.state.user.username = this.username
