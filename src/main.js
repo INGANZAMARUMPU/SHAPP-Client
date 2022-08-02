@@ -147,6 +147,13 @@ app.mixin({
         }
       }
     },
+    force_json(){
+      return {
+        headers:{
+          "ContentType":"application/json"
+        }
+      }
+    },
     url(){
       return this.$store.state.url
     }

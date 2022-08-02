@@ -202,7 +202,7 @@ export default {
       this.sending_otp = true
       let data = JSON.parse(JSON.stringify(this.item))
       delete(data["code_sent"])
-      axios.post(this.url+"/user/register", data)
+      axios.post(this.url+"/user/register", data, this.force_json)
       .then((response) => {
         this.makeToast("success", response.data)
         localStorage.removeItem("unvalidated_user")

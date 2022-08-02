@@ -1,6 +1,11 @@
 <template>
   <ion-page>
     <ion-content>
+    <div class="logo">
+      <img class="un" src="/logo.png">
+      <img class="deux" src="/logo.png">
+      <img class="un" src="/logo.png">
+    </div>
     <div class="form">
       <div class="cercle">
         <ion-icon :src="getIcon('person')" />
@@ -68,6 +73,18 @@ export default {
 }
 </script>
 <style scoped>
+.logo{
+  position: fixed;
+  opacity: .1;
+  top: 0;
+  z-index: -1;
+}
+.logo .un{
+  transform: rotate(40deg) scale(1.5);
+}
+.logo .deux{
+  transform: scale(1.5);
+}
 .form {
   padding: 40px 30px 0 30px;
 }
