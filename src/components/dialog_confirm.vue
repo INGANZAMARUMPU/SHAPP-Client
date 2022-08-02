@@ -205,7 +205,7 @@ export default {
       axios.post(this.url+"/user/register", data)
       .then((response) => {
         this.makeToast("success", response.data)
-        delete(localStorage["unvalidated_user"])
+        localStorage.removeItem("unvalidated_user")
         this.$router.push("/login")
       }).catch((error) => {
         console.error(error);

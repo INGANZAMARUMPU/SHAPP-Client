@@ -126,8 +126,12 @@ export default {
   },
   mounted(){
     let str_unvalidated_user = localStorage["unvalidated_user"]
-    if(!!str_unvalidated_user && this.unvalidated_user.telephone){
+    try {
       this.unvalidated_user = JSON.parse(str_unvalidated_user)
+    } catch(e) {
+      return
+    }
+    if(!!this.unvalidated_user && !!this.unvalidated_user.telephone){
       this.nom = this.unvalidated_user.nom
       this.prenom = this.unvalidated_user.prenom
       this.telephone = this.unvalidated_user.telephone
