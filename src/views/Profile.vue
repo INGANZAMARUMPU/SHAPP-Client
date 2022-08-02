@@ -121,11 +121,12 @@ export default {
         pays: this.pays
       }
       localStorage["unvalidated_user"] = JSON.stringify(this.unvalidated_user)
+      this.confirm_shown = true
     }
   },
   mounted(){
     let str_unvalidated_user = localStorage["unvalidated_user"]
-    if(!!str_unvalidated_user){
+    if(!!str_unvalidated_user && this.unvalidated_user.telephone){
       this.unvalidated_user = JSON.parse(str_unvalidated_user)
       this.nom = this.unvalidated_user.nom
       this.prenom = this.unvalidated_user.prenom
@@ -135,6 +136,9 @@ export default {
       this.pays = this.unvalidated_user.pays
 
       this.confirm_shown = true
+    } else {
+      localStorage.removeItem("unvalidated_user")
+      this.confirm_shown = false
     }
   }
 }

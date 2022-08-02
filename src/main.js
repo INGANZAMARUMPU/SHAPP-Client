@@ -81,6 +81,7 @@ app.mixin({
             handler: () => {
               this.$store.state.user = null
               localStorage.removeItem('user')
+              localStorage.removeItem("unvalidated_user")
               this.$router.push("/")
             },
           },
