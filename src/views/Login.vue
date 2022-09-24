@@ -113,23 +113,6 @@ h3{
 .form>*{
   margin-bottom: 20px;
 }
-.cercle{
-  width: 120px;
-  height: 120px;
-  background-color: #eee;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-  margin: 40px auto 0 auto;
-  padding-top: 10px;
-  border: 2px solid white;
-  box-shadow: 0 0 0 2px var(--ion-color-primary);
-}
-.cercle>*{
-  font-size: 8em;
-  margin-left: -5px;
-  color: var(--ion-color-primary);
-}
 .center{
   text-align: center;
 }

@@ -147,6 +147,9 @@ app.mixin({
         }
       }
     },
+    user(){
+      return this.$store.state.user
+    },
     force_json(){
       return {
         headers:{

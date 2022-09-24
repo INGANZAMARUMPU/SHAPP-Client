@@ -4,7 +4,7 @@
       <ion-toolbar color="primary">
         <ion-title>SHAPP</ion-title>
         <ion-buttons slot="secondary">
-          <ion-button @click="showSearch">
+          <ion-button>
             <ion-icon slot="icon-only" :icon="getIcon('search')"/>
           </ion-button>
           <ion-button id="menu-toggler">
@@ -56,8 +56,6 @@
       :active = "scan_results_shown"
       :item = "scan_results"
       @close = "close"/>
-    <ion-searchbar show-cancel-button="always" debounce="0" id="searchbar"
-      @ionCancel="closeSearch" @search="search($event.target.value)"/>
   </ion-page>
 </template>
 
@@ -95,14 +93,6 @@ export default {
     },
   },
   methods:{
-    showSearch(){
-      let searchbar = document.getElementById("searchbar")
-      searchbar.classList.add("shown")
-    },
-    closeSearch(event){
-      let searchbar = document.getElementById("searchbar")
-      searchbar.classList.remove("shown")
-    },
     close(){
       this.event_shown = false
       this.scan_shown = false

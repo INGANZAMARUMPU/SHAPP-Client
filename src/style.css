@@ -1,6 +1,7 @@
 :host, :root{
 	--ion-color-primary: #5069A9;
 	--ion-background-color: #f5f5f5;
+	--secondary-color: #59a;
 }
 ion-fab-button {
 	position: absolute;
@@ -28,7 +29,7 @@ ion-fab-button {
 	border-radius: 5px;
 }
 h3{
-	font-weight: 700;
+	font-weight: 700!important;
 	text-align: center;
 	color: #333;
 	margin-top: 0;
@@ -74,6 +75,23 @@ ion-button{
   margin: -10px 0 0 -2px!important;
 }
 .url{
-  color: #59a;
+  color: var(--secondary-color);
   text-decoration: none;
+}
+.cercle{
+  width: 120px;
+  height: 120px;
+  background-color: #eee;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  margin: 40px auto 0 auto;
+  padding-top: 10px;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px var(--ion-color-primary);
+}
+.cercle>*{
+  font-size: 8em;
+  margin-left: -5px;
+  color: var(--ion-color-primary);
 }
