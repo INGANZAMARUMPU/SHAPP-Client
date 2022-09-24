@@ -7,6 +7,7 @@ import Profile from '../views/Profile.vue'
 import Tickets from '../views/Tickets.vue'
 import Password from '../views/Password.vue'
 import Credit from '../views/Credit.vue'
+import Event from '../views/Event.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home},
@@ -15,6 +16,7 @@ const routes = [
   { path: '/profile', name: 'profile', component: Profile},
   { path: '/tickets/:nom', name: 'tickets', component: Tickets},
   { path: '/credit', name: 'credit', component: Credit},
+  { path: '/event', name: 'event', component: Event},
 ]
 
 const router = createRouter({

@@ -37,7 +37,7 @@
       <EventItem v-for="item in events"
         :item="item"
         @scan="startScan"/>
-      <ion-fab-button class="todo-fab" @click="addEvent">
+      <ion-fab-button class="todo-fab" routerLink="event/">
         <ion-icon :src="getIcon('add')"></ion-icon>
       </ion-fab-button>
     </ion-content>
@@ -60,21 +60,18 @@
 </template>
 
 <script>
-import DialogEvent from "../components/dialog_event"
 import DialogScan from "../components/dialog_scan"
 import DialogResults from "../components/dialog_scan_results"
 import EventItem from "../components/event_item"
 
 export default {
   components:{
-    DialogEvent,
     EventItem,
     DialogScan,
     DialogResults,
   },
   data(){
     return {
-      event_shown:false,
       scan_shown:false,
       scan_results_shown:false,
       scan_results:null,
@@ -91,13 +88,9 @@ export default {
   },
   methods:{
     close(){
-      this.event_shown = false
       this.scan_shown = false
       this.scan_results_shown = false
       this.event = null
-    },
-    addEvent(){
-      this.event_shown = true
     },
     startScan(event){
       this.scan_shown = true
