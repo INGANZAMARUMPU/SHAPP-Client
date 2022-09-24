@@ -195,8 +195,4 @@ input, select{
 .greff ion-item::part(native) {
   margin-left: 40px;
 }
-.center{
-  margin: 10px;
-  text-align: center;
-}
 </style>

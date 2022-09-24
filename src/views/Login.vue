@@ -113,7 +113,4 @@ h3{
 .form>*{
   margin-bottom: 20px;
 }
-.center{
-  text-align: center;
-}
 </style>

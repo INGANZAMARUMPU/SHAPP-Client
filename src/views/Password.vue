@@ -39,13 +39,13 @@
           <ion-label position="floating">Confirmez le nouveau mot de passe (*)</ion-label>
           <ion-input type=password
             placeholder="Confirmez le nouveau mot de passe (*)"
-            :value="confir_password"
+            :value="confirm_password"
             @IonChange="password=$event.target.value" clearInput/>
         </ion-item>
         <ion-button expand="full" @click="changePassword" style="margin-top: 40px;">
           <ion-spinner v-if="loging_in"
             name="crescent" color="light" style="margin: 0 10px;"/>
-          S'identifier
+          Confirmer
         </ion-button>
       </div>
     </ion-content>
@@ -59,7 +59,7 @@ export default {
     return {
       old_password:"",
       new_password:"",
-      confir_password:""
+      confirm_password:""
     }
   },
   methods:{
