@@ -27,7 +27,7 @@ ion-fab-button {
 	background-color: white;
 	border-radius: 5px;
 }
-.dialog h3{
+h3{
 	font-weight: 700;
 	text-align: center;
 	color: #333;
@@ -63,4 +63,17 @@ ion-item::part(native) {
 	background: #fff0;
 	border-bottom: 0;
 	margin-top: 5px;
+}
+ion-button{
+  height: 50px;
+  font-weight: 600;
+}
+.link{
+  height: 10px!important;
+  padding: 0;
+  margin: -10px 0 0 -2px!important;
+}
+.url{
+  color: #59a;
+  text-decoration: none;
 }

@@ -87,7 +87,7 @@
           </ion-button>
         </div>
         <div class="center" style="margin-top: 30px;">
-          <a class="url" href="https://shapp.jkm-tech.com">
+          <a class="url" href="https://shapp.jkm-tech.com" target="_blank">
             Visitez : https://shapp.jkm-tech.com
           </a>
         </div>
@@ -166,8 +166,6 @@ export default {
 <style scoped>
 ion-button{
   margin: 10px;
-  height: 50px;
-  font-weight: 600;
 }
 ion-label label{
   font-weight: 650;
@@ -200,14 +198,5 @@ input, select{
 .center{
   margin: 10px;
   text-align: center;
-}
-.url{
-  color: #59a;
-  text-decoration: none;
-}
-.link{
-  height: 10px!important;
-  padding: 0;
-  margin: -10px 0 0 -2px;
 }
 </style>

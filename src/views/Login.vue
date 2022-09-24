@@ -7,26 +7,44 @@
       <img class="un" src="/logo.png">
     </div>
     <div class="form">
+      <h3>Content de te revoir !</h3>
       <div class="cercle">
-        <ion-icon :src="getIcon('person')" />
+        <img class="un" src="/logo.png">
       </div>
-      <h3>LOGIN</h3>
-      <input type="text" placeholder="Username" v-model="username">
-      <input type="password" placeholder="Password"
-        v-model="password" @keyup.enter="login">
-      <ion-button expand="block" @click="login">
+      <br><br>
+      <ion-item class="ion-no-padding">
+        <ion-label position="floating">Tapez Nom d’utilisateur (*)</ion-label>
+        <ion-input type="text"
+          placeholder="Tapez Nom d’utilisateur (*)"
+          :value="username"
+          @IonChange="username=$event.target.value"
+          clearInput/>
+      </ion-item>
+      <ion-item class="ion-no-padding">
+        <ion-label position="floating">Tapez Mot de passe (*)</ion-label>
+        <ion-input type=password
+          placeholder="Tapez Mot de passe (*)"
+          :value="password"
+          @IonChange="password=$event.target.value" clearInput/>
+      </ion-item>
+      <ion-button expand="full" @click="login">
         <ion-spinner v-if="loging_in"
           name="crescent" color="light" style="margin: 0 10px;"/>
-        CONNEXION
+        S'identifier
       </ion-button>
-      <div>
+      <div class="center">
         Besoin d'un compte?
-        <br>
         <ion-button fill="clear"
+          class="ion-no-padding link"
           size="small" color="primary"
           routerLink="/profile">
           s'incrire
         </ion-button>
+      </div>
+      <div class="center" style="margin-top: 30px;">
+        <a class="url" href="https://shapp.jkm-tech.com" target="_blank">
+          Visitez : https://shapp.jkm-tech.com
+        </a>
       </div>
     </div>
     </ion-content>
@@ -86,16 +104,13 @@ export default {
   transform: scale(1.5);
 }
 .form {
-  padding: 40px 30px 0 30px;
+  padding: 40px 30px 30px 30px;
 }
 h3{
-  color: var(--ion-color-primary);
+  font-weight: 700;
 }
 .form>*{
-  display: block;
   margin-bottom: 20px;
-  width: 100%;
-  text-align: center;
 }
 .cercle{
   width: 120px;
@@ -114,9 +129,7 @@ h3{
   margin-left: -5px;
   color: var(--ion-color-primary);
 }
-.form>input{
-  border: 2px solid var(--ion-color-primary);
-  padding: 5px 0;
-  border-radius: 5px;
+.center{
+  text-align: center;
 }
 </style>
