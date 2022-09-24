@@ -21,6 +21,10 @@
               <ion-label>Achat Credits</ion-label>
               <ion-icon :src="getIcon('cashOutline')"/>
             </ion-item>
+            <ion-item button routerLink="/password">
+              <ion-label>Mot de passe</ion-label>
+              <ion-icon :src="getIcon('pencil')"/>
+            </ion-item>
             <ion-item button @click="logOut">
               <ion-label>Deconnexion</ion-label>
               <ion-icon :src="getIcon('powerOutline')"/>

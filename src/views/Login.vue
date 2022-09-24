@@ -12,7 +12,7 @@
         <img class="un" src="/logo.png">
       </div>
       <br><br>
-      <ion-item class="ion-no-padding">
+      <ion-item class="round ion-no-padding">
         <ion-label position="floating">Tapez Nom d’utilisateur (*)</ion-label>
         <ion-input type="text"
           placeholder="Tapez Nom d’utilisateur (*)"
@@ -20,7 +20,7 @@
           @IonChange="username=$event.target.value"
           clearInput/>
       </ion-item>
-      <ion-item class="ion-no-padding">
+      <ion-item class="round ion-no-padding">
         <ion-label position="floating">Tapez Mot de passe (*)</ion-label>
         <ion-input type=password
           placeholder="Tapez Mot de passe (*)"
@@ -64,6 +64,7 @@ export default {
       if(this.username.length < 3 || this.password.length < 3){
         console.log(this.username, this.password)
         this.makeToast("Vous devez saisir tout ces champs")
+        this.loging_in = false
         return
       }
       

@@ -5,10 +5,12 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
 import Tickets from '../views/Tickets.vue'
+import Password from '../views/Password.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home},
   { path: '/login', name: 'login', component: Login},
+  { path: '/password', name: 'password', component: Password},
   { path: '/profile', name: 'profile', component: Profile},
   { path: '/tickets/:nom', name: 'tickets', component: Tickets},
 ]

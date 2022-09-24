@@ -4,7 +4,7 @@
       <h3>Bienvenue à bord !</h3>
       <div class="center">Nous vous aidons à accomplir vos tâches sans vous déplacer</div>
       <ion-col>
-        <ion-item class="ion-no-padding">
+        <ion-item class="round ion-no-padding">
           <ion-label position="floating">Tapez votre Nom (*)</ion-label>
           <ion-input type="text"
             placeholder="Tapez votre Nom (*)"
@@ -12,7 +12,7 @@
             @IonChange="nom=$event.target.value"
             clearInput/>
         </ion-item>
-        <ion-item class="ion-no-padding">
+        <ion-item class="round ion-no-padding">
           <ion-label position="floating">Tapez votre Prénom (*)</ion-label>
           <ion-input type="text"
             placeholder="Tapez votre Prénom (*)"
@@ -20,7 +20,7 @@
             @IonChange="prenom=$event.target.value"
             clearInput/>
         </ion-item>
-        <ion-item class="ion-no-padding">
+        <ion-item class="round ion-no-padding">
           <ion-label position="floating">Choisir votre pays ex. RDC (*)</ion-label>
           <ion-select
             multiple="false"
@@ -42,7 +42,7 @@
           <label class="greffon">
             {{ pays }}
           </label>
-          <ion-item class="ion-no-padding">
+          <ion-item class="round ion-no-padding">
             <ion-label position="floating">Numéro de téléphone (*)</ion-label>
             <ion-input type="text"
               placeholder="Numéro de téléphone (*)"
@@ -51,7 +51,7 @@
               clearInput/>
           </ion-item>
         </div>
-        <ion-item class="ion-no-padding">
+        <ion-item class="round ion-no-padding">
           <ion-label position="floating">Tapez votre adresse mail</ion-label>
           <ion-input type="email"
             placeholder="Tapez votre adresse mail"
@@ -59,7 +59,7 @@
             @IonChange="email=$event.target.value"
             clearInput/>
         </ion-item>
-        <ion-item class="ion-no-padding">
+        <ion-item class="round ion-no-padding">
           <ion-label position="floating">Tapez Nom d’utilisateur (*)</ion-label>
           <ion-input type="text"
             placeholder="Tapez Nom d’utilisateur (*)"
@@ -67,7 +67,7 @@
             @IonChange="username=$event.target.value"
             clearInput/>
         </ion-item>
-        <ion-item class="ion-no-padding">
+        <ion-item class="round ion-no-padding">
           <ion-label position="floating">Tapez Mot de passe (*)</ion-label>
           <ion-input type=password
             placeholder="Tapez Mot de passe (*)"
