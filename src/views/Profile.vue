@@ -1,37 +1,27 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar color="primary">
-          <ion-buttons slot="start">
-            <ion-button slot="start" routerLink="/login">
-              <ion-icon :src="getIcon('arrowBack')"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        <ion-title>SHAPP</ion-title>
-      </ion-toolbar>
-    </ion-header>
     <ion-content>
-      <h3>Créez Votre profile SHAPP</h3>
+      <h3>Bienvenue à bord !</h3>
+      <div class="center">Nous vous aidons à accomplir vos tâches sans vous déplacer</div>
       <ion-col>
-        <ion-item-divider color="light">PROFILE BASIC</ion-item-divider>
         <ion-item class="ion-no-padding">
-          <ion-label position="floating">Nom</ion-label>
+          <ion-label position="floating">Tapez votre Nom (*)</ion-label>
           <ion-input type="text"
-            placeholder="Nom"
+            placeholder="Tapez votre Nom (*)"
             :value="nom"
             @IonChange="nom=$event.target.value"
             clearInput/>
         </ion-item>
         <ion-item class="ion-no-padding">
-          <ion-label position="floating">Prenom</ion-label>
+          <ion-label position="floating">Tapez votre Prénom (*)</ion-label>
           <ion-input type="text"
-            placeholder="Prenom"
+            placeholder="Tapez votre Prénom (*)"
             :value="prenom"
             @IonChange="prenom=$event.target.value"
             clearInput/>
         </ion-item>
         <ion-item class="ion-no-padding">
-          <ion-label position="floating">Pays</ion-label>
+          <ion-label position="floating">Choisir votre pays ex. RDC (*)</ion-label>
           <ion-select
             multiple="false"
             :value="pays"
@@ -48,36 +38,59 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <div style="display: flex; padding: 10px;">
-          <input
-            type="text" v-model="pays"
-            style="text-align: center;width:70px; margin-right: 5px;">
-          <input
-            type="tel" v-model="telephone"
-            placeholder="Numéro de télephone" 
-            style="padding: 5px 10px; width:100px; flex-grow: 1;">
+        <div class="greff">
+          <label class="greffon">
+            {{ pays }}
+          </label>
+          <ion-item class="ion-no-padding">
+            <ion-label position="floating">Numéro de téléphone (*)</ion-label>
+            <ion-input type="text"
+              placeholder="Numéro de téléphone (*)"
+              :value="telephone"
+              @IonChange="telephone=$event.target.value"
+              clearInput/>
+          </ion-item>
         </div>
-        <br>
-        <ion-item-divider color="light">INFORMATIONS DE CONNEXION</ion-item-divider>
         <ion-item class="ion-no-padding">
-          <ion-label position="floating">Nom d'utilisateur</ion-label>
+          <ion-label position="floating">Tapez votre adresse mail</ion-label>
+          <ion-input type="email"
+            placeholder="Tapez votre adresse mail"
+            :value="email"
+            @IonChange="email=$event.target.value"
+            clearInput/>
+        </ion-item>
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Tapez Nom d’utilisateur (*)</ion-label>
           <ion-input type="text"
-            placeholder="Username"
+            placeholder="Tapez Nom d’utilisateur (*)"
             :value="username"
             @IonChange="username=$event.target.value"
             clearInput/>
         </ion-item>
         <ion-item class="ion-no-padding">
-          <ion-label position="floating">Mot de passe</ion-label>
+          <ion-label position="floating">Tapez Mot de passe (*)</ion-label>
           <ion-input type=password
-            placeholder="Password"
+            placeholder="Tapez Mot de passe (*)"
             :value="password"
             @IonChange="password=$event.target.value" clearInput/>
         </ion-item>
-        <br>
-        <ion-button color="primary" expand="block" @click="save">
-          Valider
+        <ion-button color="primary" expand="full" @click="save">
+          S'inscrire
         </ion-button>
+        <div class="center">
+          Vous avez déjà un compte ?
+          <ion-button
+            size="small"  fill="clear"
+            routerLink="/login"
+            class="ion-no-padding link">
+            S'identifier
+          </ion-button>
+        </div>
+        <div class="center" style="margin-top: 30px;">
+          <a class="url" href="https://shapp.jkm-tech.com">
+            Visitez : https://shapp.jkm-tech.com
+          </a>
+        </div>
       </ion-col>
     </ion-content>
     <DialogConfirm
@@ -99,6 +112,7 @@ export default {
       nom: "",
       prenom: "",
       telephone: "",
+      email: "",
       username: "",
       password: "",
       pays:"",
@@ -116,6 +130,7 @@ export default {
         nom: this.nom,
         prenom: this.prenom,
         telephone: this.telephone,
+        email: this.email,
         username: this.username,
         password: this.password,
         pays: this.pays
@@ -135,6 +150,7 @@ export default {
       this.nom = this.unvalidated_user.nom
       this.prenom = this.unvalidated_user.prenom
       this.telephone = this.unvalidated_user.telephone
+      this.email = this.unvalidated_user.email
       this.username = this.unvalidated_user.username
       this.password = this.unvalidated_user.password
       this.pays = this.unvalidated_user.pays
@@ -150,6 +166,8 @@ export default {
 <style scoped>
 ion-button{
   margin: 10px;
+  height: 50px;
+  font-weight: 600;
 }
 ion-label label{
   font-weight: 650;
@@ -159,11 +177,37 @@ ion-label label{
 }
 h3{
   text-align: center;
+  font-weight: 700;
 }
 .ion-no-padding{
-  margin: 0 10px;
+  margin: 10px;
 }
 input, select{
   padding: 5 10px!important;
+}
+.greff{
+  position: relative;
+}
+.greff .greffon{
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+  left: 40px;
+}
+.greff ion-item::part(native) {
+  margin-left: 40px;
+}
+.center{
+  margin: 10px;
+  text-align: center;
+}
+.url{
+  color: #59a;
+  text-decoration: none;
+}
+.link{
+  height: 10px!important;
+  padding: 0;
+  margin: -10px 0 0 -2px;
 }
 </style>

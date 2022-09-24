@@ -1,9 +1,6 @@
 :host, :root{
-	--ion-color-primary: #3880ff;
-}
-.menu-content {
-	height: 100%;
-	overflow: auto;
+	--ion-color-primary: #5069A9;
+	--ion-background-color: #f5f5f5;
 }
 ion-fab-button {
 	position: absolute;
@@ -51,4 +48,19 @@ ion-searchbar{
 ion-searchbar.shown{
   transform: scaleX(1);
   transition: transform 400ms ease 0ms;
+}
+ion-item {
+	border-radius: 30px !important;
+	padding-left: 30px !important;
+	font-size: 0.9em;
+	border: 1px solid #ffffff;
+	border-bottom: 0px !important;
+	box-shadow: none !important;
+	background-color: white;
+	height: 60px;
+}
+ion-item::part(native) {
+	background: #fff0;
+	border-bottom: 0;
+	margin-top: 5px;
 }
