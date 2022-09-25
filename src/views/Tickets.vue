@@ -36,7 +36,8 @@
         <ion-item-divider color="light">{{ place.nom.toUpperCase() }}</ion-item-divider>
         <div class="qrs">
           <div class="item" v-for="i in place.nombre">
-            <div class="qr">
+            <div class="qr ion-activatable ripple-parent">
+              <ion-ripple-effect/>
               <img :id="generateP(place.nom,i)" class="qr_img"/>
             </div>
             <div class="descr">
@@ -139,6 +140,7 @@ h3{
   height: 90px;
   background-color: #ddd;
   border: 2px solid #aaa;
+  position: relative;
 }
 .descr{
   display: flex;
@@ -148,5 +150,11 @@ h3{
 .share{
   font-size: 9px;
   margin-left: 5px;
+}
+ion-button{
+  height: 30px;
+}
+img{
+  width: 100%;
 }
 </style>
