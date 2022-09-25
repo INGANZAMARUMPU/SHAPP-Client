@@ -41,16 +41,9 @@
         <ion-icon :src="getIcon('add')"></ion-icon>
       </ion-fab-button>
     </ion-content>
-    <DialogEvent
-      :active = "event_shown"
-      :item = "event"
-      @close = "close"/>
     <DialogScan
       :active = "scan_shown"
       @scanned = "displayInfos"
-      @close = "close"/>
-    <DialogCredit
-      :active = "credit_shown"
       @close = "close"/>
     <DialogResults
       :active = "scan_results_shown"

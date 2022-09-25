@@ -36,7 +36,8 @@
         <ion-item-divider color="light">{{ place.nom.toUpperCase() }}</ion-item-divider>
         <div class="qrs">
           <div class="item" v-for="i in place.nombre">
-            <div class="qr ion-activatable ripple-parent">
+            <div class="qr ion-activatable ripple-parent"
+              @click="affecter(place, i)">
               <ion-ripple-effect/>
               <img :id="generateP(place.nom,i)" class="qr_img"/>
             </div>
@@ -52,8 +53,10 @@
         </div>
       </ion-col>
     </ion-content>
-    <ion-searchbar show-cancel-button="always" debounce="0" id="ticketsearch"
-      @ionCancel="closeSearch" @search="search($event.target.value)"/>
+    <DialogAffectation
+      :active = "affect_shown"
+      :item = "current_item"
+      @close = "close"/>
   </ion-page>
 </template>
 
@@ -61,12 +64,15 @@
 import QRCode from 'qrcode'
 import { Share } from '@capacitor/share';
 import { Directory, Filesystem } from '@capacitor/filesystem';
+import DialogAffectation from "../components/dialog_affectation"
 
 export default {
-  components:{ },
+  components:{ DialogAffectation },
   data(){
     return {
-      evenemt:{}
+      evenemt:{},
+      affect_shown:false,
+      item:null
     }
   },
   methods:{
@@ -75,6 +81,14 @@ export default {
         'nom':nom,
         'no':no
       })
+    },
+    affecter(place, i){
+      this.affect_shown = true
+      this.item = {"place":place, "no":no}
+    },
+    close(){
+      this.affect_shown = false
+      this.item = null
     },
     showSearch(){
       let searchbar = document.getElementById("ticketsearch")
