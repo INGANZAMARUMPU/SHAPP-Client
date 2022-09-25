@@ -4,7 +4,7 @@
       <ion-toolbar color="primary">
         <ion-title>SHAPP</ion-title>
         <ion-buttons slot="secondary">
-          <ion-button>
+          <ion-button routerLink="search">
             <ion-icon slot="icon-only" :icon="getIcon('search')"/>
           </ion-button>
           <ion-button id="menu-toggler">
