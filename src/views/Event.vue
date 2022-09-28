@@ -33,10 +33,10 @@
       </ion-item>
       <ion-item class="round ion-no-padding" id="time">
         <ion-label>L'heure de l’événement (*)</ion-label>
-        <ion-input class="ion-text-end" :value="formatedDate(date)"/>
+        <ion-input class="ion-text-end" :value="formatedTime(time)"/>
         <ion-popover trigger="time" size="cover">
           <ion-datetime
-            @ionChange="chooseDate"
+            @ionChange="chooseTime"
             presentation="time"
             :value="time"/>
         </ion-popover>
@@ -135,6 +135,7 @@ export default {
     return {
       nom:"",
       date:"",
+      time:"",
       address:"",
       time:"",
       email:"",
@@ -180,6 +181,10 @@ export default {
     },
     chooseDate(event){
       this.date = event.target.value
+      popoverController.dismiss()
+    },
+    chooseTime(event){
+      this.time = event.target.value
       popoverController.dismiss()
     },
     loadImage(event){

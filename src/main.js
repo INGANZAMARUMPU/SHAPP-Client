@@ -103,6 +103,14 @@ app.mixin({
         { dateStyle: 'short' }
       ).format(date)
     },
+    formatedTime(x) {
+      if(!x) return "-"
+      let date = new Date(x);
+      return new Intl.DateTimeFormat(
+        'en-GB',
+        { timeStyle: 'short' }
+      ).format(date)
+    },
     makeToast(title, message, duration=5000){
       toastController.create({
         header: title,
