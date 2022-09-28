@@ -43,7 +43,7 @@ export default {
 </script>
 <style scoped>
 ion-content>*{
-  margin: 20px;
+  margin: 20px 20px 0 20px;
 }
 .infos{
   font-weight: 550;

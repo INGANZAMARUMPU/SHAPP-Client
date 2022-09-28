@@ -57,6 +57,7 @@ export default {
   display: flex;
   margin: 0;
   align-items: center;
+  padding: 10px;
 }
 ion-button{
   margin: 0;
@@ -72,6 +73,7 @@ ion-button{
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
+  background-color: #ccc;
 }
 img{
   min-height: 100%;

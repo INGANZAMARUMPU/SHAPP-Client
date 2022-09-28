@@ -19,27 +19,25 @@
           @IonChange="nom=$event.target.value"
           :value="nom" clearInput/>
       </ion-item>
-      <ion-item class="round ion-no-padding">
+      <ion-item class="round ion-no-padding" id="date">
         <ion-label>Date de l’événement (*)</ion-label>
-        <ion-input id="date" class="ion-text-end" :value="formatedDate(date)"/>
+        <ion-input class="ion-text-end" :value="formatedDate(date)"/>
         <ion-popover trigger="date" size="cover">
           <ion-datetime
             @ionChange="chooseDate"
             presentation="date"
             :min="min_date"
             :max="max_date"
-            :value="date"/>
+            :v-model="date"/>
         </ion-popover>
       </ion-item>
-      <ion-item class="round ion-no-padding">
+      <ion-item class="round ion-no-padding" id="time">
         <ion-label>L'heure de l’événement (*)</ion-label>
-        <ion-input id="time" class="ion-text-end" :value="formatedDate(date)"/>
+        <ion-input class="ion-text-end" :value="formatedDate(date)"/>
         <ion-popover trigger="time" size="cover">
           <ion-datetime
             @ionChange="chooseDate"
             presentation="time"
-            :min="min_date"
-            :max="max_date"
             :value="time"/>
         </ion-popover>
       </ion-item>

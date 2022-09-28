@@ -4,29 +4,22 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#3880ff</item>
-        <item name="colorPrimaryDark">#3880ff</item>
+        <item name="colorPrimary">#5069A9</item>
+        <item name="colorPrimaryDark">#5069A9</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:alertDialogStyle">@style/CustomAlertDialogTheme</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:background">#fff</item>
-        <item name="android:statusBarColor" tools:targetApi="l">#3880ff</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#5069A9</item>
+        <item name="android:navigationBarColor">#5069A9</item>
     </style>
 
     <style name="AppTheme.NoActionBarLaunch" parent="AppTheme.NoActionBar">
-        <item name="android:background">#3880ff</item>
-        <item name="android:navigationBarColor">#3880ff</item>
-    </style>
-
-    <style name="CustomAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">#000</item>
-        <item name="android:textColor">#000</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:background">#5069A9</item>
+        <item name="android:navigationBarColor">#5069A9</item>
     </style>
 
 </resources>
