@@ -29,6 +29,10 @@
               <ion-label>Deconnexion</ion-label>
               <ion-icon :src="getIcon('powerOutline')"/>
             </ion-item>
+            <ion-item button routerLink="/about">
+              <ion-label>À propos de SHAPP</ion-label>
+              <ion-icon :src="getIcon('helpCircleOutline')"/>
+            </ion-item>
           </ion-list>
         </ion-content>
       </ion-popover>

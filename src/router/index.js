@@ -9,6 +9,7 @@ import Password from '../views/Password.vue'
 import Credit from '../views/Credit.vue'
 import Event from '../views/Event.vue'
 import Search from '../views/Search.vue'
+import About from '../views/About.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home},
@@ -19,6 +20,7 @@ const routes = [
   { path: '/credit', name: 'credit', component: Credit},
   { path: '/event', name: 'event', component: Event},
   { path: '/search', name: 'search', component: Search},
+  { path: '/about', name: 'about', component: About},
 ]
 
 const router = createRouter({
