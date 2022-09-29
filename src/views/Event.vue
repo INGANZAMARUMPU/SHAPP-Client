@@ -19,9 +19,9 @@
           @IonChange="nom=$event.target.value"
           :value="nom" clearInput/>
       </ion-item>
-      <ion-item class="round ion-no-padding" id="date">
-        <ion-label>Date de l’événement (*)</ion-label>
-        <ion-input class="ion-text-end" :value="formatedDate(date)"/>
+      <ion-item class="round dates ion-no-padding">
+        <ion-label id="date">Date de l’événement (*)</ion-label>
+        <div>{{ formatedDate(date)}}</div>
         <ion-popover trigger="date" size="cover">
           <ion-datetime
             @ionChange="chooseDate"
@@ -31,9 +31,9 @@
             :v-model="date"/>
         </ion-popover>
       </ion-item>
-      <ion-item class="round ion-no-padding" id="time">
-        <ion-label>L'heure de l’événement (*)</ion-label>
-        <ion-input class="ion-text-end" :value="formatedTime(time)"/>
+      <ion-item class="round dates ion-no-padding">
+        <ion-label id="time">L'heure de l’événement (*)</ion-label>
+        <div>{{ formatedTime(time) }}</div>
         <ion-popover trigger="time" size="cover">
           <ion-datetime
             @ionChange="chooseTime"
@@ -291,5 +291,14 @@ input[type=file]{
 }
 .options ion-button{
   height: 40px;
+}
+.dates{
+  padding: 10px 0 10px 0;
+}
+.dates ion-label{
+  margin: 5px 0 20px 0;
+}
+.dates div{
+  margin-top: -15px;
 }
 </style>

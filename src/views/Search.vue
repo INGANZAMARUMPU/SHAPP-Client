@@ -14,13 +14,15 @@
       <h3>Les evenements !</h3>
       <div class="body">
         <input class="field" type="text" placeholder="Zone de cherche" autofocus>
-        <ion-col
-          v-for="found in founds"
-          class="found button ion-no-padding ion-activatable ripple-parent">
-          <div class="option"></div>
-          <label>{{ found }}</label>
-          <ion-ripple-effect/>
-        </ion-col>
+        <div class="founds">
+          <ion-col
+            v-for="found in founds"
+            class="found button ion-no-padding ion-activatable ripple-parent">
+            <div class="option"></div>
+            <label>{{ found }}</label>
+            <ion-ripple-effect/>
+          </ion-col>
+        </div>
       </div>
       <ion-fab-button class="todo-fab" routerLink="event/">
         <ion-icon :src="getIcon('add')"></ion-icon>
@@ -78,5 +80,9 @@ h3{
   padding: 10px 5px;
   display: flex;
   align-items: center;
+}
+.founds{
+  height: calc(100% - 65px);
+  overflow-y: auto;
 }
 </style>
