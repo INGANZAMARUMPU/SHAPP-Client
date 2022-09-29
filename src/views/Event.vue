@@ -111,6 +111,11 @@
         </a>
         <ion-ripple-effect/>
       </ion-col>
+      <div class="field">
+        <label>Autres informations à faire savoir</label>
+        <textarea placeholder="Autres informations à faire savoir">
+        </textarea>
+      </div>
       <ion-col class="options">
         <ion-button expand="full" size="small" routerLink="/">
           ANULLER
@@ -239,8 +244,11 @@ export default {
 .options{
   padding-bottom: 0;
 }
-.ion-no-padding, .place{
+.ion-no-padding, .place, .field{
   margin: 10px;
+}
+textarea{
+  width: 100%;
 }
 .image{
   width: 100%;
