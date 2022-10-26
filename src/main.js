@@ -127,6 +127,28 @@ app.mixin({
         toast.present();
       });
     },
+    errorOrRefresh(error, callback){
+      if(!!error.response){
+        if(error.request.status == 403){ 
+          let refresh = this.user.refresh_token
+          if(!refresh){
+            this.$store.state.user = null;
+            return
+          }
+          axios.post(this.url+"/token/refresh", {"refresh":refresh})
+          .then((response) => {
+            this.$store.state.user.access_token = response.data.access_token
+            if(typeof callback == "function") callback()
+          }).catch((error) => {
+            this.$store.state.user = null;
+            console.error(error)
+            this.makeToast(this.cleanString(error.response.data))
+          })
+        } else {
+          this.makeToast(this.cleanString(error.response.data))
+        }
+      }
+    },
     cleanString(str){
       if (!str) return "";
       if(typeof(str)=='object'){
@@ -151,7 +173,7 @@ app.mixin({
     headers(){
       return {
         headers:{
-          "Authorization":"Bearer "+this.$store.state.user.access
+          "Authorization":"Bearer "+this.$store.state.user.access_token
         }
       }
     },

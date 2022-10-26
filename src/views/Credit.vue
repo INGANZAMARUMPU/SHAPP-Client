@@ -28,7 +28,7 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <div class="label">
+        <div class="label doubled">
           <div v-if="selected_agent">
             <div class="agent">{{ selected_agent.nomAgent }}</div>
             <div>{{ code_agent }}</div>
@@ -53,10 +53,10 @@
           <ion-input type=text
             placeholder="Tapez No de transaction apres retrait (*)"
             :value="num_transaction"
-            @IonChange="password=$event.target.value" clearInput/>
+            @IonChange="num_transaction=$event.target.value" clearInput/>
         </ion-item>
-        <ion-button expand="full" @click="changePassword" style="margin-top: 40px;">
-          <ion-spinner v-if="loging_in"
+        <ion-button expand="full" @click="postAchat" style="margin-top: 40px;">
+          <ion-spinner v-if="en_cours"
             name="crescent" color="light" style="margin: 0 10px;"/>
           Acheter
         </ion-button>
@@ -74,7 +74,8 @@ export default {
       credits:0,
       num_transaction:"",
       agents:[],
-      selected_agent: null
+      selected_agent: null,
+      en_cours: false
     }
   },
   watch:{
@@ -97,6 +98,23 @@ export default {
       }).catch((error) => {
         console.error(error);
       })
+    },
+    postAchat(){
+      this.en_cours = true
+      let data = {
+        "reseau": this.selected_agent.ssid,
+        "quantite": this.credits,
+        "reference_no": this.num_transaction
+      }
+      axios.post(this.url+`/credit/achat/${this.user.id}`, data, this.headers)
+      .then((response) => {
+        this.makeToast(response.data)
+        this.$router.push("/events")
+      }).catch((error) => {
+        this.errorOrRefresh(error, this.postAchat)
+      }).finally(() => {
+        this.en_cours = false
+      });
     }
   },
   mounted(){
@@ -115,9 +133,12 @@ export default {
   background-color: white;
   border-radius: 30px;
   height: 60px;
-  padding: 15px;
+  padding: 25px;
   text-align: center;
   font-weight: 700;
+}
+.label.doubled{
+  padding: 15px;
 }
 .disabled{
   color: gray;
