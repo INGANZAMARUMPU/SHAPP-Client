@@ -21,9 +21,9 @@ export default {
   methods: {
     fetchCredits(){
       this.is_fetching = true
-      axios.get(this.url+"/credits/profile", this.headers)
+      axios.get(this.url+"/credit/profile", this.headers)
       .then((response) => {
-        this.user.credits = this.response.data
+        this.user.quantite_credit = response.data.quantite_credit
       }).catch((error) => {
         this.errorOrRefresh(error, this.fetchCredits)
       }).finally(() => {
