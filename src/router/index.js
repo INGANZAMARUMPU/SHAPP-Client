@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue'
+import Events from '../views/Events.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
 import Tickets from '../views/Tickets.vue'
@@ -13,6 +14,7 @@ import About from '../views/About.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home},
+  { path: '/events', name: 'events', component: Events},
   { path: '/login', name: 'login', component: Login},
   { path: '/password', name: 'password', component: Password},
   { path: '/profile', name: 'profile', component: Profile},

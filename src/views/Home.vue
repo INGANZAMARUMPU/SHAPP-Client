@@ -4,9 +4,6 @@
       <ion-toolbar color="primary">
         <ion-title>SHAPP</ion-title>
         <ion-buttons slot="secondary">
-          <ion-button routerLink="search">
-            <ion-icon slot="icon-only" :icon="getIcon('search')"/>
-          </ion-button>
           <ion-button id="menu-toggler">
             <ion-icon slot="icon-only"
               :ios="getIcon('ellipsisHorizontal')"
@@ -17,6 +14,10 @@
       <ion-popover trigger="menu-toggler" dismiss-on-select="true" show-backdrop="false">
         <ion-content>
           <ion-list lines="none">
+            <ion-item button  routerLink="/events">
+              <ion-label>Evenements</ion-label>
+              <ion-icon :src="getIcon('listOutline')"/>
+            </ion-item>
             <ion-item button  routerLink="/credit">
               <ion-label>Achat Credits</ion-label>
               <ion-icon :src="getIcon('cashOutline')"/>
@@ -37,87 +38,60 @@
         </ion-content>
       </ion-popover>
     </ion-header>
-    <ion-content class="ion-no-padding">
-      <EventItem v-for="item in events"
-        :item="item"
-        @scan="startScan"/>
-      <ion-fab-button class="todo-fab" routerLink="event/">
-        <ion-icon :src="getIcon('add')"></ion-icon>
-      </ion-fab-button>
+    <ion-content>
+      <div class="img">
+        <img width="240" src="/home.jpeg">
+      </div>
+      <h3>Bienvenue chez SHAPP !</h3>
+      <div class="infos">
+Avec SHAPP vous pouvez créer vos
+propres invitations et les partager via
+whatsapp, facebook, gmail, . . . sans
+encourir beaucoup de frais et sans
+avoir à vous déplacer !
+      </div>
+      <ion-button expand="full" @click="login">
+        <ion-spinner v-if="loging_in"
+          name="crescent" color="light" style="margin: 0 10px;"/>
+        C'est maintenant ou jamais !
+      </ion-button>
     </ion-content>
-    <DialogScan
-      :active = "scan_shown"
-      @scanned = "displayInfos"
-      @close = "close"/>
-    <DialogResults
-      :active = "scan_results_shown"
-      :item = "scan_results"
-      @close = "close"/>
   </ion-page>
 </template>
 
 <script>
-import DialogScan from "../components/dialog_scan"
-import DialogResults from "../components/dialog_scan_results"
-import EventItem from "../components/event_item"
-
 export default {
   components:{
-    EventItem,
-    DialogScan,
-    DialogResults,
   },
   data(){
     return {
-      scan_shown:false,
-      scan_results_shown:false,
-      scan_results:null,
-      event:null,
-      events: []
     }
-  },
-  watch:{
-    "$store.state.evenemts"(new_val){
-      if(!!new_val){
-        this.events = Object.values(new_val)
-      }
-    },
   },
   methods:{
-    close(){
-      this.scan_shown = false
-      this.scan_results_shown = false
-      this.event = null
-    },
-    startScan(event){
-      this.scan_shown = true
-      this.event = event
-    },
-    displayInfos(result){
-      let places = this.event.places
-      try {
-        this.scan_results = JSON.parse(result.result)
-        for(let place of places){
-          if(place.nom == this.scan_results.nom && place.nombre >= this.scan_results.no){
-            this.scan_shown = false
-            this.scan_results_shown = true
-            break
-          }
-        }
-        if(this.scan_shown){
-          this.makeToast('erreur', `la place ${this.scan_results.nom} n'existe pas dans ${this.event.nom}`)
-        }
-      } catch(e) {
-        this.makeToast('erreur', "Code Qr invalide")
-      }
-    }
   },
   mounted(){
-    if(Object.keys(this.$store.state.evenemts).length == 0){
-      this.$store.state.evenemts = JSON.parse(localStorage.getItem("evenemts"))
-    } else {
-      this.events = this.$store.state.evenemts
-    }
   }
 }
 </script>
+<style scoped>
+ion-content>div, ion-content>ion-button{
+  margin: 20px 20px 0 20px;
+}
+.infos{
+  font-size: 1em;
+  text-align: center;
+  line-height: 1.5em;
+}
+.img{
+  height: 200px;
+  overflow-y: hidden;
+  position: relative;
+  margin: 40px auto;
+}
+img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
