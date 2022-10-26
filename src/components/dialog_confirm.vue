@@ -205,14 +205,32 @@ export default {
       axios.post(this.url+"/user/register", data, this.force_json)
       .then((response) => {
         this.makeToast("success", response.data)
-        localStorage.removeItem("unvalidated_user")
-        this.$router.push("/login")
+        this.login()
       }).catch((error) => {
         console.error(error);
         this.makeToast("erreur", error.response.data)
         this.sending_otp = false
       })
-    }
+    },
+    login(){
+      let data = new FormData()
+      data.append("username", this.item.username)
+      data.append("password", this.item.password)
+
+      axios.post(this.url+"/login", data)
+      .then((response) => {
+        this.makeToast("logged in successfully")
+        this.$store.state.user = response.data
+        this.$store.state.user.username = this.item.username
+      }).catch((error) => {
+        console.log(error)
+        this.makeToast("auto login failed")
+      }).finally(() => {
+        this.$router.push("/")
+        this.item = null
+        localStorage.removeItem("unvalidated_user")
+      })
+    },
   },
   mounted(){
     if(this.code_sent){
