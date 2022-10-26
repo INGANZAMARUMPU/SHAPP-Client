@@ -43,10 +43,14 @@
       </ion-popover>
     </ion-header>
     <ion-content class="ion-no-padding">
+      <div class="credit">
+        vous avez {{ money(this.user.quantite_credit) }} credits
+      </div>
+      <br>
       <EventItem v-for="item in events"
         :item="item"
         @scan="startScan"/>
-      <ion-fab-button class="todo-fab" routerLink="event/">
+      <ion-fab-button class="todo-fab" @click="createEvent">
         <ion-icon :src="getIcon('add')"></ion-icon>
       </ion-fab-button>
     </ion-content>
@@ -98,6 +102,12 @@ export default {
       this.scan_shown = true
       this.event = event
     },
+    createEvent(){
+      if(this.user.quantite_credit < 5){
+        this.makeToast("vous devez avoir 5 credits au minimum pour créer un evenement")
+      }
+      this.router.push("/event")
+    },
     displayInfos(result){
       let places = this.event.places
       try {
@@ -126,3 +136,5 @@ export default {
   }
 }
 </script>
+<style scoped>
+</style>

@@ -39,17 +39,21 @@
       </ion-popover>
     </ion-header>
     <ion-content>
+      <div class="credit">
+        vous avez {{ money(this.user.quantite_credit) }} credits
+      </div>
+      <br>
       <div class="img">
         <img width="240" src="/home.jpeg">
       </div>
       <h3>Bienvenue chez SHAPP !</h3>
-      <div class="infos">
+      <p class="infos">
 Avec SHAPP vous pouvez créer vos
 propres invitations et les partager via
 whatsapp, facebook, gmail, . . . sans
 encourir beaucoup de frais et sans
 avoir à vous déplacer !
-      </div>
+      </p>
       <ion-button expand="full" routerLink="/events">
         C'est maintenant ou jamais !
       </ion-button>
@@ -72,7 +76,7 @@ export default {
 }
 </script>
 <style scoped>
-ion-content>div, ion-content>ion-button{
+ion-content>p, ion-content>ion-button{
   margin: 20px 20px 0 20px;
 }
 .infos{
