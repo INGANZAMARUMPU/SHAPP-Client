@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div class="credit">
+    <ion-col class="credit ion-no-padding">
       vous avez {{ money(user.quantite_credit) }} credits
-      <ion-button>
+      <ion-spinner v-if="is_fetching" name="crescent"/>
+      <ion-button v-else size="small" fill="clear"
+        @click="fetchCredits">
         <ion-icon :src="getIcon('refresh')"/>
       </ion-button>
-    </div>
+    </ion-col>
   </div>
 </template>
 
@@ -13,13 +15,38 @@
 export default {
   data(){
     return {
+      is_fetching:false
     }
   },
   methods: {
-    generateQRs(){
+    fetchCredits(){
+      this.is_fetching = true
+      axios.get(this.url+"/credits/profile", this.headers)
+      .then((response) => {
+        this.user.credits = this.response.data
+      }).catch((error) => {
+        this.errorOrRefresh(error, this.fetchCredits)
+      }).finally(() => {
+        this.is_fetching = false
+      })
     }
   },
 };
 </script>
 <style scoped>
+ion-button, ion-spinner{
+  position: absolute;
+  height: 15px;
+  width: 40px;
+  padding: 0;
+  color: blue;
+}
+ion-button{
+  top: -3px;
+  right: -5px;
+}
+ion-spinner{
+  top: 0;
+  right: 0;
+}
 </style>
