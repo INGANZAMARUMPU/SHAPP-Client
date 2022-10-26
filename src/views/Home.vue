@@ -50,9 +50,7 @@ whatsapp, facebook, gmail, . . . sans
 encourir beaucoup de frais et sans
 avoir à vous déplacer !
       </div>
-      <ion-button expand="full" @click="login">
-        <ion-spinner v-if="loging_in"
-          name="crescent" color="light" style="margin: 0 10px;"/>
+      <ion-button expand="full" routerLink="/events">
         C'est maintenant ou jamais !
       </ion-button>
     </ion-content>

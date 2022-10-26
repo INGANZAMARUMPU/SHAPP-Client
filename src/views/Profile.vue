@@ -24,8 +24,8 @@
           <ion-label position="floating">Choisir votre pays ex. RDC (*)</ion-label>
           <ion-select
             multiple="false"
-            :value="pays"
-            @IonChange="pays=$event.target.value"
+            :value="codePays"
+            @IonChange="codePays=$event.target.value"
             cancel-text="laisser" ok-text="Choisir">
             <ion-select-option value="+250">
               Rwanda
@@ -38,9 +38,9 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <div class="greff" v-if="!!pays">
+        <div class="greff" v-if="!!codePays">
           <label class="greffon">
-            {{ pays }}
+            {{ codePays }}
           </label>
           <ion-item class="round ion-no-padding">
             <ion-label position="floating">Numéro de téléphone (*)</ion-label>
@@ -53,10 +53,10 @@
         </div>
         <ion-item class="round ion-no-padding">
           <ion-label position="floating">Tapez votre adresse mail</ion-label>
-          <ion-input type="email"
+          <ion-input type="adresseMail"
             placeholder="Tapez votre adresse mail"
-            :value="email"
-            @IonChange="email=$event.target.value"
+            :value="adresseMail"
+            @IonChange="adresseMail=$event.target.value"
             clearInput/>
         </ion-item>
         <ion-item class="round ion-no-padding">
@@ -112,10 +112,10 @@ export default {
       nom: "",
       prenom: "",
       telephone: "",
-      email: "",
+      adresseMail: "",
       username: "",
       password: "",
-      pays:"",
+      codePays:"",
       unvalidated_user:null,
       confirm_shown: false
     }
@@ -130,10 +130,10 @@ export default {
         nom: this.nom,
         prenom: this.prenom,
         telephone: this.telephone,
-        email: this.email,
+        adresseMail: this.adresseMail,
         username: this.username,
         password: this.password,
-        pays: this.pays
+        codePays: this.codePays
       }
       localStorage["unvalidated_user"] = JSON.stringify(this.unvalidated_user)
       this.confirm_shown = true
@@ -150,7 +150,7 @@ export default {
       this.nom = this.unvalidated_user.nom
       this.prenom = this.unvalidated_user.prenom
       this.telephone = this.unvalidated_user.telephone
-      this.email = this.unvalidated_user.email
+      this.adresseMail = this.unvalidated_user.adresseMail
       this.username = this.unvalidated_user.username
       this.password = this.unvalidated_user.password
       this.pays = this.unvalidated_user.pays

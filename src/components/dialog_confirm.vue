@@ -10,7 +10,7 @@
             envoyé au numero
           </p>
           <ion-col class="phone">
-            <h5>{{ item.pays }} {{ item.telephone }}</h5>        
+            <h5>{{ item.codePays }} {{ item.telephone }}</h5>        
             <ion-button fill=clear size="small"
               @click="toggleChangePhoneNumber"
               v-if="!code_sent"
@@ -24,8 +24,8 @@
             <ion-label position="floating">Pays</ion-label>
             <ion-select
               multiple="false"
-              :value="pays"
-              @IonChange="pays=$event.target.value"
+              :value="codePays"
+              @IonChange="codePays=$event.target.value"
               cancel-text="laisser" ok-text="Choisir">
               <ion-select-option value="+250">
                 Rwanda
@@ -40,7 +40,7 @@
           </ion-item>
           <div style="display: flex; padding: 10px 0;">
             <input
-              type="text" v-model="pays"
+              type="text" v-model="codePays"
               style="text-align: center;width:90px; margin-right: 5px;">
             <input
               type="tel" v-model="telephone"
@@ -98,7 +98,7 @@ export default {
       changing: false,
       new_phone_number:"",
       telephone: "",
-      pays:"",
+      codePays:"",
       code_sent:!!this.item?this.item.code_sent:false,
       sending_otp:false,
       checking_otp:false,
@@ -114,7 +114,7 @@ export default {
     item(new_val){
       if(!!new_val){
         this.code_sent = new_val.code_sent
-        this.pays = new_val.pays
+        this.codePays = new_val.codePays
         this.telephone = new_val.telephone
       }
     },
@@ -154,8 +154,8 @@ export default {
     },
     changePhoneNumber(){
       let user = JSON.parse(localStorage.getItem("unvalidated_user"))
-      user.pays = this.pays
-      this.item.pays = this.pays
+      user.codePays = this.codePays
+      this.item.codePays = this.codePays
       user.telephone = this.telephone
       this.item.telephone = this.telephone
       localStorage["unvalidated_user"] = JSON.stringify(user)
@@ -165,7 +165,7 @@ export default {
       this.sending_otp = true
 
       let data = new FormData()
-      data.append("phone", this.item.pays + this.item.telephone)
+      data.append("phone", this.item.codePays + this.item.telephone)
 
       axios.post(this.url+"/sendotp", data, this.formHeaders)
       .then((response) => {      
@@ -185,7 +185,7 @@ export default {
       }
       
       let data = new FormData()
-      data.append("phone", this.item.pays + this.item.telephone)
+      data.append("phone", this.item.codePays + this.item.telephone)
       data.append("otp", this.confirm_code)
 
       axios.post(this.url+"/verifyotp", data)
