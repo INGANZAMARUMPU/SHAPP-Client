@@ -38,7 +38,7 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <div class="greff">
+        <div class="greff" v-if="!!pays">
           <label class="greffon">
             {{ pays }}
           </label>
