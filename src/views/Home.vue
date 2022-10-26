@@ -39,10 +39,7 @@
       </ion-popover>
     </ion-header>
     <ion-content>
-      <div class="credit">
-        vous avez {{ money(this.user.quantite_credit) }} credits
-      </div>
-      <br>
+      <CreditBar/>
       <div class="img">
         <img width="240" src="/home.jpeg">
       </div>
@@ -62,8 +59,10 @@ avoir à vous déplacer !
 </template>
 
 <script>
+import CreditBar from "../components/credit_bar"
 export default {
   components:{
+    CreditBar
   },
   data(){
     return {
@@ -71,8 +70,6 @@ export default {
   },
   methods:{
   },
-  mounted(){
-  }
 }
 </script>
 <style scoped>

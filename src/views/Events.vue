@@ -43,9 +43,7 @@
       </ion-popover>
     </ion-header>
     <ion-content class="ion-no-padding">
-      <div class="credit">
-        vous avez {{ money(this.user.quantite_credit) }} credits
-      </div>
+      <CreditBar/>
       <br>
       <EventItem v-for="item in events"
         :item="item"
@@ -69,12 +67,14 @@
 import DialogScan from "../components/dialog_scan"
 import DialogResults from "../components/dialog_scan_results"
 import EventItem from "../components/event_item"
+import CreditBar from "../components/credit_bar"
 
 export default {
   components:{
     EventItem,
     DialogScan,
     DialogResults,
+    CreditBar
   },
   data(){
     return {
