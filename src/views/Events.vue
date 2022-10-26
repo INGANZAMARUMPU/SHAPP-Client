@@ -104,7 +104,7 @@ export default {
     },
     createEvent(){
       if(this.user.quantite_credit < 5){
-        this.makeToast("vous devez avoir 5 credits au minimum pour créer un evenement")
+        this.makeToast("Vous devez avoir 5 crédits au minimum pour créer un événement !")
       }
       this.router.push("/event")
     },

@@ -23,32 +23,33 @@
             :value="code_agent"
             @IonChange="code_agent=$event.target.value"
             cancel-text="laisser" ok-text="Choisir">
-            <ion-select-option value="531123">
-              Ecocash
-            </ion-select-option>
-            <ion-select-option value="12138">
-              Lumicash
-            </ion-select-option>
-            <ion-select-option value="68824">
-              Enoti
+            <ion-select-option v-for="agent in agents" :value="agent.codeAgent">
+              {{ agent.ssid }}
             </ion-select-option>
           </ion-select>
         </ion-item>
         <div class="label">
-          {{ code_agent }}
+          <div v-if="selected_agent">
+            <div class="agent">{{ selected_agent.nomAgent }}</div>
+            <div>{{ code_agent }}</div>
+          </div>
+          <div v-else>
+            <div class="agent disabled">Agent</div>
+            <div class="disabled">-</div>
+          </div>
         </div>
         <ion-item class="round ion-no-padding">
           <ion-label position="floating">Saisir le nombre des credits ex.500 (*)</ion-label>
           <ion-input type=number
             placeholder="Saisir le nombre des credits ex.500 (*)"
-            :value="credit"
-            @IonChange="password=$event.target.value" clearInput/>
+            :value="credits"
+            @IonChange="credits=$event.target.value" clearInput/>
         </ion-item>
         <div class="label">
-          {{ "5 555 486" }}
+          {{ money(agentGet("prix") * credits) }} {{ agentGet('devise') }}
         </div>
         <ion-item class="round ion-no-padding">
-          <ion-label position="floating">Tapez No de transaction apres retrait (*)</ion-label>
+          <ion-label position="floating">Tapez No. de transaction apres retrait (*)</ion-label>
           <ion-input type=text
             placeholder="Tapez No de transaction apres retrait (*)"
             :value="num_transaction"
@@ -70,13 +71,36 @@ export default {
   data(){
     return {
       code_agent:"-",
-      credit:"",
-      num_transaction:""
+      credits:0,
+      num_transaction:"",
+      agents:[],
+      selected_agent: null
+    }
+  },
+  watch:{
+    code_agent(new_val){
+      this.selected_agent = this.agents.find(x => x.codeAgent == new_val)
     }
   },
   methods:{
     changePassword(){
+    },
+    agentGet(field){
+      return !!this.selected_agent?this.selected_agent.tarifCredit[field]:null
+    },
+    fetchMobiles(){
+      axios.get(this.url+"/mobilesAll")
+      .then((response) => {
+        this.agents = response.data.filter(x => {
+          return x.tarifCredit.codePays == this.user.code_pays
+        })
+      }).catch((error) => {
+        console.error(error);
+      })
     }
+  },
+  mounted(){
+    this.fetchMobiles()
   }
 }
 </script>
@@ -91,8 +115,15 @@ export default {
   background-color: white;
   border-radius: 30px;
   height: 60px;
-  padding: 25px;
+  padding: 15px;
   text-align: center;
   font-weight: 700;
+}
+.disabled{
+  color: gray;
+}
+.agent{
+  font-size: .8em;
+  font-weight: 500;
 }
 </style>
