@@ -123,12 +123,15 @@
         </a>
         <ion-ripple-effect/>
       </ion-col>
+      <div class="center" v-if="in_progress">
+        {{ progress.toFixed(2) }} %
+      </div>
       <ion-col class="options">
         <ion-button expand="full" size="small" routerLink="/">
           ANULLER
         </ion-button>
         <ion-button expand="full" size="small" @click="postEvent">
-          {{ in_progress?progress+"%": "VALIDER"}}
+          VALIDER
         </ion-button>
       </ion-col>
     </ion-content>
@@ -225,14 +228,16 @@ export default {
     postEvent(){
       let data = new FormData()
 
+      let time = this.time.split("T")[1]
+
       data.append("nomEvenement", this.nom)
-      data.append("dateEvenement", this.date)
-      data.append("heureEvenement", this.time)
+      data.append("dateEvenement", this.date.split("T")[0])
+      data.append("heureEvenement", time.split("+")[0])
       data.append("adresseEvenement", this.address)
       data.append("emailResponsable", this.email)
       data.append("numeroContact1", this.tel_1)
       data.append("numeroContact2", this.tel_2)
-      data.append("logoImage", this.image)
+      data.append("file", this.image)
       data.append("autresInfos", this.details)
       
       if(this.$store.state.evenemts == null){
@@ -249,6 +254,7 @@ export default {
         this.makeToast("Evenement créé avec success")
         this.$store.state.evenemts[this.nom] = response.data
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+        this.user.quantite_credit -= this.nb_places
         this.$router.push("/events")
       }).catch((error) => {
         this.errorOrRefresh(error, this.postEvent)
