@@ -121,7 +121,7 @@
         <ion-button expand="full" size="small" routerLink="/">
           ANULLER
         </ion-button>
-        <ion-button expand="full" size="small" @click="save">
+        <ion-button expand="full" size="small" @click="postEvent">
           VALIDER
         </ion-button>
       </ion-col>
@@ -146,14 +146,11 @@ export default {
       time:"",
       email:"",
       image:"",
-      image_name:"",
       places:[
         { nom:"principal", nombre:1 }
       ],
       tel_1:"",
       tel_2:"",
-      image_type:"",
-      image_base64:"",
     }
   },
   computed:{
@@ -198,9 +195,8 @@ export default {
       this.image_name = file.name
       this.image_type = file.type
       if (file.size>300_000) {
-        this.logs = "l'image ne peut pas depasser 300ko"
+        this.makeToast("l'image ne peut pas depasser 300ko")
       } else {
-        this.logs = ""
         this.image = file
         let fr = new FileReader();
         let vue = this
@@ -215,28 +211,35 @@ export default {
       let button = document.getElementById("image")
       button.click()
     },
-    save(){
-      let data = {
-        image:this.image,
-        nom: this.nom,
-        date: this.date,
-        address: this.address,
-        time: this.time,
-        email: this.email,
-        image_name: this.image_name,
-        image_type: this.image_type,
-        image_base64: this.image_base64,
-        places:this.places,
-        tel_1: this.tel_1,
-        tel_2: this.tel_2,
-        email: this.email
-      }
+    postEvent(){
+      let data = new FormData()
+
+      data.append("nomEvenement", this.nom)
+      data.append("dateEvenement", this.date)
+      data.append("heureEvenement", this.time)
+      data.append("adresseEvenement", this.address)
+      data.append("emailResponsable", this.email)
+      data.append("numeroContact1", this.tel_1)
+      data.append("numeroContact2", this.tel_2)
+      data.append("logoImage", this.image)
+      data.append("autresInfos", this.details)
+      
       if(this.$store.state.evenemts == null){
         this.$store.state.evenemts = {}
       }
-      this.$store.state.evenemts[this.nom] = data
-      localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
-      this.$emit("close")
+      for(let place of places){
+        data.append("places", `${place.nom},${place.nombre}`)
+      }
+
+      axios.patch(this.url+`/`, data, this.headers)
+      .then((response) => {
+        this.makeToast("Evenement créé avec success")
+        this.$store.state.evenemts[this.nom] = response.data
+        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+        this.$emit("close")
+      }).catch((error) => {
+        this.errorOrRefresh(error, this.postEvent)
+      });
     }
   }
 };
