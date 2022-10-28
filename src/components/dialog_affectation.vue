@@ -18,6 +18,13 @@
             :value="address" clearInput/>
         </ion-item>
         <ion-item class="round ion-no-padding">
+          <ion-label position="floating">Numero de téléphone (*)</ion-label>
+          <ion-input type="telephone" 
+            placeholder="Numero de téléphone (*)"
+            @IonChange="telephone=$event.target.value"
+            :value="telephone" clearInput/>
+        </ion-item>
+        <ion-item class="round ion-no-padding">
           <ion-label position="floating">Nombre des personnes autorisées (*)</ion-label>
           <ion-input type="number" 
             placeholder="Nombre des personnes autorisées (*)"
@@ -29,7 +36,7 @@
         <ion-button fill=clear color="medium" @click="close">
           ANULLER
         </ion-button>
-        <ion-button fill=clear @click="save">Enregister</ion-button>
+        <ion-button fill=clear @click="postInvitation">Enregister</ion-button>
       </ion-col>
     </div>
   </div>
@@ -41,13 +48,15 @@ import { popoverController } from '@ionic/vue';
 export default {
   props: {
     active:{type:Boolean, required:true},
-    item:{type:Object, required:false}
+    event:{type:Object, required:false},
+    place:{type:Object, required:false}
   },
   data(){
     return {
       nom:"",
       prenom:"",
       nombre:"",
+      telephone:"",
     }
   },
   watch:{
@@ -61,7 +70,23 @@ export default {
     close(){
       this.$emit("close")
     },
-    save(){
+    postInvitation(){
+      this.sending_otp = true
+      let data = {
+        "prenomInvite": this.prenom,
+        "nomInvite": this.nom,
+        "phoneNumber": telephone,
+        "nombreInvites": nombre
+      }
+      axios.post(this.url+`/save/invite/${this.place.nom}/${this.event.id}`, data, this.headers)
+      .then((response) => {
+        this.makeToast("success", "invitation affectée avec succes")
+        this.$emit("created", response.data)
+      }).catch((error) => {
+        console.error(error);
+        this.makeToast("erreur", error.response.data)
+        this.sending_otp = false
+      })
     }
   }
 };

@@ -31,11 +31,12 @@
       </ion-popover>
     </ion-header>
     <ion-content class="ion-padding">
-      <h3>{{ evenemt.nom }}</h3>
+      <h3>{{ evenemt.nomEvenement }}</h3>
       <ion-col v-for="place in evenemt.places">
         <ion-item-divider color="light">{{ place.nom.toUpperCase() }}</ion-item-divider>
         <div class="qrs">
           <div class="item" v-for="i in place.nombre">
+            <div class="personne">{{ getPerson(evenemt, place, i) || "*Non affectée*" }}</div>
             <div class="qr ion-activatable ripple-parent"
               @click="affecter(place, i)">
               <ion-ripple-effect/>
@@ -55,7 +56,8 @@
     </ion-content>
     <DialogAffectation
       :active = "affect_shown"
-      :item = "current_item"
+      :event="evenemt" 
+      :place="active_place" 
       @close = "close"/>
   </ion-page>
 </template>
@@ -72,7 +74,8 @@ export default {
     return {
       evenemt:{},
       affect_shown:false,
-      item:null
+      active_place: null,
+      affectations:[]
     }
   },
   methods:{
@@ -82,9 +85,14 @@ export default {
         'no':no
       })
     },
+    getPerson(evenemt, place, i){
+      return this.affectations.find(x => {
+        return x.evenement == evenemt.id && x.place == place.id && x.idInvitation == i
+      })
+    },
     affecter(place, i){
       this.affect_shown = true
-      this.item = {"place":place, "no":no}
+      this.active_place = {"place":place, "no":no}
     },
     close(){
       this.affect_shown = false
@@ -162,6 +170,7 @@ export default {
 h3{
   text-align: center;
   margin: 0!important;
+  padding-bottom: 0;
 }
 .qrs{
   display: grid;
@@ -169,7 +178,6 @@ h3{
   justify-content: space-between;
 }
 .qr{
-  margin-top: 10px;
   width: 90px;
   height: 90px;
   background-color: #ddd;
@@ -180,6 +188,7 @@ h3{
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 20px;
 }
 .share{
   font-size: 9px;
@@ -190,5 +199,10 @@ ion-button{
 }
 img{
   width: 100%;
+}
+.personne{
+  font-size: .8em;
+  text-align: center;
+  margin-top: 5px;
 }
 </style>

@@ -140,7 +140,7 @@ app.mixin({
               "Authorization":"Bearer "+this.$store.state.user.access_token
             }
           }
-          axios.post(this.url+"/token/refresh", this.headers)
+          axios.post(this.url+"/token/refresh", {"refresh":refresh})
           .then((response) => {
             this.$store.state.user.access_token = response.data.access_token
             if(typeof callback == "function") callback()
