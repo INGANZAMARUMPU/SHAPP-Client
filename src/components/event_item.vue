@@ -1,17 +1,17 @@
 <template>
   <ion-col
-    button :routerLink="`/tickets/${item.nom}`"
+    button :routerLink="`/tickets/${item.nomEvenement}`"
     class="parent ion-activatable ripple-parent">
     <div class="image">
-      <img :src="item.image_base64" alt="">
+      <img :src="item.logoImage" alt="">
     </div>
     <div class="item">
-      <div class="title"><b>{{ item.nom }}</b></div>
+      <div class="title"><b>{{ item.nomEvenement }}</b></div>
       <div class="small">
-        {{ nb_places }} places, {{ " Le" }} {{ formatedDate(item.date) }}
+        {{ " Le" }} {{ formatedDate(item.dateEvenement) }} à {{ item.heureEvenement }}
       </div>
       <div class="small">
-        {{ item.address }}
+        {{ item.adresseEvenement }}
       </div>
     </div>
     <ion-button size="small"

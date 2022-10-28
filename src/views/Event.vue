@@ -80,19 +80,25 @@
         <ion-label position="floating">Autres informations à faire savoir</ion-label>
         <ion-textarea 
           placeholder="Autres informations à faire savoir"
-          @IonChange="details=$event.target.value"
-          :value="details" clearInput/>
+          @keyup="details=$event.target.value"
+          :value="details"/>
       </ion-item>
       <input
         type="file" id="image"
         accept=".JPEG, .PNG, .JPG"
         @change="e => loadImage(e)">
-      <ion-button class="ion-no-padding" expand=full @click="chooseImage">
+      <ion-button
+        class="ion-no-padding"
+        expand=full
+        v-if="!image"
+        @click="chooseImage">
         <ion-icon :src="getIcon('cameraOutline')"
           style="margin-right: 5px;"/>
         selectionner image
       </ion-button>
-      <div class="image" v-show="image_base64">
+      <div class="image"
+        v-show="!!image"
+        @click="chooseImage">
         <img src="" alt="" id="image_preview">
       </div>
       <div class="place labels">
@@ -122,7 +128,7 @@
           ANULLER
         </ion-button>
         <ion-button expand="full" size="small" @click="postEvent">
-          VALIDER
+          {{ in_progress?progress+"%": "VALIDER"}}
         </ion-button>
       </ion-col>
     </ion-content>
@@ -151,6 +157,8 @@ export default {
       ],
       tel_1:"",
       tel_2:"",
+      details:"",
+      progress:0
     }
   },
   computed:{
@@ -158,6 +166,9 @@ export default {
       return this.places.reduce((acc, x) =>{
         return acc += x.nombre
       }, 0)
+    },
+    in_progress(){
+      return this.progress < 100 && this.progress > 0
     },
     min_date(){
       return new Date().toISOString()
@@ -227,16 +238,18 @@ export default {
       if(this.$store.state.evenemts == null){
         this.$store.state.evenemts = {}
       }
-      for(let place of places){
+      for(let place of this.places){
         data.append("places", `${place.nom},${place.nombre}`)
       }
-
-      axios.patch(this.url+`/save/evenement`, data, this.headers)
+      this.headers.onUploadProgress = progressEvent => {
+        this.progress = (progressEvent.loaded / progressEvent.total) * 100;
+      }
+      axios.post(this.url+`/save/evenement`, data, this.headers)
       .then((response) => {
         this.makeToast("Evenement créé avec success")
         this.$store.state.evenemts[this.nom] = response.data
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
-        this.$emit("close")
+        this.$router.push("/events")
       }).catch((error) => {
         this.errorOrRefresh(error, this.postEvent)
       });

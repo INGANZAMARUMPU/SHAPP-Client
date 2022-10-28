@@ -130,9 +130,11 @@ export default {
     fetchData(){
       axios.get(this.url+`/evenements`, this.headers)
       .then((response) => {
-        for(let event in response.data._embedded.evenements){
-          this.$store.state.evenemts[this.nom] = event
+        let evenemts = {}
+        for(let event of response.data){
+          evenemts[event.nomEvenement] = event
         }
+        this.$store.state.evenemts = evenemts
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
       }).catch((error) => {
         this.errorOrRefresh(error, this.postEvent)
