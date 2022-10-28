@@ -111,3 +111,6 @@ ion-button{
   z-index: 1;
   top: 0;
 }
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}

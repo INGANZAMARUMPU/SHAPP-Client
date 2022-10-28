@@ -76,7 +76,13 @@
           @IonChange="email=$event.target.value"
           :value="email" clearInput/>
       </ion-item>
-    
+      <ion-item class="ion-no-padding multiline">
+        <ion-label position="floating">Autres informations à faire savoir</ion-label>
+        <ion-textarea 
+          placeholder="Autres informations à faire savoir"
+          @IonChange="details=$event.target.value"
+          :value="details" clearInput/>
+      </ion-item>
       <input
         type="file" id="image"
         accept=".JPEG, .PNG, .JPG"
@@ -111,11 +117,6 @@
         </a>
         <ion-ripple-effect/>
       </ion-col>
-      <div class="field">
-        <label>Autres informations à faire savoir</label>
-        <textarea placeholder="Autres informations à faire savoir">
-        </textarea>
-      </div>
       <ion-col class="options">
         <ion-button expand="full" size="small" routerLink="/">
           ANULLER
@@ -146,13 +147,13 @@ export default {
       email:"",
       image:"",
       image_name:"",
-      image_type:"",
-      image_base64:"",
       places:[
         { nom:"principal", nombre:1 }
       ],
       tel_1:"",
       tel_2:"",
+      image_type:"",
+      image_base64:"",
     }
   },
   computed:{
@@ -276,18 +277,27 @@ input[type=file]{
   display: flex;
   margin-bottom: 10px;
 }
-.place input{
-  padding: 5px 10px;
-}
 .place>*{
   width: 70px;
+  border: none;
 }
 .place .nom{
   flex-grow: 1;
   margin-right: 10px;
+  border-radius: 20px 0 0 20px;
+}
+input.nom{
+  padding: 10px 30px;
+}
+input.nombre{
+  padding: 10px 20px;
+}
+.place input{
+  height: 40px;
 }
 .place .nombre{
   text-align: center;
+  border-radius: 0 20px 20px 0;
 }
 .button{
   display: block;
@@ -308,5 +318,20 @@ input[type=file]{
 }
 .dates div{
   margin-top: -15px;
+}
+.multiline{
+  border-radius: 30px !important;
+  padding-left: 30px !important;
+  font-size: 0.9em;
+  border: 1px solid #ffffff;
+  border-bottom: 0px !important;
+  box-shadow: none !important;
+  background-color: white;
+  height: 70px;
+}
+ion-item.multiline::part(native) {
+  background: #fff0;
+  border-bottom: 0;
+  margin-top: 5px;
 }
 </style>
