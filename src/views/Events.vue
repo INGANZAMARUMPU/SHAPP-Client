@@ -126,14 +126,27 @@ export default {
       } catch(e) {
         this.makeToast('erreur', "Code Qr invalide")
       }
+    },
+    fetchData(){
+      axios.get(this.url+`/evenements`, this.headers)
+      .then((response) => {
+        for(let event in response.data._embedded.evenements){
+          this.$store.state.evenemts[this.nom] = event
+        }
+        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+      }).catch((error) => {
+        this.errorOrRefresh(error, this.postEvent)
+      }).finally(() => {    
+        if(Object.keys(this.$store.state.evenemts).length == 0){
+          this.$store.state.evenemts = JSON.parse(localStorage.getItem("evenemts"))
+        } else {
+          this.events = this.$store.state.evenemts
+        }
+      });
     }
   },
   mounted(){
-    if(Object.keys(this.$store.state.evenemts).length == 0){
-      this.$store.state.evenemts = JSON.parse(localStorage.getItem("evenemts"))
-    } else {
-      this.events = this.$store.state.evenemts
-    }
+    this.fetchData()
   }
 }
 </script>

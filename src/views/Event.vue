@@ -231,7 +231,7 @@ export default {
         data.append("places", `${place.nom},${place.nombre}`)
       }
 
-      axios.patch(this.url+`/`, data, this.headers)
+      axios.patch(this.url+`/save/evenement`, data, this.headers)
       .then((response) => {
         this.makeToast("Evenement créé avec success")
         this.$store.state.evenemts[this.nom] = response.data
