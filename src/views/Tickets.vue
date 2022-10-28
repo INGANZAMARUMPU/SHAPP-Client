@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-button slot="start" routerLink="/">
+          <ion-button slot="start" routerLink="/events">
             <ion-icon :src="getIcon('arrowBack')"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -129,12 +129,32 @@ export default {
         });
       });
     },
+    fetchData(){
+      axios.get(this.url+`/evenement/places/${this.evenemt.id}`, this.headers)
+      .then((response) => {
+        this.evenemt["places"] = []
+        for(let place of response.data){
+          this.evenemt["places"].push({
+            id: place.id,
+            nom: place.nomPlace,
+            nombre: parseInt(place.nombre)
+          })
+        }
+        console.log(this.evenemt)
+        this.$store.state.evenemts[this.evenemt.nom] = this.evenemt
+        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+      }).catch((error) => {
+        this.errorOrRefresh(error, this.postEvent)
+      }).finally(() => {
+        this.makeToast("Generation des codes QRs")
+        setTimeout(this.generateQRs, 1000)
+      });
+    }
   },
   mounted(){
     let nom = this.$route.params.nom
     this.evenemt = this.$store.state.evenemts[nom]
-    this.makeToast("Generation des QRs en cours")
-    setTimeout(this.generateQRs, 1000)
+    this.fetchData()
   }
 }
 </script>

@@ -135,7 +135,12 @@ app.mixin({
             this.$store.state.user = null;
             return
           }
-          axios.post(this.url+"/token/refresh", {"refresh_token":refresh})
+          let headers = {
+            headers:{
+              "Authorization":"Bearer "+this.$store.state.user.access_token
+            }
+          }
+          axios.post(this.url+"/token/refresh", this.headers)
           .then((response) => {
             this.$store.state.user.access_token = response.data.access_token
             if(typeof callback == "function") callback()
