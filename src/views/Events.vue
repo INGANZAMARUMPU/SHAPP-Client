@@ -103,10 +103,11 @@ export default {
       this.event = event
     },
     createEvent(){
-      if(this.user.quantite_credit < 5){
+      if(!this.user.quantite_credit || this.user.quantite_credit < 5){
         this.makeToast("Vous devez avoir 5 crédits au minimum pour créer un événement !")
+      } else {
+        this.$router.push("/event")
       }
-      this.router.push("/event")
     },
     displayInfos(result){
       let places = this.event.places

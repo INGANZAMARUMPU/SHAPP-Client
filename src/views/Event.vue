@@ -4,7 +4,7 @@
       <ion-toolbar color="primary">
         <ion-title>SHAPP</ion-title>
         <ion-buttons slot="start">
-          <ion-button slot="start" routerLink="/">
+          <ion-button slot="start" routerLink="/events">
             <ion-icon :src="getIcon('arrowBack')"></ion-icon>
           </ion-button>
         </ion-buttons>
