@@ -58,7 +58,7 @@
       :active = "affect_shown"
       :event="evenemt" 
       :place="active_place" 
-      @close = "close"/>
+      @created = "saveAffectation"/>
   </ion-page>
 </template>
 
@@ -92,11 +92,11 @@ export default {
     },
     affecter(place, i){
       this.affect_shown = true
-      this.active_place = {"place":place, "no":no}
+      this.active_place = {"place":place, "no":i}
     },
-    close(){
+    saveAffectation(affectation){
       this.affect_shown = false
-      this.item = null
+      this.affectations.push(affectation)
     },
     showSearch(){
       let searchbar = document.getElementById("ticketsearch")

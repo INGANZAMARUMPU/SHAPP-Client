@@ -14,8 +14,8 @@
           <ion-label position="floating">Saisissez le nom (*)</ion-label>
           <ion-input type="text" 
             placeholder="Saisissez le nom (*)"
-            @IonChange="address=$event.target.value"
-            :value="address" clearInput/>
+            @IonChange="nom=$event.target.value"
+            :value="nom" clearInput/>
         </ion-item>
         <ion-item class="round ion-no-padding">
           <ion-label position="floating">Numero de téléphone (*)</ion-label>
@@ -75,10 +75,11 @@ export default {
       let data = {
         "prenomInvite": this.prenom,
         "nomInvite": this.nom,
-        "phoneNumber": telephone,
-        "nombreInvites": nombre
+        "phoneNumber": this.telephone,
+        "nombreInvites": parseInt(this.nombre),
+        "idInvitation": this.place.no
       }
-      axios.post(this.url+`/save/invite/${this.place.nom}/${this.event.id}`, data, this.headers)
+      axios.post(this.url+`/save/invite/${this.place.place.nom}/${this.event.id}`, data, this.headers)
       .then((response) => {
         this.makeToast("success", "invitation affectée avec succes")
         this.$emit("created", response.data)
