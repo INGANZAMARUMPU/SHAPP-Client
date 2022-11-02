@@ -36,7 +36,9 @@
         <ion-item-divider color="light">{{ place.nom.toUpperCase() }}</ion-item-divider>
         <div class="qrs">
           <div class="item" v-for="i in place.nombre">
-            <div class="personne">{{ getPerson(evenemt, place, i) || "*Non affectée*" }}</div>
+            <div class="personne">
+              {{ getFullName(getPerson(evenemt, place, i)) }}
+            </div>
             <div class="qr ion-activatable ripple-parent"
               @click="affecter(place, i)">
               <ion-ripple-effect/>
@@ -55,10 +57,11 @@
       </ion-col>
     </ion-content>
     <DialogAffectation
-      :active = "affect_shown"
+      :active= "affect_shown"
       :event="evenemt" 
       :place="active_place" 
-      @created = "saveAffectation"/>
+      @created= "saveAffectation"
+      @close="close"/>
   </ion-page>
 </template>
 
@@ -87,8 +90,14 @@ export default {
     },
     getPerson(evenemt, place, i){
       return this.affectations.find(x => {
-        return x.evenement == evenemt.id && x.place == place.id && x.idInvitation == i
+        return x.evenement == evenemt.id && x.place.id == place.id && x.idInvitation == i
       })
+    },
+    getFullName(person){
+      if(person){
+        return `${person.nomInvite} ${person.prenomInvite}`
+      }
+      return "*Non affectée*"
     },
     affecter(place, i){
       this.affect_shown = true
@@ -97,6 +106,10 @@ export default {
     saveAffectation(affectation){
       this.affect_shown = false
       this.affectations.push(affectation)
+    },
+    close(){
+      this.affect_shown = false
+      this.active_place = null
     },
     showSearch(){
       let searchbar = document.getElementById("ticketsearch")
@@ -137,6 +150,22 @@ export default {
         });
       });
     },
+    fetchAffectations(){
+      axios.get(this.url+`/invitation/${this.evenemt.id}`, this.headers)
+      .then((response) => {
+        this.affectations = []
+        for(let item of response.data){
+          item.evenement = this.evenemt.id
+          this.affectations.push(item)
+        }
+        this.$store.state.evenemts["affectations"] = this.affectations
+        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+        this.fetchData()
+      }).catch((error) => {
+        this.errorOrRefresh(error, this.fetchAffectations)
+      }).finally(() => {
+      });
+    },
     fetchData(){
       axios.get(this.url+`/evenement/places/${this.evenemt.id}`, this.headers)
       .then((response) => {
@@ -148,11 +177,10 @@ export default {
             nombre: parseInt(place.nombre)
           })
         }
-        console.log(this.evenemt)
         this.$store.state.evenemts[this.evenemt.nom] = this.evenemt
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
       }).catch((error) => {
-        this.errorOrRefresh(error, this.postEvent)
+        this.errorOrRefresh(error, this.fetchData)
       }).finally(() => {
         this.makeToast("Generation des codes QRs")
         setTimeout(this.generateQRs, 1000)
@@ -162,7 +190,7 @@ export default {
   mounted(){
     let nom = this.$route.params.nom
     this.evenemt = this.$store.state.evenemts[nom]
-    this.fetchData()
+    this.fetchAffectations()
   }
 }
 </script>
