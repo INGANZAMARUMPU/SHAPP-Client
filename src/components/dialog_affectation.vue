@@ -82,6 +82,11 @@ export default {
       axios.post(this.url+`/save/invite/${this.place.place.nom}/${this.event.id}`, data, this.headers)
       .then((response) => {
         this.makeToast("success", "invitation affectée avec succes")
+      
+        let key = `${this.event.id}_${this.place.place.id}_${this.place.no}`
+        this.$store.state.evenemts[this.event.nom]["affectations"][key] = data
+        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+
         this.$emit("created", response.data)
       }).catch((error) => {
         console.error(error);
