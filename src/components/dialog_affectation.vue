@@ -36,7 +36,11 @@
         <ion-button fill=clear color="medium" @click="close">
           ANULLER
         </ion-button>
-        <ion-button fill=clear @click="postInvitation">Enregister</ion-button>
+        <ion-button fill=clear @click="postInvitation">
+          <ion-spinner v-if="sending"
+            name="crescent" style="margin: 0 10px;"/>
+          Enregister
+        </ion-button>
       </ion-col>
     </div>
   </div>
@@ -49,7 +53,8 @@ export default {
   props: {
     active:{type:Boolean, required:true},
     event:{type:Object, required:false},
-    place:{type:Object, required:false}
+    place:{type:Object, required:false},
+    item:{type:Object, required:false},
   },
   data(){
     return {
@@ -57,12 +62,21 @@ export default {
       prenom:"",
       nombre:"",
       telephone:"",
+      sending:false
     }
   },
   watch:{
     item(new_val){
       if(!!new_val){
+        this.nom = new_val.prenomInvite
+        this.prenom = new_val.nomInvite
+        this.telephone = new_val.phoneNumber
+        this.nombre = new_val.nombreInvites
       } else {
+        this.nom = ""
+        this.prenom = ""
+        this.nombre = ""
+        this.telephone = ""
       }
     }
   },
@@ -71,7 +85,7 @@ export default {
       this.$emit("close")
     },
     postInvitation(){
-      this.sending_otp = true
+      this.sending = true
       let data = {
         "prenomInvite": this.prenom,
         "nomInvite": this.nom,
@@ -91,7 +105,8 @@ export default {
       }).catch((error) => {
         console.error(error);
         this.makeToast("erreur", error.response.data)
-        this.sending_otp = false
+      }).finally(() => {
+        this.sending = false
       })
     }
   }

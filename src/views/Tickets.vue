@@ -42,12 +42,12 @@
             <div class="qr ion-activatable ripple-parent"
               @click="affecter(place, i)">
               <ion-ripple-effect/>
-              <img :id="generateP(place.nom,i)" class="qr_img"/>
+              <img :id="generateID(place.nom,i)" class="qr_img"/>
             </div>
             <div class="descr">
               Place {{ i }}
               <ion-button size=small fill="clear"
-                @click="share(generateP(place.nom,i))"
+                @click="share(evenemt, place, i)"
                 class="ion-no-padding share">
                 <ion-icon slot="icon-only" :icon="getIcon('shareSocial')"/>
               </ion-button>
@@ -59,7 +59,8 @@
     <DialogAffectation
       :active= "affect_shown"
       :event="evenemt" 
-      :place="active_place" 
+      :place="active_place"
+      :item="active_person"
       @created= "saveAffectation"
       @close="close"/>
   </ion-page>
@@ -78,11 +79,12 @@ export default {
       evenemt:{},
       affect_shown:false,
       active_place: null,
-      affectations:{}
+      affectations:{},
+      active_person: null
     }
   },
   methods:{
-    generateP(nom, no){
+    generateID(nom, no){
       return JSON.stringify({
         'nom':nom,
         'no':no
@@ -101,14 +103,15 @@ export default {
     affecter(place, i){
       this.affect_shown = true
       this.active_place = {"place":place, "no":i}
+      this.active_person = this.getPerson(this.evenemt, place, i)
     },
     saveAffectation(affectation){
       this.affect_shown = false
-      this.affectations.push(affectation)
     },
     close(){
       this.affect_shown = false
       this.active_place = null
+      this.active_person = null
     },
     showSearch(){
       let searchbar = document.getElementById("ticketsearch")
@@ -128,7 +131,9 @@ export default {
         })
       }
     },
-    share(id){
+    share(evenemt, place, i){
+      let id = this.generateID(place.nom, i)
+      let person = this.getPerson(evenemt, place, i)
       let url = document.getElementById(id).getAttribute("src")
       let file_name = "invitation.png"
       Filesystem.writeFile({
@@ -141,8 +146,23 @@ export default {
           path: file_name
         });
       }).then((uriResult) => {
+        let invitation_txt
+        try{
+          invitation_txt = `Salut!\n
+  Ceci est votre invitation dans l'evenement\n
+  *${evenemt.nomEvenement}*
+  Date: *${evenemt.dateEvenement}*
+  Heure: *${evenemt.heureEvenement}*
+  Addresse: *${evenemt.adresseEvenement}*
+  Nombre de personnes: *${person.nombreInvites}*`
+        } catch {
+          this.makeToast("Erreur", "invition incomplete")
+          return
+        }
+
+        console.log(invitation_txt)
         Share.share({
-          text: `Salut!\n\nCeci est votre invitation dans l'evenement\n\n*${this.evenemt.nom}*`,
+          text: invitation_txt,
           title: 'Votre invitation',
           url: uriResult.uri,
           dialogTitle: "Partage d'invitation",
