@@ -101,22 +101,7 @@ export default {
     startScan(event){
       this.scan_shown = true
       this.event = event
-      let affectations
-      axios.get(this.url+`/invitation/${this.event.id}`, this.headers)
-      .then((response) => {
-        let key
-        for(let item of response.data){
-          key = `${this.event.id}_${item.place.id}_${item.idInvitation}`
-          affectations[key] = item
-        }
-        event["affectations"] = affectations
-        this.$store.state.evenemts[event.nomEvenement] = this.evenemt
-        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
-      }).catch((error) => {
-        console.error(error)
-        this.errorOrRefresh(error, this.fetchAffectations)
-      }).finally(() => {
-      });
+      this.fetchAffectations()
     },
     createEvent(){
       if(!this.user.quantite_credit || this.user.quantite_credit < 5){
@@ -127,9 +112,7 @@ export default {
     },
     displayInfos(result){
       try {
-        console.log(this.event)
         this.scan_results = this.event.affectations[result.result]
-        console.log(scan_results)
         if(!!this.scan_results){
           this.scan_shown = false
           this.scan_results_shown = true
@@ -138,8 +121,27 @@ export default {
           this.makeToast('erreur', `la place ${this.scan_results} n'existe pas dans ${this.event.nom}`)
         }
       } catch(e) {
+        console.error(e)
         this.makeToast('erreur', "Code Qr invalide")
       }
+    },
+    fetchAffectations(){
+      let affectations = {}
+      axios.get(this.url+`/invitation/${this.event.id}`, this.headers)
+      .then((response) => {
+        let key
+        for(let item of response.data){
+          key = `${this.event.id}_${item.place.id}_${item.idInvitation}`
+          affectations[key] = item
+        }
+        event["affectations"] = affectations
+        this.$store.state.evenemts[event.nomEvenement] = event
+        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+      }).catch((error) => {
+        console.error(error)
+        this.errorOrRefresh(error, this.fetchAffectations)
+      }).finally(() => {
+      });
     },
     fetchData(){
       axios.get(this.url+`/evenements`, this.headers)

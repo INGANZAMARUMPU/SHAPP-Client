@@ -79,7 +79,6 @@ export default {
       evenemt:{},
       affect_shown:false,
       active_place: null,
-      affectations:{},
       active_person: null
     }
   },
@@ -89,7 +88,7 @@ export default {
     },
     getPerson(evenemt, place, i){
       let key = `${evenemt.id}_${place.id}_${i}`
-      return this.affectations[key]
+      return evenemt.affectations[key]
     },
     getFullName(person){
       if(person){
