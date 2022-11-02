@@ -3,7 +3,7 @@
     button :routerLink="`/tickets/${item.nomEvenement}`"
     class="parent ion-activatable ripple-parent">
     <div class="image">
-      <img :src="item.logoImage" alt="">
+      <img :src="'https://weka-pesa.com/shapp_images/logo_image/'+item.logoImage" alt="">
     </div>
     <div class="item">
       <div class="title"><b>{{ item.nomEvenement }}</b></div>

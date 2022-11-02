@@ -1,20 +1,23 @@
 <template>
   <div class="dialog" v-if="active">
-    <div class="body ion-padding">
-      <h3>Evenement</h3>
+    <ion-col class="body ion-padding">
+      <h3>{{ event.nomEvenement }}</h3>
       <div class="qr">
-        <img id="qr_img"/>
+        <img :src="'https://weka-pesa.com/shapp_images/logo_image/'+event.logoImage" />
       </div>
       <div class="descr">
-        <div>Nom de la place</div>
-        <h3>{{ item.nom }}</h3>
-        <div>Numero de la place</div>
-        <h3>{{ item.no }}</h3>
+        <div>ID: {{ item.place_id }}</div>
+        <div>Mr/Mme: {{ item.nomInvite }} {{ item.prenomInvite }}</div>
+        <div>Catégorie: {{ item.place.nomPlace }}</div>
+        <div>Personnes autorisées: {{ item.nombreInvites }} places</div>
       </div>
+      <ion-button @click="inOut" expand="full">
+        {{is_out?"Autoriser l'entrée":"Faire la sortie"}}
+      </ion-button>
       <ion-col class="options">
         <ion-button fill=clear @click="close">Fermer</ion-button>
       </ion-col>
-    </div>
+    </ion-col>
   </div>
 </template>
 
@@ -23,10 +26,12 @@ import QRCode from 'qrcode'
 export default {
   props: {
     active:{type:Boolean, required:true},
-    item:{type:Object, required:false}
+    item:{type:Object, required:false},
+    event:{type:Object, required:false}
   },
   data(){
     return {
+      is_out: true
     }
   },
   computed:{
@@ -34,22 +39,12 @@ export default {
       return JSON.stringify(this.item)
     }
   },
-  watch:{
-    active(new_val){
-      if(new_val){
-        setTimeout(this.generateQRs, 1000)
-      }
-    }
-  },
   methods: {
     close(){
       this.$emit("close")
     },
-    generateQRs(){
-      let data = btoa(this.qr_data)
-      QRCode.toDataURL(data).then(src => {
-        qr_img.setAttribute("src", src)
-      })
+    inOut(){
+      this.is_out = !this.is_out 
     }
   },
 };
@@ -70,17 +65,17 @@ export default {
   overflow-y: auto;
 }
 .qr{
-  width: 200px;
-  height: 200px;
   margin: auto;
   border: 2px solid #aaa;
+}
+h3{
+  margin: 0;
 }
 #qr_img{
   display: inline-block;
   width: 100%;
 }
 .descr{
-  width: 200px;
   margin: auto;
 }
 .descr *{

@@ -59,6 +59,7 @@
     <DialogResults
       :active = "scan_results_shown"
       :item = "scan_results"
+      :event = "event"
       @close = "close"/>
   </ion-page>
 </template>
@@ -114,6 +115,7 @@ export default {
       try {
         this.scan_results = this.event.affectations[result.result]
         if(!!this.scan_results){
+          this.scan_results.place_id = result.result
           this.scan_shown = false
           this.scan_results_shown = true
         }
