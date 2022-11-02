@@ -47,6 +47,7 @@
       <br>
       <EventItem v-for="item in events"
         :item="item"
+        @click="openTickets"
         @scan="startScan"/>
       <ion-fab-button class="todo-fab" @click="createEvent">
         <ion-icon :src="getIcon('add')"></ion-icon>
@@ -104,6 +105,13 @@ export default {
       this.event = event
       this.fetchAffectations()
     },
+    openTickets(item){
+      this.event = item
+      this.makeToast("Wait", "updating affectations...")
+      this.fetchAffectations(() => {
+        this.$router.push(`/tickets/${item.nomEvenement}`)
+      })
+    },
     createEvent(){
       if(!this.user.quantite_credit || this.user.quantite_credit < 5){
         this.makeToast("Vous devez avoir 5 crédits au minimum pour créer un événement !")
@@ -127,7 +135,7 @@ export default {
         this.makeToast('erreur', "Code Qr invalide")
       }
     },
-    fetchAffectations(){
+    fetchAffectations(callback){
       let affectations = {}
       axios.get(this.url+`/invitation/${this.event.id}`, this.headers)
       .then((response) => {
@@ -136,20 +144,23 @@ export default {
           key = `${this.event.id}_${item.place.id}_${item.idInvitation}`
           affectations[key] = item
         }
-        event["affectations"] = affectations
-        this.$store.state.evenemts[event.nomEvenement] = event
+        this.event["affectations"] = affectations
+        this.$store.state.evenemts[this.event.nomEvenement] = this.event
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+        if(!!callback){
+          callback()
+        }
       }).catch((error) => {
         console.error(error)
         this.errorOrRefresh(error, this.fetchAffectations)
-      }).finally(() => {
-      });
+      })
     },
     fetchData(){
       axios.get(this.url+`/evenements`, this.headers)
       .then((response) => {
         let evenemts = {}
         for(let event of response.data){
+          event["affectations"] = []
           evenemts[event.nomEvenement] = event
         }
         this.$store.state.evenemts = evenemts

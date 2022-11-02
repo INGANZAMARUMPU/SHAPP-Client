@@ -1,6 +1,6 @@
 <template>
+  <div @click="openTickets">
   <ion-col
-    button :routerLink="`/tickets/${item.nomEvenement}`"
     class="parent ion-activatable ripple-parent">
     <div class="image">
       <img :src="'https://weka-pesa.com/shapp_images/logo_image/'+item.logoImage" alt="">
@@ -22,6 +22,7 @@
     </ion-button>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-col>
+  </div>
 </template>
 
 <script >
@@ -46,6 +47,9 @@ export default {
     emitScan(){
       this.$emit("scan", this.item)
     },
+    openTickets(){
+      this.$emit("click", this.item)
+    }
   },
 };
 </script>

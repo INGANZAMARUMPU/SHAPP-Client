@@ -11,8 +11,10 @@
         <div>Catégorie: {{ item.place.nomPlace }}</div>
         <div>Personnes autorisées: {{ item.nombreInvites }} places</div>
       </div>
-      <ion-button @click="inOut" expand="full">
-        {{is_out?"Autoriser l'entrée":"Faire la sortie"}}
+      <ion-button @click="inOut" expand="full">        
+        <ion-spinner v-if="sending" fill=clear
+          name="crescent" style="margin: 0 10px;"/>
+        {{item.etat == 0?"Autoriser l'entrée":"Faire la sortie"}}
       </ion-button>
       <ion-col class="options">
         <ion-button fill=clear @click="close">Fermer</ion-button>
@@ -30,9 +32,7 @@ export default {
     event:{type:Object, required:false}
   },
   data(){
-    return {
-      is_out: true
-    }
+    sending:false
   },
   computed:{
     qr_data(){
@@ -44,7 +44,21 @@ export default {
       this.$emit("close")
     },
     inOut(){
-      this.is_out = !this.is_out 
+      this.sending = true
+      let data = {
+        "etat": this.item.etat == 0?1:0
+      }
+      axios.put(this.url+`/invitation/statut/${this.item.id}`, data, this.headers)
+      .then((response) => {
+        this.item.etat = response.data.etat
+        this.sending = false
+        this.$store.state.evenemts[this.item.nomEvenement] = this.item
+        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+      }).catch((error) => {
+        this.sending = false
+        console.log(error)
+        this.errorOrRefresh(error, this.fetchData)
+      });
     }
   },
 };

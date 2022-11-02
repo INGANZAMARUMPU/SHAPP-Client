@@ -94,7 +94,7 @@ export default {
       if(person){
         return `${person.nomInvite} ${person.prenomInvite}`
       }
-      return "*Non affectée*"
+      return ""
     },
     affecter(place, i){
       this.affect_shown = true
@@ -201,6 +201,7 @@ h3{
   display: grid;
   grid-template-columns: repeat(auto-fill, 90px);
   justify-content: space-between;
+  align-items: flex-end;
 }
 .qr{
   width: 90px;
