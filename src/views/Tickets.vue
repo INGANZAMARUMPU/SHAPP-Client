@@ -78,7 +78,7 @@ export default {
       evenemt:{},
       affect_shown:false,
       active_place: null,
-      affectations:[]
+      affectations:{}
     }
   },
   methods:{
@@ -89,9 +89,8 @@ export default {
       })
     },
     getPerson(evenemt, place, i){
-      return this.affectations.find(x => {
-        return x.evenement == evenemt.id && x.place.id == place.id && x.idInvitation == i
-      })
+      let key = `${evenemt.id}_${place.id}_${i}`
+      return this.affectations[key]
     },
     getFullName(person){
       if(person){
@@ -153,15 +152,14 @@ export default {
     fetchAffectations(){
       axios.get(this.url+`/invitation/${this.evenemt.id}`, this.headers)
       .then((response) => {
-        this.affectations = []
+        let key
         for(let item of response.data){
-          item.evenement = this.evenemt.id
-          this.affectations.push(item)
+          key = `${this.evenemt.id}_${item.place.id}_${item.idInvitation}`
+          this.affectations[key] = item
         }
-        this.$store.state.evenemts["affectations"] = this.affectations
-        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
         this.fetchData()
       }).catch((error) => {
+        console.error(error)
         this.errorOrRefresh(error, this.fetchAffectations)
       }).finally(() => {
       });
@@ -178,6 +176,7 @@ export default {
           })
         }
         this.$store.state.evenemts[this.evenemt.nom] = this.evenemt
+        this.$store.state.evenemts[this.evenemt.nom]["affectations"] = this.affectations
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
       }).catch((error) => {
         this.errorOrRefresh(error, this.fetchData)
