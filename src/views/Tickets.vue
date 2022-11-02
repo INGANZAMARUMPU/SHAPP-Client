@@ -37,17 +37,17 @@
         <div class="qrs">
           <div class="item" v-for="i in place.nombre">
             <div class="personne">
-              {{ getFullName(getPerson(evenemt, place, i)) }}
+              {{ getFullName(getPerson(place, i)) }}
             </div>
             <div class="qr ion-activatable ripple-parent"
               @click="affecter(place, i)">
               <ion-ripple-effect/>
-              <img :id="generateID(evenemt, place, i)" class="qr_img"/>
+              <img :id="generateID(place, i)" class="qr_img"/>
             </div>
             <div class="descr">
               Place {{ i }}
               <ion-button size=small fill="clear"
-                @click="share(evenemt, place, i)"
+                @click="share(place, i)"
                 class="ion-no-padding share">
                 <ion-icon slot="icon-only" :icon="getIcon('shareSocial')"/>
               </ion-button>
@@ -83,12 +83,12 @@ export default {
     }
   },
   methods:{
-    generateID(evenemt, place, no){
-      return `${evenemt.id}_${place.id}_${no}`
+    generateID(place, no){
+      return `${this.evenemt.id}_${place.id}_${no}`
     },
-    getPerson(evenemt, place, i){
-      let key = `${evenemt.id}_${place.id}_${i}`
-      return evenemt.affectations[key]
+    getPerson(place, i){
+      let key = `${this.evenemt.id}_${place.id}_${i}`
+      return this.evenemt.affectations[key]
     },
     getFullName(person){
       if(person){
@@ -97,9 +97,14 @@ export default {
       return ""
     },
     affecter(place, i){
+      let person = this.getPerson(place, i)
+      if(person && person.etat != 0){
+        this.makeToast("Erreur", "la personne est déjà à l'interieur")
+        return
+      }
       this.affect_shown = true
       this.active_place = {"place":place, "no":i}
-      this.active_person = this.getPerson(this.evenemt, place, i)
+      this.active_person = this.getPerson(place, i)
     },
     saveAffectation(affectation){
       this.affect_shown = false
@@ -127,9 +132,18 @@ export default {
         })
       }
     },
-    share(evenemt, place, i){
-      let id = this.generateID(evenemt, place, i)
-      let person = this.getPerson(evenemt, place, i)
+    share(place, i){
+      let id = this.generateID(place, i)
+      let person = this.getPerson(place, i)
+      if(!person){
+        this.makeToast("Erreur", "informations manquante sur l'invitation")
+        return
+      }
+      console.log(person)
+      if(person.etat != 0){
+        this.makeToast("Erreur", "la personne est déjà à l'interieur")
+        return
+      }
       let url = document.getElementById(id).getAttribute("src")
       let file_name = "invitation.png"
       Filesystem.writeFile({
@@ -145,11 +159,11 @@ export default {
         let invitation_txt
         try{
           invitation_txt = `Salut!\n
-Ceci est votre invitation dans l'evenement\n
-*${evenemt.nomEvenement}*
-Date: *${evenemt.dateEvenement}*
-Heure: *${evenemt.heureEvenement}*
-Addresse: *${evenemt.adresseEvenement}*
+Ceci est votre invitation dans l'evenement
+*${this.evenemt.nomEvenement}*\n
+Date: *${this.evenemt.dateEvenement}*
+Heure: *${this.evenemt.heureEvenement}*
+Addresse: *${this.evenemt.adresseEvenement}*
 Nombre de personnes: *${person.nombreInvites}*`
         } catch {
           this.makeToast("Erreur", "invition incomplete")

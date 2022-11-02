@@ -52,7 +52,7 @@ export default {
       .then((response) => {
         this.item.etat = response.data.etat
         this.sending = false
-        this.$store.state.evenemts[this.item.nomEvenement] = this.item
+        this.$store.state.evenemts[this.event.nomEvenement]["affectations"][this.item.place_id] = this.item
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
       }).catch((error) => {
         this.sending = false
