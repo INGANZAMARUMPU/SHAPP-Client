@@ -42,7 +42,7 @@
             <div class="qr ion-activatable ripple-parent"
               @click="affecter(place, i)">
               <ion-ripple-effect/>
-              <img :id="generateID(place.nom,i)" class="qr_img"/>
+              <img :id="generateID(evenemt, place, i)" class="qr_img"/>
             </div>
             <div class="descr">
               Place {{ i }}
@@ -84,11 +84,8 @@ export default {
     }
   },
   methods:{
-    generateID(nom, no){
-      return JSON.stringify({
-        'nom':nom,
-        'no':no
-      })
+    generateID(evenemt, place, no){
+      return `${evenemt.id}_${place.id}_${no}`
     },
     getPerson(evenemt, place, i){
       let key = `${evenemt.id}_${place.id}_${i}`
@@ -132,7 +129,7 @@ export default {
       }
     },
     share(evenemt, place, i){
-      let id = this.generateID(place.nom, i)
+      let id = this.generateID(evenemt, place, i)
       let person = this.getPerson(evenemt, place, i)
       let url = document.getElementById(id).getAttribute("src")
       let file_name = "invitation.png"
@@ -149,39 +146,22 @@ export default {
         let invitation_txt
         try{
           invitation_txt = `Salut!\n
-  Ceci est votre invitation dans l'evenement\n
-  *${evenemt.nomEvenement}*
-  Date: *${evenemt.dateEvenement}*
-  Heure: *${evenemt.heureEvenement}*
-  Addresse: *${evenemt.adresseEvenement}*
-  Nombre de personnes: *${person.nombreInvites}*`
+Ceci est votre invitation dans l'evenement\n
+*${evenemt.nomEvenement}*
+Date: *${evenemt.dateEvenement}*
+Heure: *${evenemt.heureEvenement}*
+Addresse: *${evenemt.adresseEvenement}*
+Nombre de personnes: *${person.nombreInvites}*`
         } catch {
           this.makeToast("Erreur", "invition incomplete")
           return
         }
-
-        console.log(invitation_txt)
         Share.share({
           text: invitation_txt,
           title: 'Votre invitation',
           url: uriResult.uri,
           dialogTitle: "Partage d'invitation",
         });
-      });
-    },
-    fetchAffectations(){
-      axios.get(this.url+`/invitation/${this.evenemt.id}`, this.headers)
-      .then((response) => {
-        let key
-        for(let item of response.data){
-          key = `${this.evenemt.id}_${item.place.id}_${item.idInvitation}`
-          this.affectations[key] = item
-        }
-        this.fetchData()
-      }).catch((error) => {
-        console.error(error)
-        this.errorOrRefresh(error, this.fetchAffectations)
-      }).finally(() => {
       });
     },
     fetchData(){
@@ -195,8 +175,7 @@ export default {
             nombre: parseInt(place.nombre)
           })
         }
-        this.$store.state.evenemts[this.evenemt.nom] = this.evenemt
-        this.$store.state.evenemts[this.evenemt.nom]["affectations"] = this.affectations
+        this.$store.state.evenemts[this.evenemt.nomEvenement] = this.evenemt
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
       }).catch((error) => {
         this.errorOrRefresh(error, this.fetchData)
@@ -209,7 +188,7 @@ export default {
   mounted(){
     let nom = this.$route.params.nom
     this.evenemt = this.$store.state.evenemts[nom]
-    this.fetchAffectations()
+    this.fetchData()
   }
 }
 </script>

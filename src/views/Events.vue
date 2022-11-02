@@ -82,7 +82,7 @@ export default {
       scan_results_shown:false,
       scan_results:null,
       event:null,
-      events: []
+      events: Object.values(this.$store.state.evenemts)
     }
   },
   watch:{
@@ -101,6 +101,22 @@ export default {
     startScan(event){
       this.scan_shown = true
       this.event = event
+      let affectations
+      axios.get(this.url+`/invitation/${this.event.id}`, this.headers)
+      .then((response) => {
+        let key
+        for(let item of response.data){
+          key = `${this.event.id}_${item.place.id}_${item.idInvitation}`
+          affectations[key] = item
+        }
+        event["affectations"] = affectations
+        this.$store.state.evenemts[event.nomEvenement] = this.evenemt
+        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+      }).catch((error) => {
+        console.error(error)
+        this.errorOrRefresh(error, this.fetchAffectations)
+      }).finally(() => {
+      });
     },
     createEvent(){
       if(!this.user.quantite_credit || this.user.quantite_credit < 5){
@@ -110,18 +126,16 @@ export default {
       }
     },
     displayInfos(result){
-      let places = this.event.places
       try {
-        this.scan_results = JSON.parse(result.result)
-        for(let place of places){
-          if(place.nom == this.scan_results.nom && place.nombre >= this.scan_results.no){
-            this.scan_shown = false
-            this.scan_results_shown = true
-            break
-          }
+        console.log(this.event)
+        this.scan_results = this.event.affectations[result.result]
+        console.log(scan_results)
+        if(!!this.scan_results){
+          this.scan_shown = false
+          this.scan_results_shown = true
         }
         if(this.scan_shown){
-          this.makeToast('erreur', `la place ${this.scan_results.nom} n'existe pas dans ${this.event.nom}`)
+          this.makeToast('erreur', `la place ${this.scan_results} n'existe pas dans ${this.event.nom}`)
         }
       } catch(e) {
         this.makeToast('erreur', "Code Qr invalide")
@@ -138,17 +152,13 @@ export default {
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
       }).catch((error) => {
         this.errorOrRefresh(error, this.postEvent)
-      }).finally(() => {    
-        if(Object.keys(this.$store.state.evenemts).length == 0){
-          this.$store.state.evenemts = JSON.parse(localStorage.getItem("evenemts"))
-        } else {
-          this.events = this.$store.state.evenemts
-        }
-      });
+      })
     }
   },
   mounted(){
-    this.fetchData()
+    if (Object.values(this.$store.state.evenemts).length == 0) {
+      this.fetchData()
+    }
   }
 }
 </script>
