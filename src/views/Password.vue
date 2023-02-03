@@ -59,11 +59,20 @@ export default {
     return {
       old_password:"",
       new_password:"",
-      confirm_password:""
+      confirm_password:"",
+      loging_in: false
     }
   },
   methods:{
     changePassword(){
+      if(!this.new_password || !this.confirm_password || !this.old_password){
+        this.makeToast("Erreur", "tout les champs sont requis")
+        return
+      }
+      if(this.new_password!=this.confirm_password){
+        this.makeToast("Erreur", "le mot de passe que vous avez tapé n'est pas confirmé")
+        return
+      }
     }
   }
 }

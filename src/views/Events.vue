@@ -47,7 +47,7 @@
       <br>
       <EventItem v-for="item in events"
         :item="item"
-        @click="openTickets"
+        @click="openEvent"
         @scan="startScan"/>
       <ion-fab-button class="todo-fab" @click="createEvent">
         <ion-icon :src="getIcon('add')"></ion-icon>
@@ -106,12 +106,6 @@ export default {
     startScan(event){
       this.scan_shown = true
       this.fetchAffectations(event)
-    },
-    openTickets(item){
-      this.makeToast("Wait", "updating affectations...")
-      this.fetchAffectations(item, () => {
-        this.$router.push(`/tickets/${item.nomEvenement}`)
-      })
     },
     createEvent(){
       if(!this.user.quantite_credit || this.user.quantite_credit < 5){

@@ -22,7 +22,7 @@
             v-for="found in founds"
             class="found button ion-no-padding ion-activatable ripple-parent">
             <ion-icon :src="getIcon('beerOutline')"></ion-icon>
-            <div @click="openTickets(found)">
+            <div @click="openEvent(found)">
               <strong>{{ found.nomEvenement }}</strong><br>
               <small>{{ found.adresseEvenement }} {{ found.dateEvenement }}</small>
             </div>
@@ -53,15 +53,6 @@ export default {
       })
     }
   },
-  methods: {
-    openTickets(item){
-      console.log(item)
-      this.makeToast("Wait", "updating affectations...")
-      this.fetchAffectations(item, () => {
-        this.$router.push(`/tickets/${item.nomEvenement}`)
-      })
-    },
-  }
 };
 </script>
 <style scoped>

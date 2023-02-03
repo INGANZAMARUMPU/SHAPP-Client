@@ -1,5 +1,5 @@
 <template>
-  <div @click="openTickets">
+  <div @click="openEvent(item)">
   <ion-col
     class="parent ion-activatable ripple-parent">
     <div class="image">
@@ -46,9 +46,6 @@ export default {
   methods: {
     emitScan(){
       this.$emit("scan", this.item)
-    },
-    openTickets(){
-      this.$emit("click", this.item)
     }
   },
 };

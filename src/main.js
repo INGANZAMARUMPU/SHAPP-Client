@@ -135,11 +135,6 @@ app.mixin({
             this.$store.state.user = null;
             return
           }
-          let headers = {
-            headers:{
-              "Authorization":"Bearer "+this.$store.state.user.access_token
-            }
-          }
           axios.post(this.url+"/token/refresh", {"refresh":refresh})
           .then((response) => {
             this.$store.state.user.access_token = response.data.access_token
@@ -172,6 +167,22 @@ app.mixin({
       };
       str = str.toString();
       return str.replace( /(<([^>]+)>)/ig, '');
+    },
+    isExpired(item){
+      let date = new Date(item.dateEvenement)
+      date.setDate(date.getDate()+1)
+      date.setHours(6, 0, 0, 0)
+      return new Date() > date
+    },
+    openEvent(item){
+      if(this.isExpired(item)){
+        this.makeToast("Wait", "fetching attandencies...")
+      } else {
+        this.makeToast("Wait", "updating affectations...")
+        this.fetchAffectations(item, () => {
+          this.$router.push(`/tickets/${item.nomEvenement}`)
+        })
+      }
     },
     fetchAffectations(event, callback){
       let affectations = {}
