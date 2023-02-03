@@ -176,7 +176,10 @@ app.mixin({
     },
     openEvent(item){
       if(this.isExpired(item)){
-        this.makeToast("Wait", "fetching attandencies...")
+        this.makeToast("Wait", "fetching attendencies...")
+        this.fetchAffectations(item, () => {
+          this.$router.push(`/attendencies/${item.nomEvenement}`)
+        })
       } else {
         this.makeToast("Wait", "updating affectations...")
         this.fetchAffectations(item, () => {

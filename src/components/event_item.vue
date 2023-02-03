@@ -14,11 +14,12 @@
         {{ item.adresseEvenement }}
       </div>
     </div>
-    <ion-button size="small"
-      expand="full" fill="clear"
-      class="ion-no-padding"
+    <ion-button v-if="!isExpired(item)" size="small"
       @click.stop="emitScan">
-      <ion-icon color="dark" slot="icon-only" :src="getIcon('qrCode')"/>
+      <ion-icon color="light" slot="icon-only" :src="getIcon('qrCode')"/>
+    </ion-button>
+    <ion-button v-else size="small">
+      <ion-icon color="light" slot="icon-only" :src="getIcon('barChart')"/>
     </ion-button>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-col>
@@ -60,10 +61,6 @@ export default {
   align-items: center;
   padding: 10px;
 }
-ion-button{
-  margin: 0;
-  padding: 0;
-}
 .item{
   flex-grow: 1;
   margin-left: 10px;
@@ -75,6 +72,12 @@ ion-button{
   border-radius: 50%;
   overflow: hidden;
   background-color: #ccc;
+}
+ion-button{
+  --padding-right:0;
+  --padding-left:0;
+  width: 35px;
+  height: 35px;
 }
 img{
   min-height: 100%;

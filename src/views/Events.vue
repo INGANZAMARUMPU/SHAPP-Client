@@ -47,7 +47,6 @@
       <br>
       <EventItem v-for="item in events"
         :item="item"
-        @click="openEvent"
         @scan="startScan"/>
       <ion-fab-button class="todo-fab" @click="createEvent">
         <ion-icon :src="getIcon('add')"></ion-icon>

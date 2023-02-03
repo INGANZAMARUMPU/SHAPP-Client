@@ -9,6 +9,7 @@ import Tickets from '../views/Tickets.vue'
 import Password from '../views/Password.vue'
 import Credit from '../views/Credit.vue'
 import Event from '../views/Event.vue'
+import Attendencies from '../views/Attendencies.vue'
 import Search from '../views/Search.vue'
 import About from '../views/About.vue'
 
@@ -19,6 +20,7 @@ const routes = [
   { path: '/password', name: 'password', component: Password},
   { path: '/profile', name: 'profile', component: Profile},
   { path: '/tickets/:nom', name: 'tickets', component: Tickets},
+  { path: '/attendencies/:nom', name: 'attendencies', component: Attendencies},
   { path: '/credit', name: 'credit', component: Credit},
   { path: '/event', name: 'event', component: Event},
   { path: '/search', name: 'search', component: Search},
