@@ -173,6 +173,26 @@ app.mixin({
       str = str.toString();
       return str.replace( /(<([^>]+)>)/ig, '');
     },
+    fetchAffectations(event, callback){
+      let affectations = {}
+      axios.get(this.url+`/invitation/${event.id}`, this.headers)
+      .then((response) => {
+        let key
+        for(let item of response.data){
+          key = `${event.id}_${item.place.id}_${item.idInvitation}`
+          affectations[key] = item
+        }
+        event["affectations"] = affectations
+        this.$store.state.evenemts[event.nomEvenement] = event
+        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
+        if(!!callback){
+          callback()
+        }
+      }).catch((error) => {
+        console.error(error)
+        this.errorOrRefresh(error, () => this.fetchAffectations(event))
+      })
+    },
   },
   computed:{
     headers(){

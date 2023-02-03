@@ -105,13 +105,11 @@ export default {
     },
     startScan(event){
       this.scan_shown = true
-      this.event = event
-      this.fetchAffectations()
+      this.fetchAffectations(event)
     },
     openTickets(item){
-      this.event = item
       this.makeToast("Wait", "updating affectations...")
-      this.fetchAffectations(() => {
+      this.fetchAffectations(item, () => {
         this.$router.push(`/tickets/${item.nomEvenement}`)
       })
     },
@@ -137,26 +135,6 @@ export default {
         console.error(e)
         this.makeToast('erreur', "Code Qr invalide")
       }
-    },
-    fetchAffectations(callback){
-      let affectations = {}
-      axios.get(this.url+`/invitation/${this.event.id}`, this.headers)
-      .then((response) => {
-        let key
-        for(let item of response.data){
-          key = `${this.event.id}_${item.place.id}_${item.idInvitation}`
-          affectations[key] = item
-        }
-        this.event["affectations"] = affectations
-        this.$store.state.evenemts[this.event.nomEvenement] = this.event
-        localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
-        if(!!callback){
-          callback()
-        }
-      }).catch((error) => {
-        console.error(error)
-        this.errorOrRefresh(error, this.fetchAffectations)
-      })
     },
     fetchData(){
       axios.get(this.url+`/evenements`, this.headers)

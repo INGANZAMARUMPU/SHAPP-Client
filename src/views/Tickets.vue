@@ -9,9 +9,9 @@
         </ion-buttons>
         <ion-title>Tickets</ion-title>
         <ion-buttons slot="secondary">
-          <ion-button @click="showSearch">
+<!--           <ion-button @click="showSearch">
             <ion-icon slot="icon-only" :icon="getIcon('search')"/>
-          </ion-button>
+          </ion-button> -->
           <ion-button id="menu-toggler">
             <ion-icon slot="icon-only"
               :ios="getIcon('ellipsisHorizontal')"
