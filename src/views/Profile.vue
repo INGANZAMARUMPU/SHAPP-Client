@@ -144,6 +144,7 @@ export default {
     try {
       this.unvalidated_user = JSON.parse(str_unvalidated_user)
     } catch(e) {
+      console.log("not unvalidated_user found")
       return
     }
     if(!!this.unvalidated_user && !!this.unvalidated_user.telephone){
@@ -155,7 +156,7 @@ export default {
       this.password = this.unvalidated_user.password
       this.pays = this.unvalidated_user.pays
 
-      this.confirm_shown = true
+      // this.confirm_shown = true
     } else {
       localStorage.removeItem("unvalidated_user")
       this.confirm_shown = false

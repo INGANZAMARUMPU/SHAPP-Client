@@ -98,9 +98,8 @@ export default {
         this.makeToast("success", "invitation affectée avec succes")
       
         let key = `${this.event.id}_${this.place.place.id}_${this.place.no}`
-        this.$store.state.evenemts[this.event.nom]["affectations"][key] = data
+        this.$store.state.evenemts[this.event.nomEvenement]["affectations"][key] = data
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
-
         this.$emit("created", response.data)
       }).catch((error) => {
         console.error(error);

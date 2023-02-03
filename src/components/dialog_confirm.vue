@@ -134,6 +134,7 @@ export default {
   },
   methods: {
     close(){
+
       this.$emit("close")
     },
     save(){
@@ -178,11 +179,11 @@ export default {
       })
     },
     checkOTP(){
-      this.sending_otp = true
       if(this.confirm_code.length != 6){
         this.makeToast("Veuillez saisir un code valide")
         return
       }
+      this.sending_otp = true
       
       let data = new FormData()
       data.append("phone", this.item.codePays + this.item.telephone)
@@ -195,6 +196,7 @@ export default {
       }).catch((error) => {
         console.error(error);
         this.makeToast("erreur", error.response.data)
+      }).finally(() => {
         this.sending_otp = false
       })
     },
