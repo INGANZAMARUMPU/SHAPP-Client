@@ -88,9 +88,12 @@ export default {
     }
   },
   watch:{
-    "$store.state.evenemts"(new_val){
-      if(!!new_val){
-        this.events = Object.values(new_val)
+    "$store.state.evenemts":{
+      deep:true,
+      handler(new_val){
+        if(!!new_val){
+          this.events = Object.values(new_val)
+        }
       }
     },
   },

@@ -32,7 +32,9 @@ export default {
     event:{type:Object, required:false}
   },
   data(){
-    sending:false
+    return {
+      sending:false
+    }
   },
   computed:{
     qr_data(){
