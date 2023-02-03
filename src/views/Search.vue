@@ -4,7 +4,7 @@
       <ion-toolbar color="primary">
         <ion-title>SHAPP</ion-title>
         <ion-buttons slot="start">
-          <ion-button slot="start" routerLink="/">
+          <ion-button slot="start" routerLink="/events">
             <ion-icon :src="getIcon('arrowBack')"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -13,13 +13,19 @@
     <ion-content>
       <h3>Les evenements !</h3>
       <div class="body">
-        <input class="field" type="text" placeholder="Zone de cherche" autofocus>
+        <input
+          v-model="keyword"
+          class="field" type="search"
+          placeholder="Zone de cherche" autofocus>
         <div class="founds">
           <ion-col
             v-for="found in founds"
             class="found button ion-no-padding ion-activatable ripple-parent">
-            <div class="option"></div>
-            <label>{{ found }}</label>
+            <ion-icon :src="getIcon('beerOutline')"></ion-icon>
+            <div>
+              <strong>{{ found.nomEvenement }}</strong><br>
+              <small>{{ found.adresseEvenement }} {{ found.dateEvenement }}</small>
+            </div>
             <ion-ripple-effect/>
           </ion-col>
         </div>
@@ -36,12 +42,15 @@
 export default {
   data(){
     return {
-      founds:[
-        "Mariage Jonathan NKURUNZINZA",
-        "Mariage Jeremie KABONDO",
-        "Fete de soutenance .............",
-        "Fete de soutenance .............",
-        "Fete de soutenance .............",      ]
+      founds: Object.values(this.$store.state.evenemts).slice(0,5),
+      keyword: ""
+    }
+  },
+  watch:{
+    keyword(new_val){
+      this.founds = Object.values(this.$store.state.evenemts).filter(x => {
+        return (x.nomEvenement+x.adresseEvenement).includes(new_val)
+      })
     }
   },
   methods: {
@@ -70,11 +79,9 @@ h3{
   border-radius: 20px;
   width: calc(100% - 20px);
 }
-.option{
-  margin-right: 10px;
-  width: 15px;
-  height: 15px;
-  border: 2px solid black;
+.found ion-icon{
+  font-size: 2em;
+  margin-right: 5px;
 }
 .found{
   padding: 10px 5px;
