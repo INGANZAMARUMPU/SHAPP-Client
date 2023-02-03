@@ -29,44 +29,27 @@
     </ion-header>
     <ion-content class="ion-padding">
       <h3>{{ evenemt.nomEvenement }}</h3>
-      <ion-col v-for="place in evenemt.places">
-        {{ place }}
-      </ion-col>
+      <div class="line" v-for="person in evenemt.affectations">
+        <div>
+          {{ getFullName(person) }}
+        </div>
+        <div>
+          <ion-icon color=danger :icon="getIcon('closeCircle')" v-if="person.etat==0"/>
+          <ion-icon color=success :icon="getIcon('checkmarkCircle')" v-else/>
+        </div>
+      </div>
     </ion-content>
-    <DialogAffectation
-      :active= "affect_shown"
-      :event="evenemt" 
-      :place="active_place"
-      :item="active_person"
-      @created= "saveAffectation"
-      @close="close"/>
   </ion-page>
 </template>
 
 <script>
-import QRCode from 'qrcode'
-import { Share } from '@capacitor/share';
-import { Directory, Filesystem } from '@capacitor/filesystem';
-import DialogAffectation from "../components/dialog_affectation"
-
 export default {
-  components:{ DialogAffectation },
   data(){
     return {
       evenemt:{},
-      affect_shown:false,
-      active_place: null,
-      active_person: null
     }
   },
   methods:{
-    generateID(place, no){
-      return `${this.evenemt.id}_${place.id}_${no}`
-    },
-    getPerson(place, i){
-      let key = `${this.evenemt.id}_${place.id}_${i}`
-      return this.evenemt.affectations[key]
-    },
     getFullName(person){
       if(person){
         return `${person.nomInvite} ${person.prenomInvite}`
@@ -86,22 +69,12 @@ h3{
   margin: 0!important;
   padding-bottom: 0;
 }
-.descr{
+.line{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  background-color: #eee;
+  padding: 5px 5px 5px 10px;
+  margin: 5px 0;
   align-items: center;
-  height: 20px;
-}
-.share{
-  font-size: 9px;
-  margin-left: 5px;
-}
-ion-button{
-  height: 30px;
-}
-.personne{
-  font-size: .8em;
-  text-align: center;
-  margin-top: 5px;
 }
 </style>
