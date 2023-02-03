@@ -172,8 +172,7 @@ export default {
       .then((response) => {      
         this.code_sent = true
       }).catch((error) => {
-        console.error(error);
-        this.makeToast("erreur", error.response.data)
+        this.errorOrRefresh(error, this.sendOTP)
       }).finally(() => {
         this.sending_otp = false
       })
@@ -194,8 +193,7 @@ export default {
         this.makeToast("success", response.data)
         this.postUser()
       }).catch((error) => {
-        console.error(error);
-        this.makeToast("erreur", error.response.data)
+        this.errorOrRefresh(error, this.checkOTP)
       }).finally(() => {
         this.sending_otp = false
       })
@@ -209,8 +207,8 @@ export default {
         this.makeToast("success", response.data)
         this.login()
       }).catch((error) => {
-        console.error(error);
-        this.makeToast("erreur", error.response.data)
+        this.errorOrRefresh(error, this.postUser)
+      }).finally(() => {
         this.sending_otp = false
       })
     },
@@ -225,7 +223,6 @@ export default {
         this.$store.state.user = response.data
         this.$store.state.user.username = this.item.username
       }).catch((error) => {
-        console.log(error)
         this.makeToast("auto login failed")
       }).finally(() => {
         this.$router.push("/")

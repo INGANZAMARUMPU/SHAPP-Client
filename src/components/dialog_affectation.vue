@@ -102,8 +102,7 @@ export default {
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
         this.$emit("created", response.data)
       }).catch((error) => {
-        console.error(error);
-        this.makeToast("erreur", error.response.data)
+        this.errorOrRefresh(error, this.postInvitation)
       }).finally(() => {
         this.sending = false
       })

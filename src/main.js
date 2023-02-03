@@ -190,7 +190,7 @@ app.mixin({
         }
       }).catch((error) => {
         console.error(error)
-        this.errorOrRefresh(error, () => this.fetchAffectations(event))
+        this.errorOrRefresh(error, () => this.fetchAffectations(event, callback))
       })
     },
   },

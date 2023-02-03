@@ -96,7 +96,7 @@ export default {
           return x.tarifCredit.codePays == this.user.code_pays
         })
       }).catch((error) => {
-        console.error(error);
+        this.errorOrRefresh(error, this.fetchMobiles)
       })
     },
     postAchat(){

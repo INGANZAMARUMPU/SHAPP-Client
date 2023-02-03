@@ -59,7 +59,7 @@ export default {
       }).catch((error) => {
         this.sending = false
         console.log(error)
-        this.errorOrRefresh(error, this.fetchData)
+        this.errorOrRefresh(error, this.inOut)
       });
     }
   },

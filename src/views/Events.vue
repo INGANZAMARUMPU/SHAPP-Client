@@ -147,7 +147,7 @@ export default {
         this.$store.state.evenemts = evenemts
         localStorage['evenemts'] = JSON.stringify(this.$store.state.evenemts)
       }).catch((error) => {
-        this.errorOrRefresh(error, this.postEvent)
+        this.errorOrRefresh(error, this.fetchData)
       })
     }
   },
