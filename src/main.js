@@ -129,13 +129,19 @@ app.mixin({
     },
     errorOrRefresh(error, callback){
       if(!!error.response){
-        if(error.request.status == 403){ 
+        if(error.request.status == 403){
+          this.$store.state.refreshing_token = true
           let refresh = this.user.refresh_token
           if(!refresh){
             this.$store.state.user = null;
             return
           }
-          axios.post(this.url+"/token/refresh", {"refresh":refresh})
+          let headers = {
+            headers:{
+              "Authorization":"Bearer "+refresh
+            }
+          }
+          axios.get(this.url+"/token/refresh", headers)
           .then((response) => {
             this.$store.state.user.access_token = response.data.access_token
             if(typeof callback == "function") callback()
@@ -143,6 +149,8 @@ app.mixin({
             this.$store.state.user = null;
             console.error(error)
             this.makeToast(this.cleanString(error.response.data))
+          }).finally(() => {
+            this.$store.state.refreshing_token = false
           })
         } else {
           this.makeToast(this.cleanString(error.response.data))

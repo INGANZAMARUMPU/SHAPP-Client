@@ -1,6 +1,9 @@
 <template>
   <ion-app>
     <ion-router-outlet :key="$route.fullPath"/>
+    <div v-if="this.$store.state.refreshing_token" class="progress">
+        <ion-spinner name="crescent" color="light"/>
+    </div>
   </ion-app>
 </template>
 <script>

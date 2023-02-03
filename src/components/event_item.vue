@@ -32,11 +32,6 @@ export default {
   props: {
     item:{type:Object, required:true}
   },
-  watch:{
-    item(new_val){
-      console.log(new_val)
-    }
-  },
   computed:{
     nb_places(){
       return this.item.places.reduce((acc, x) =>{

@@ -8,7 +8,8 @@ export default new Vuex.Store({
     user: null,
     url:"https://shapp.weka-pesa.com",
     evenemts:{},
-    operateurs:null
+    operateurs:null,
+    refreshing_token: false
   },
   mutations: {
   },
