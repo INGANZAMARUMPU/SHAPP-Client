@@ -16,7 +16,7 @@
           <img class="un" src="/logo.png">
         </div>
         <h3>
-          Bienvenue {{ user.usename }}
+          Bienvenue {{ user.username }}
         </h3>
       </div>
       <h3>Vous pouvez modifier votre mot de passe ici</h3>
@@ -65,12 +65,6 @@ export default {
   },
   methods:{
     changePassword(){
-      let data = {
-        old_password: this.old_password,
-        new_password: this.new_password,
-        confirm_password: this.confirm_password
-      }
-      console.log(data)
       if(!this.new_password || !this.confirm_password || !this.old_password){
         this.makeToast("Erreur", "tout les champs sont requis")
         return
@@ -79,6 +73,18 @@ export default {
         this.makeToast("Erreur", "le mot de passe que vous avez tapé n'est pas confirmé")
         return
       }
+      let data = new FormData()
+      data.append("oldPassword", this.old_password)
+      data.append("newPassword", this.new_password)
+      data.append("confirmNewPassword", this.confirm_password)
+      
+      axios.put(this.url+`/password/update`, data, this.headers)
+      .then((response) => {
+        this.makeToast(response.data)
+        this.$router.push("/events")
+      }).catch((error) => {
+        this.errorOrRefresh(error, this.postEvent)
+      });
     }
   }
 }
