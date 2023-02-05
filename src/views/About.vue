@@ -1,26 +1,28 @@
 <template>
   <ion-page>
     <ion-content>
-      <div class="img">
-        <img width="160" src="/logo.png">
-      </div>
-      <div class="infos">
-        SHAPP est une application Android conçue pour faciliter la création d'événements pour mariages, soutenances, conférences, ... à moindre coût. Plus besoin de se déplacer pour distribuer des invitations, juste un clic de partage via email, whatsapp, facebook,... Avec Shapp, je gère mes événements où que je sois. Pour plus d'informations, visitez
-        <a href="https://shapp.jkmtech.com" target="_blank">https://shapp.jkmtech.com</a>
-        ou contactez-nous par :
-      </div>
-      <div class="options">
-        <div class="option">
-          <div></div>
-          <label>E-mail : <a href="mailto:info@jkm-tech.com">info@jkm-tech.com</a></label>
+      <div class="parent">
+        <div class="img">
+          <img width="160" src="/logo.png">
         </div>
-        <div class="option">
-          <div></div>
-          <label>Téléphone : <a href="tel:243992135981">+243 99 21 35 981</a></label>
+        <div class="infos">
+          SHAPP est une application Android conçue pour faciliter la création d'événements pour mariages, soutenances, conférences, ... à moindre coût. Plus besoin de se déplacer pour distribuer des invitations, juste un clic de partage via email, whatsapp, facebook,... Avec Shapp, je gère mes événements où que je sois. Pour plus d'informations, visitez
+          <a href="https://shapp.dewiya.online" target="_blank">shapp.dewiya.online</a>
+          ou contactez-nous par :
         </div>
-        <div class="option">
-          <div></div>
-          <label>Téléphone : <a href="tel:25776956035">+257 76 95 60 35</a></label>
+        <div class="options">
+          <div class="option">
+            <div></div>
+            <label>Téléphone : <a href="tel:243992135981">+243 854 565 495</a></label>
+          </div>
+          <div class="option">
+            <div></div>
+            <label>Téléphone : <a href="tel:25776956035">+257 76 95 60 35</a></label>
+          </div>
+          <div class="option">
+            <div></div>
+            <label>E-mail : <a href="mailto:info@jkm-tech.com">info-shapp@dewiya.online</a></label>
+          </div>
         </div>
       </div>
     </ion-content>
@@ -42,25 +44,20 @@ export default {
 }
 </script>
 <style scoped>
-ion-content>*{
-  margin: 20px 20px 0 20px;
+.parent{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 .infos{
-  font-weight: 550;
+  font-weight: 500;
+  color: #444;
   font-size: 1.2em;
   text-align: center;
   line-height: 1.5em;
-}
-.img{
-  height: 100px;
-  overflow-y: hidden;
-  position: relative;
-}
-img{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 .option{
   display: flex;
@@ -76,9 +73,6 @@ img{
   background-color: var(--secondary-color);
 }
 .options{
-  display: inline-block;
-  position: relative;
-  left: 50%;
-  transform: translateX(-60%);
+  margin-top: 20px;
 }
 </style>

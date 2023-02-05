@@ -7,7 +7,7 @@
       <img class="un" src="/logo.png">
     </div>
     <div class="form">
-      <h3>Content de te revoir !</h3>
+      <h3>CONTENT DE TE REVOIR !</h3>
       <div class="cercle">
         <img class="un" src="/logo.png">
       </div>
@@ -33,7 +33,7 @@
         S'identifier
       </ion-button>
       <div class="center">
-        Besoin d'un compte?
+        Besoin d'un compte ?
         <ion-button fill="clear"
           class="ion-no-padding link"
           size="small" color="primary"
@@ -42,8 +42,8 @@
         </ion-button>
       </div>
       <div class="center" style="margin-top: 30px;">
-        <a class="url" href="https://shapp.jkm-tech.com" target="_blank">
-          Visitez : https://shapp.jkm-tech.com
+        <a class="url" href="https://shapp.dewiya.online" target="_blank">
+          Visitez : shapp.dewiya.online
         </a>
       </div>
     </div>

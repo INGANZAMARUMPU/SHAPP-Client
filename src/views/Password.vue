@@ -15,11 +15,8 @@
         <div class="cercle">
           <img class="un" src="/logo.png">
         </div>
-        <h3>
-          Bienvenue {{ user.username }}
-        </h3>
+        <h3>Modifier votre mot de passe ici</h3>
       </div>
-      <h3>Vous pouvez modifier votre mot de passe ici</h3>
       <div class="ion-padding">
         <ion-item class="round ion-no-padding">
           <ion-label position="floating">Tapez votre ancien mot de passe (*)</ion-label>
@@ -103,7 +100,7 @@ export default {
   border-color: var(--secondary-color);
 }
 .ion-padding{
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 .ion-padding>*{
   margin-bottom: 10px;

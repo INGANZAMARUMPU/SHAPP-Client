@@ -39,7 +39,7 @@
           </div>
         </div>
         <ion-item class="round ion-no-padding">
-          <ion-label position="floating">Saisir le nombre des credits ex.500 (*)</ion-label>
+          <ion-label position="floating">Saisir le nombre des crédits ex.500 (*)</ion-label>
           <ion-input type=number
             placeholder="Saisir le nombre des credits ex.500 (*)"
             :value="credits"
@@ -49,7 +49,7 @@
           {{ money(agentGet("prix") * credits) }} {{ agentGet('devise') }}
         </div>
         <ion-item class="round ion-no-padding">
-          <ion-label position="floating">Tapez No. de transaction apres retrait (*)</ion-label>
+          <ion-label position="floating">Tapez No. de transaction après retrait (*)</ion-label>
           <ion-input type=text
             placeholder="Tapez No de transaction apres retrait (*)"
             :value="num_transaction"
@@ -131,14 +131,14 @@ export default {
 }
 .label{
   background-color: white;
-  border-radius: 30px;
-  height: 60px;
-  padding: 25px;
+  border-radius: 25px;
+  height: 50px;
+  padding: 20px;
   text-align: center;
   font-weight: 700;
 }
 .label.doubled{
-  padding: 15px;
+  padding: 10px;
 }
 .disabled{
   color: gray;

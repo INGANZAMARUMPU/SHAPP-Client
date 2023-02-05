@@ -15,11 +15,11 @@
         <ion-content>
           <ion-list lines="none">
             <ion-item button  routerLink="/events">
-              <ion-label>Evenements</ion-label>
+              <ion-label>Evénements</ion-label>
               <ion-icon :src="getIcon('listOutline')"/>
             </ion-item>
             <ion-item button  routerLink="/credit">
-              <ion-label>Achat Credits</ion-label>
+              <ion-label>Achat Crédits</ion-label>
               <ion-icon :src="getIcon('cashOutline')"/>
             </ion-item>
             <ion-item button routerLink="/password">
@@ -27,7 +27,7 @@
               <ion-icon :src="getIcon('pencil')"/>
             </ion-item>
             <ion-item button @click="logOut">
-              <ion-label>Deconnexion</ion-label>
+              <ion-label>Déconnexion</ion-label>
               <ion-icon :src="getIcon('powerOutline')"/>
             </ion-item>
             <ion-item button routerLink="/about">
@@ -43,7 +43,7 @@
       <div class="img">
         <img width="240" src="/home.jpeg">
       </div>
-      <h3>Bienvenue chez SHAPP !</h3>
+      <h3>Bienvenu chez SHAPP !</h3>
       <p class="infos">
 Avec SHAPP vous pouvez créer vos
 propres invitations et les partager via

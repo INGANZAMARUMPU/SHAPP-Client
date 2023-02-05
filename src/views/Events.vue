@@ -23,7 +23,7 @@
         <ion-content>
           <ion-list lines="none">
             <ion-item button  routerLink="/credit">
-              <ion-label>Achat Credits</ion-label>
+              <ion-label>Achat Crédits</ion-label>
               <ion-icon :src="getIcon('cashOutline')"/>
             </ion-item>
             <ion-item button routerLink="/password">
@@ -31,7 +31,7 @@
               <ion-icon :src="getIcon('pencil')"/>
             </ion-item>
             <ion-item button @click="logOut">
-              <ion-label>Deconnexion</ion-label>
+              <ion-label>Déconnexion</ion-label>
               <ion-icon :src="getIcon('powerOutline')"/>
             </ion-item>
             <ion-item button routerLink="/about">

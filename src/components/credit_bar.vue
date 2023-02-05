@@ -1,7 +1,7 @@
 <template>
   <div>
     <ion-col v-if="user" class="credit ion-no-padding">
-      vous avez {{ money(user.quantite_credit) }} credits
+      Vous avez {{ money(user.quantite_credit) }} crédits
       <ion-spinner v-if="is_fetching" name="crescent"/>
       <ion-button v-else size="small" fill="clear"
         @click="fetchCredits">

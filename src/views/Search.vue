@@ -11,11 +11,11 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <h3>Les evenements !</h3>
+      <h3>Les événements !</h3>
       <div class="body">
         <input
-          v-model="keyword"
           class="field" type="search"
+          @keyup="e => search(e.target.value)"
           placeholder="Zone de cherche" autofocus>
         <div class="founds">
           <ion-col
@@ -43,16 +43,17 @@ export default {
   data(){
     return {
       founds: Object.values(this.$store.state.evenemts).slice(0,5),
-      keyword: ""
     }
   },
-  watch:{
-    keyword(new_val){
+  methods:{
+    search(new_val){
       this.founds = Object.values(this.$store.state.evenemts).filter(x => {
-        return (x.nomEvenement+x.adresseEvenement).includes(new_val)
+        let where = " " + x.nomEvenement+" "+x.adresseEvenement
+        where = where.toLowerCase()
+        return where.includes(new_val.toLowerCase())
       })
     }
-  },
+  }
 };
 </script>
 <style scoped>
@@ -88,6 +89,15 @@ h3{
 }
 .founds{
   height: calc(100% - 65px);
+  overflow-y: auto;
+}
+.debug{
+  width: 100%;
+  height: 100px;
+  background-color: black;
+  color: white;
+  font-style: monospace;
+  font-size: .8em;
   overflow-y: auto;
 }
 </style>
