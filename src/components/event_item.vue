@@ -3,7 +3,7 @@
   <ion-col
     class="parent ion-activatable ripple-parent">
     <div class="image">
-      <img :src="'https://weka-pesa.com/shapp_images/logo_image/'+item.logoImage" alt="">
+      <img :src="item.logoImage" alt="">
     </div>
     <div class="item">
       <div class="title"><b>{{ item.nomEvenement }}</b></div>

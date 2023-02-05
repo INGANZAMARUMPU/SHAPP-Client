@@ -26,21 +26,21 @@
           <ion-input type=password
             placeholder="Tapez votre ancien mot de passe (*)"
             :value="old_password"
-            @IonChange="password=$event.target.value" clearInput/>
+            @IonChange="old_password=$event.target.value" clearInput/>
         </ion-item>
         <ion-item class="round ion-no-padding">
           <ion-label position="floating">Tapez le nouveau mot de passe (*)</ion-label>
           <ion-input type=password
             placeholder="Tapez le nouveau mot de passe (*)"
             :value="new_password"
-            @IonChange="password=$event.target.value" clearInput/>
+            @IonChange="new_password=$event.target.value" clearInput/>
         </ion-item>
         <ion-item class="round ion-no-padding">
           <ion-label position="floating">Confirmez le nouveau mot de passe (*)</ion-label>
           <ion-input type=password
             placeholder="Confirmez le nouveau mot de passe (*)"
             :value="confirm_password"
-            @IonChange="password=$event.target.value" clearInput/>
+            @IonChange="confirm_password=$event.target.value" clearInput/>
         </ion-item>
         <ion-button expand="full" @click="changePassword" style="margin-top: 40px;">
           <ion-spinner v-if="loging_in"
@@ -65,6 +65,12 @@ export default {
   },
   methods:{
     changePassword(){
+      let data = {
+        old_password: this.old_password,
+        new_password: this.new_password,
+        confirm_password: this.confirm_password
+      }
+      console.log(data)
       if(!this.new_password || !this.confirm_password || !this.old_password){
         this.makeToast("Erreur", "tout les champs sont requis")
         return
