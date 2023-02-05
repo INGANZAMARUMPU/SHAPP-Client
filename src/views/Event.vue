@@ -69,13 +69,6 @@
           @IonChange="tel_2=$event.target.value"
           :value="tel_2" clearInput/>
       </ion-item>
-      <ion-item class="round ion-no-padding">
-        <ion-label position="floating">E-mail</ion-label>
-        <ion-input type="email" 
-          placeholder="E-mail"
-          @IonChange="email=$event.target.value"
-          :value="email" clearInput/>
-      </ion-item>
       <ion-item class="ion-no-padding multiline">
         <ion-label position="floating">Autres informations à faire savoir</ion-label>
         <ion-textarea 
