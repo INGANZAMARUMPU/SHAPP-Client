@@ -61,6 +61,7 @@ export default {
   margin-left: 10px;
 }
 .image{
+  position: relative;
   width: 60px;
   min-width: 60px;
   height: 60px;
@@ -75,7 +76,11 @@ ion-button{
   height: 35px;
 }
 img{
-  min-height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .small{
   font-size: .7em;

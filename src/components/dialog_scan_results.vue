@@ -3,10 +3,10 @@
     <ion-col class="body ion-padding">
       <h3>{{ event.nomEvenement }}</h3>
       <div class="qr">
-        <img :src="'https://weka-pesa.com/shapp_images/logo_image/'+event.logoImage" />
+        <img :src="event.logoImage" />
       </div>
       <div class="descr">
-        <div>ID: {{ item.place_id }}</div>
+        <div>ID: <strong>{{ place_id }}</strong></div>
         <div>Mr/Mme: {{ item.nomInvite }} {{ item.prenomInvite }}</div>
         <div>Catégorie: {{ item.place.nomPlace }}</div>
         <div>Personnes autorisées: {{ item.nombreInvites }} places</div>
@@ -14,7 +14,7 @@
       <ion-button @click="inOut" expand="full">        
         <ion-spinner v-if="sending" fill=clear
           name="crescent" style="margin: 0 10px;"/>
-        {{item.etat == 0?"Autoriser l'entrée":"Faire la sortie"}}
+        {{item.etat != 1?"Autoriser l'entrée":"Faire la sortie"}}
       </ion-button>
       <ion-col class="options">
         <ion-button fill=clear @click="close">Fermer</ion-button>
@@ -39,6 +39,10 @@ export default {
   computed:{
     qr_data(){
       return JSON.stringify(this.item)
+    },
+    place_id(){
+      let list = this.item.place_id.split("_")
+      return list[1]+list[2]
     }
   },
   methods: {
@@ -81,8 +85,18 @@ export default {
   overflow-y: auto;
 }
 .qr{
+  position: relative;
   margin: auto;
   border: 2px solid #aaa;
+  height: 200px;
+  overflow-y: hidden;
+  margin-bottom: 10px;
+}
+.qr img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 h3{
   margin: 0;

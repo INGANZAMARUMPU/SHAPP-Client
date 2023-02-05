@@ -104,6 +104,7 @@ export default {
     },
     startScan(event){
       this.scan_shown = true
+      this.event = event
       this.fetchAffectations(event)
     },
     createEvent(){
