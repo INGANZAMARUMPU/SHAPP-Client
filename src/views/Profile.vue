@@ -87,8 +87,8 @@
           </ion-button>
         </div>
         <div class="center" style="margin-top: 30px;">
-          <a class="url" href="https://shapp.jkm-tech.com" target="_blank">
-            Visitez : https://shapp.jkm-tech.com
+          <a class="url" href="https://shapp.dewiya.online" target="_blank">
+            Visitez : https://shapp.dewiya.online
           </a>
         </div>
       </ion-col>

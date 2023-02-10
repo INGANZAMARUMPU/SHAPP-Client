@@ -11,7 +11,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <h3>Dépenser moins !</h3>
+      <h3>Créer un événement !</h3>
       <ion-item class="round ion-no-padding">
         <ion-label position="floating">Nom de l’événement (*)</ion-label>
         <ion-input type="text" 

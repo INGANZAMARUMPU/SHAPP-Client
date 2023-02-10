@@ -102,7 +102,7 @@ export default {
     affecter(place, i){
       let person = this.getPerson(place, i)
       if(person && person.etat != 0){
-        this.makeToast("Erreur", "la personne est déjà à l'interieur")
+        this.makeToast("Erreur", "La personne est déjà à l'interieur")
         return
       }
       this.affect_shown = true

@@ -7,7 +7,7 @@
             <ion-icon :src="getIcon('arrowBack')"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-title>Presences</ion-title>
+        <ion-title>Présences</ion-title>
         <ion-buttons slot="secondary">
           <ion-button id="menu-toggler">
             <ion-icon slot="icon-only"
