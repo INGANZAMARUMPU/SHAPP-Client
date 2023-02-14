@@ -73,7 +73,7 @@
         <ion-label position="floating">Autres informations à faire savoir</ion-label>
         <ion-textarea 
           placeholder="Autres informations à faire savoir"
-          @keyup="details=$event.target.value"
+          @IonChange="details=$event.target.value"
           :value="details"/>
       </ion-item>
       <input
