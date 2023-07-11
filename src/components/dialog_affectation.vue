@@ -4,30 +4,30 @@
       <h3>Partagez cette invitation à :</h3>
       <div class="content">
         <ion-item class="round ion-no-padding">
-          <ion-label position="floating">Saisissez le Prénom (*)</ion-label>
+          <ion-label position="floating">Saisissez le Prénom *</ion-label>
           <ion-input type="text" 
-            placeholder="Saisissez le Prénom (*)"
+            placeholder="Saisissez le Prénom *"
             @IonChange="prenom=$event.target.value"
             :value="prenom" clearInput/>
         </ion-item>
         <ion-item class="round ion-no-padding">
-          <ion-label position="floating">Saisissez le nom (*)</ion-label>
+          <ion-label position="floating">Saisissez le nom *</ion-label>
           <ion-input type="text" 
-            placeholder="Saisissez le nom (*)"
+            placeholder="Saisissez le nom *"
             @IonChange="nom=$event.target.value"
             :value="nom" clearInput/>
         </ion-item>
         <ion-item class="round ion-no-padding">
-          <ion-label position="floating">Numero de téléphone (*)</ion-label>
+          <ion-label position="floating">Numero de téléphone</ion-label>
           <ion-input type="telephone" 
-            placeholder="Numero de téléphone (*)"
+            placeholder="Numero de téléphone"
             @IonChange="telephone=$event.target.value"
             :value="telephone" clearInput/>
         </ion-item>
         <ion-item class="round ion-no-padding">
-          <ion-label position="floating">Nombre des personnes autorisées (*)</ion-label>
+          <ion-label position="floating">Nombre des personnes autorisées *</ion-label>
           <ion-input type="number" 
-            placeholder="Nombre des personnes autorisées (*)"
+            placeholder="Nombre des personnes autorisées *"
             @IonChange="nombre=$event.target.value"
             :value="nombre" clearInput/>
         </ion-item>
