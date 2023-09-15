@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title>SHAPP</ion-title>
+        <ion-title>SHAPPU</ion-title>
         <ion-buttons slot="secondary">
           <ion-button id="menu-toggler">
             <ion-icon slot="icon-only"
@@ -31,7 +31,7 @@
               <ion-icon :src="getIcon('powerOutline')"/>
             </ion-item>
             <ion-item button routerLink="/about">
-              <ion-label>À propos de SHAPP</ion-label>
+              <ion-label>À propos de SHAPPU</ion-label>
               <ion-icon :src="getIcon('helpCircleOutline')"/>
             </ion-item>
           </ion-list>
@@ -43,9 +43,9 @@
       <div class="img">
         <img width="240" src="/home.jpeg">
       </div>
-      <h3>Bienvenu chez SHAPP !</h3>
+      <h3>Bienvenu chez SHAPPU !</h3>
       <p class="infos">
-Avec SHAPP vous pouvez créer vos
+Avec SHAPPU vous pouvez créer vos
 propres invitations et les partager via
 whatsapp, facebook, gmail, . . . sans
 encourir beaucoup de frais et sans

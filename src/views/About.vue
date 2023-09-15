@@ -6,8 +6,8 @@
           <img width="160" src="/logo.png">
         </div>
         <div class="infos">
-          SHAPP est une application mobile conçue pour faciliter la création d'événements pour mariages, soutenances, conférences, ... à moindre coût. Plus besoin de se déplacer pour distribuer des invitations, juste un clic de partage via email, whatsapp, facebook,... Avec Shapp, je gère mes événements où que je sois. Pour plus d'informations, visitez
-          <a href="https://shapp.dewiya.online" target="_blank">shapp.dewiya.online</a>
+          SHAPPU est une application mobile conçue pour faciliter la création d'événements pour mariages, soutenances, conférences, ... à moindre coût. Plus besoin de se déplacer pour distribuer des invitations, juste un clic de partage via email, whatsapp, facebook,... Avec SHAPPU, je gère mes événements où que je sois. Pour plus d'informations, visitez
+          <a href="https://shappu.com" target="_blank">shappu.com</a>
           ou contactez-nous par :
         </div>
         <div class="options">
@@ -21,7 +21,7 @@
           </div>
           <div class="option">
             <div></div>
-            <label>E-mail : <a href="mailto:info-shapp@dewiya.online">info-shapp@dewiya.online</a></label>
+            <label>E-mail : <a href="mailto:info@shappu.com">info@shappu.com</a></label>
           </div>
         </div>
       </div>

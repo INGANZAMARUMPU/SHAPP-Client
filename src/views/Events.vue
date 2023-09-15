@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title>SHAPP</ion-title>
+        <ion-title>SHAPPU</ion-title>
         <ion-buttons slot="start">
           <ion-button slot="start" routerLink="/">
             <ion-icon :src="getIcon('arrowBack')"></ion-icon>
@@ -35,7 +35,7 @@
               <ion-icon :src="getIcon('powerOutline')"/>
             </ion-item>
             <ion-item button routerLink="/about">
-              <ion-label>À propos de SHAPP</ion-label>
+              <ion-label>À propos de SHAPPU</ion-label>
               <ion-icon :src="getIcon('helpCircleOutline')"/>
             </ion-item>
           </ion-list>
