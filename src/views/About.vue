@@ -12,16 +12,22 @@
         </div>
         <div class="options">
           <div class="option">
-            <div></div>
-            <label>Téléphone : <a href="tel:243992135981">+243 854 565 495</a></label>
+            <div>
+              <ion-icon :src="getIcon('call')"></ion-icon>
+            </div>
+            <label>Téléphone : <a href="tel:243993696171">+243 993 696 171</a></label>
           </div>
           <div class="option">
-            <div></div>
-            <label>Téléphone : <a href="tel:25776956035">+257 76 95 60 35</a></label>
+            <div>
+              <ion-icon :src="getIcon('logoWhatsapp')"></ion-icon>
+            </div>
+            <label>Whatsapp : <a href="https://wa.me/16892674454" target="_top">+1 689 267 4454</a></label>
           </div>
           <div class="option">
-            <div></div>
-            <label>E-mail : <a href="mailto:info@shappu.com">info@shappu.com</a></label>
+            <div>
+              <ion-icon :src="getIcon('at')"></ion-icon>
+            </div>
+            <label>E-mail : <a href="mailto:info@shappu.com" target>info@shappu.com</a></label>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: null,
-    url:"https://shappu-api.shappu.com/",
+    url:"https://shappu-api.tec4g.com/",
     evenemts:{},
     operateurs:null,
     refreshing_token: false
